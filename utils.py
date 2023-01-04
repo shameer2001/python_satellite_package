@@ -4,8 +4,44 @@ import json
 
 
 def earth_to_pixel(earth_coord, meta):
-    # todo: convert earth coordinates to pixels, provide the top-right corner of the earth coordinate
-    ...
+    # convert earth coordinates to pixels, provide the top-right corner of the earth coordinate
+
+    # get the resolution setting
+    resolution = float(meta['resolution'])
+
+    # get the shape of the given earth data
+    earthX, earthY = len(earth_coord[0]), len(earth_coord)
+
+    # calculate the shape of pixel coord
+    pixelX, pixelY = int(earthX/resolution), int(earthY/resolution)
+
+    # create the array to store the pixel coord
+    pixel = np.zeros((pixelY, pixelX))
+
+    if resolution >= 1:
+        # case that 1 pixel mapping to a resolution-by-resolution earth sub-array
+        y = 0
+        resolution = int(resolution)
+        for i in range(pixelY):
+            x = 0
+            for j in range(pixelX):
+                pixel[i][j] = earth_coord[y][x]
+                x += resolution
+            y += resolution
+    else:
+        # case that 1 earth mapping to a (1/resolution)-by-(1/resolution) earth sub-array
+        step = int(1/resolution)
+        y = 0
+        for i in range(earthY):
+            x = 0
+            for j in range(earthX):
+                pixel[y:y+step, x:x+step] = earth_coord[i][j]
+                x += step
+            y += step
+
+    return pixel
+
+
 
 
 def pixel_to_earth(pixel_coord, meta):
@@ -77,6 +113,10 @@ if __name__ == "__main__":
     print(predictedEarth['earthCoord'][5:10, 0:5])
 
     print(pixel[1, 0])
+
+    predictedPixel = earth_to_pixel(predictedEarth['earthCoord'], meta)
+
+    print(predictedPixel[0, 0])
 
 
 
