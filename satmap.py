@@ -19,6 +19,11 @@ class SatMap:
         ...
 
     # todo: Also need to support the + and - operation
+    def __add__(self, other):
+        ...
+
+    def __sub__(self, other):
+        ...
 
 
 def get_satmap(file_name) -> 'SatMap':
