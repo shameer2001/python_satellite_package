@@ -1,6 +1,7 @@
 
 import numpy as np
 import json
+import datetime
 
 
 def earth_to_pixel(earth_coord, meta):
@@ -99,24 +100,35 @@ def pixel_to_earth(pixel_coord, meta):
 
 
 if __name__ == "__main__":
-    earth = np.zeros((10, 10))
-    earth[0:5, 0:5] = 1
-    print(earth)
+    #earth = np.zeros((10, 10))
+    #earth[0:5, 0:5] = 1
+    #print(earth)
 
     pixel = np.load('observation.npy')
     f = open('metadata.json')
     meta = json.load(f)
-    print(meta['resolution'])
+    print(meta)
+    #print(meta['resolution'])
 
-    predictedEarth = pixel_to_earth(pixel, meta)
+    #predictedEarth = pixel_to_earth(pixel, meta)
 
-    print(predictedEarth['earthCoord'][5:10, 0:5])
+    #print(predictedEarth['earthCoord'][5:10, 0:5])
 
-    print(pixel[1, 0])
+    #print(pixel[1, 0])
 
-    predictedPixel = earth_to_pixel(predictedEarth['earthCoord'], meta)
+    #predictedPixel = earth_to_pixel(predictedEarth['earthCoord'], meta)
 
-    print(predictedPixel[0, 0])
+    #print(predictedPixel[0, 0])
+
+    #a = np.zeros((10, 10))
+    #b = np.array([[1, 2], [3, 3]])
+
+    #a[:2, :2] = b
+    #print(a)
+
+    print(datetime.datetime.now().time())
+
+
 
 
 
