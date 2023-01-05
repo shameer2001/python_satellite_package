@@ -4,11 +4,11 @@ import json
 import datetime
 
 
-def earth_to_pixel(earth_coord, meta):
+def earth_to_pixel(earth_coord, meta, resolution=None):
     # convert earth coordinates to pixels, provide the top-right corner of the earth coordinate
 
     # get the resolution setting
-    resolution = float(meta['resolution'])
+    resolution = float(meta['resolution']) if resolution is None else float(resolution)
 
     # get the shape of the given earth data
     earthX, earthY = len(earth_coord[0]), len(earth_coord)
@@ -45,11 +45,11 @@ def earth_to_pixel(earth_coord, meta):
 
 
 
-def pixel_to_earth(pixel_coord, meta):
+def pixel_to_earth(pixel_coord, meta, resolution=None):
     # convert pixels to earth coordinates, provide the coordinate of the centre of the pixel.
 
     # get the resolution setting
-    resolution = float(meta['resolution'])
+    resolution = float(meta['resolution']) if resolution is None else float(resolution)
 
     # get the shape of the given pixel data
     xcoords = list(meta['xcoords'])
@@ -125,8 +125,6 @@ if __name__ == "__main__":
 
     #a[:2, :2] = b
     #print(a)
-
-    print(datetime.datetime.now().time())
 
 
 
