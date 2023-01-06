@@ -14,7 +14,7 @@ def load_data(filepath: Path):
     return points
 
 
-ps = load_data(Path("sample.csv"))
+ps = load_data(Path("samples.csv"))
 
 m = [ps[randrange(len(ps))], ps[randrange(len(ps))], ps[randrange(len(ps))]]
 
