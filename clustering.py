@@ -22,13 +22,13 @@ def distance(point1: tuple, point2: tuple):
     return dist
 
 
-def cluster(data: list):
+def cluster(data: list, iterations: int = 10):
     points = data
     centres = [points[randrange(len(points))], points[randrange(len(points))], points[randrange(len(points))]]
 
     alloc = [None] * len(points)
     count = 0
-    while count < 10:
+    while count < iterations:
         for i in range(len(points)):
             point = points[i]
             dist = [None] * 3
@@ -50,4 +50,4 @@ def cluster(data: list):
         print(alloc_ps)
 
 
-cluster(points)
+cluster(points, 20)
