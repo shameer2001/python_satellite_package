@@ -22,24 +22,24 @@ def distance(point1: tuple, point2: tuple):
     return dist
 
 
-def cluster(data: list, iterations: int = 10):
-    points = data
-    centres = [points[randrange(len(points))], points[randrange(len(points))], points[randrange(len(points))]]
+def cluster(data: list, iterations: int):
+    num = len(data)
+    centres = [data[randrange(num)], data[randrange(num)], data[randrange(num)]]
 
-    alloc = [None] * len(points)
+    alloc = [None] * num
     count = 0
     while count < iterations:
-        for i in range(len(points)):
-            point = points[i]
+        for i in range(num):
+            point = data[i]
             dist = [None] * 3
             dist[0] = distance(point, centres[0])
             dist[1] = distance(point, centres[1])
             dist[2] = distance(point, centres[2])
             alloc[i] = dist.index(min(dist))
         for i in range(3):
-            alloc_ps = [p for j, p in enumerate(points) if alloc[j] == i]
-            new_mean = (sum([a[0] for a in alloc_ps]) / len(alloc_ps), sum([a[1] for a in alloc_ps]) / len(alloc_ps),
-                        sum([a[2] for a in alloc_ps]) / len(alloc_ps))
+            alloc_ps = [p for j, p in enumerate(data) if alloc[j] == i]
+            new_mean = (sum([a[0] for a in alloc_ps]) / len(alloc_ps),
+                        sum([a[1] for a in alloc_ps]) / len(alloc_ps), sum([a[2] for a in alloc_ps]) / len(alloc_ps))
             centres[i] = new_mean
         count = count + 1
 
