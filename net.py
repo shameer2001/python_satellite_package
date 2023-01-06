@@ -36,7 +36,7 @@ class net:
     
     
         """
-        # Errors:
+        # Error messages for incorrect inputs:
          
         if type(start_date) != str and start_date != None:
             raise TypeError("The start date must be a string in the form YYYY-mm-dd.")
@@ -101,7 +101,7 @@ class net:
     
         """
 
-        # Errors:
+        # Error messages for incorrect inputs:
         if type(filename) != str:
             raise TypeError("The filename must be a string.")
                        
@@ -122,7 +122,7 @@ class net:
 
 
 
-
+        # Obtain request from server:
         payload = {'filename':filename}
         r = get('https://dokku-app.dokku.arc.ucl.ac.uk/isa-archive/download/', params=payload)
 
