@@ -1,11 +1,20 @@
 from math import *
 from random import *
+from pathlib import Path
+import csv
 
-k = 3
 
-lines = open('samples.csv', 'r').readlines()
-ps = []
-for line in lines: ps.append(tuple(map(float, line.strip().split(','))))
+def load_data(filepath: Path):
+    points = []
+    with open(filepath) as csvfile:
+        csv_reader = csv.reader(csvfile)
+        for row in csv_reader:
+            current = tuple(map(float, row))
+            points.append(current)
+    return points
+
+
+ps = load_data(Path("sample.csv"))
 
 m = [ps[randrange(len(ps))], ps[randrange(len(ps))], ps[randrange(len(ps))]]
 
