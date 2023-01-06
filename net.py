@@ -1,5 +1,7 @@
 from requests import *
 from pathlib import Path
+from datetime import datetime as dt
+from datetime import timedelta
 
 class net:
     def query_isa(start_date = None, stop_date = None, instrument = None):
@@ -34,11 +36,46 @@ class net:
     
     
         """
+        # Errors:
+         
+        if type(start_date) != str and start_date != None:
+            raise TypeError("The start date must be a string in the form YYYY-mm-dd.")
+            
+        if type(stop_date) != str and stop_date != None:
+            raise TypeError("The stop date must be a string in the form YYYY-mm-dd.")
+            
+        if type(instrument) != str and (instrument != None):
+            raise TypeError("The instrument name must be string.")
+            
+        if start_date != None and stop_date != None: 
+           start_date_dt = dt.strptime(start_date, "%Y-%m-%d") # this will print a ValueError if dates are not in the correct format (built into datetime library)
+           stop_date_dt = dt.strptime(stop_date, "%Y-%m-%d")
+           
+           if start_date_dt > stop_date_dt:
+            raise ValueError("The start date must be earlier than the stop date.")
+            
+           if stop_date_dt - start_date_dt > timedelta(3): # error for queries larger than three days
+            raise ValueError("Queries larger than three days are not allowed.") 
+
+
+
+        # Obtain data:
+        
         payload = {'start_date':start_date, 'stop_date':stop_date, 'instrument': instrument}
         r=get('https://dokku-app.dokku.arc.ucl.ac.uk/isa-archive/query/', params=payload)
+
+
+
+        # Print errors from json file:
+        for i in r.json():
+            if i=='message':
+                error_message = r.json()['message']
+                print(error_message)
+            else:
+                return r.json() # Return json file
         
-        return r.json()
-        
+
+
         
     def download_isa(filename, save_dir = None) -> None:
         """Downloads the data from the search done by the `net.query_isa()` function.
@@ -64,7 +101,27 @@ class net:
     
         """
 
-        p = Path(filename)
+        # Errors:
+        if type(filename) != str:
+            raise TypeError("The filename must be a string.")
+                       
+        if type(save_dir) != str and save_dir != None:
+          raise TypeError("The `save_dir` variable is not a string.")
+
+
+
+        if save_dir:
+            p = Path('{}/{}'.format(save_dir, filename))
+            
+            
+            if not Path(save_dir).exists(): # if no such path exists
+                raise NotADirectoryError("The directory given, for the `save_dir` variable, does not exist.")
+                
+        else:
+            p = Path(filename) # with full name to save with correct extension
+
+
+
 
         payload = {'filename':filename}
         r = get('https://dokku-app.dokku.arc.ucl.ac.uk/isa-archive/download/', params=payload)
