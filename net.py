@@ -4,7 +4,9 @@ from datetime import datetime as dt
 from datetime import timedelta
 
 class net:
-    def query_isa(start_date = None, stop_date = None, instrument = None):
+    todays_date = dt.today().strftime('%Y-%m-%d')
+
+    def query_isa(start_date = todays_date, stop_date = todays_date, instrument = None):
         """Returns a JSON file of the results from the query service. 
         
         Parameters
@@ -38,23 +40,24 @@ class net:
         """
         # Error messages for incorrect inputs:
          
-        if type(start_date) != str and start_date != None:
+        if type(start_date) != str:
             raise TypeError("The start date must be a string in the form YYYY-mm-dd.")
             
-        if type(stop_date) != str and stop_date != None:
+        if type(stop_date) != str:
             raise TypeError("The stop date must be a string in the form YYYY-mm-dd.")
             
         if type(instrument) != str and (instrument != None):
             raise TypeError("The instrument name must be string.")
             
-        if start_date != None and stop_date != None: 
-           start_date_dt = dt.strptime(start_date, "%Y-%m-%d") # this will print a ValueError if dates are not in the correct format (built into datetime library)
-           stop_date_dt = dt.strptime(stop_date, "%Y-%m-%d")
+
+        # this will print a ValueError if dates are not in the correct format of YYYY-mm-dd (error messages built into datetime library)
+        start_date_dt = dt.strptime(start_date, "%Y-%m-%d") 
+        stop_date_dt = dt.strptime(stop_date, "%Y-%m-%d")
            
-           if start_date_dt > stop_date_dt:
+        if start_date_dt > stop_date_dt:
             raise ValueError("The start date must be earlier than the stop date.")
             
-           if stop_date_dt - start_date_dt > timedelta(3): # error for queries larger than three days
+        if stop_date_dt - start_date_dt > timedelta(3): # error for queries larger than three days
             raise ValueError("Queries larger than three days are not allowed.") 
 
 
