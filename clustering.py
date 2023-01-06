@@ -14,29 +14,29 @@ def load_data(filepath: Path):
     return points
 
 
-ps = load_data(Path("samples.csv"))
+points = load_data(Path("samples.csv"))
 
-m = [ps[randrange(len(ps))], ps[randrange(len(ps))], ps[randrange(len(ps))]]
+centres = [points[randrange(len(points))], points[randrange(len(points))], points[randrange(len(points))]]
 
-alloc = [None] * len(ps)
-n = 0
-while n < 10:
-    for i in range(len(ps)):
-        p = ps[i]
-        d = [None] * 3
-        d[0] = sqrt((p[0] - m[0][0]) ** 2 + (p[1] - m[0][1]) ** 2 + (p[2] - m[0][2]) ** 2)
-        d[1] = sqrt((p[0] - m[1][0]) ** 2 + (p[1] - m[1][1]) ** 2 + (p[2] - m[1][2]) ** 2)
-        d[2] = sqrt((p[0] - m[2][0]) ** 2 + (p[1] - m[2][1]) ** 2 + (p[2] - m[2][2]) ** 2)
-        alloc[i] = d.index(min(d))
+alloc = [None] * len(points)
+count = 0
+while count < 10:
+    for i in range(len(points)):
+        point = points[i]
+        dist = [None] * 3
+        dist[0] = sqrt((point[0] - centres[0][0]) ** 2 + (point[1] - centres[0][1]) ** 2 + (point[2] - centres[0][2]) ** 2)
+        dist[1] = sqrt((point[0] - centres[1][0]) ** 2 + (point[1] - centres[1][1]) ** 2 + (point[2] - centres[1][2]) ** 2)
+        dist[2] = sqrt((point[0] - centres[2][0]) ** 2 + (point[1] - centres[2][1]) ** 2 + (point[2] - centres[2][2]) ** 2)
+        alloc[i] = dist.index(min(dist))
     for i in range(3):
-        alloc_ps = [p for j, p in enumerate(ps) if alloc[j] == i]
+        alloc_ps = [p for j, p in enumerate(points) if alloc[j] == i]
         new_mean = (sum([a[0] for a in alloc_ps]) / len(alloc_ps), sum([a[1] for a in alloc_ps]) / len(alloc_ps),
                     sum([a[2] for a in alloc_ps]) / len(alloc_ps))
-        m[i] = new_mean
-    n = n + 1
+        centres[i] = new_mean
+    count = count + 1
 
 for i in range(3):
-    alloc_ps = [p for j, p in enumerate(ps) if alloc[j] == i]
-    print("Cluster " + str(i) + " is centred at " + str(m[i]) + " and has " + str(len(alloc_ps)) + " points.")
+    alloc_ps = [p for j, p in enumerate(points) if alloc[j] == i]
+    print("Cluster " + str(i) + " is centred at " + str(centres[i]) + " and has " + str(len(alloc_ps)) + " points.")
 
     print(alloc_ps)
