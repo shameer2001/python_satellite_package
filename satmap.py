@@ -19,16 +19,16 @@ class SatMap:
                 and filetype != '.zip':
 
                 raise NameError("")
-                
-                 
 
-    def mosaic(self, otherMap: 'SatMap', resolution: int, padding: bool) -> 'SatMap':
-        # todo: allow to combine images as when using + but allowing mixing instruments (with different resolution!).
-        ...
 
-    def visualise(self, save: bool, savepath:Union(Path, str), **kwargs) -> None:
-        # todo: Show the axis as in earth coordinates and with the proper orientation of the image.
-        ...
+
+    # def mosaic(self, otherMap: 'SatMap', resolution: int, padding: bool) -> 'SatMap':
+    #     # todo: allow to combine images as when using + but allowing mixing instruments (with different resolution!).
+    #     ...
+
+    # def visualise(self, save: bool, savepath:Union(Path, str), **kwargs) -> None:
+    #     # todo: Show the axis as in earth coordinates and with the proper orientation of the image.
+    #     ...
 
     # todo: Also need to support the + and - operation
 
@@ -49,7 +49,9 @@ class SatMap:
                    Other information about the data including the archive, year, observatory, instrument, date when taken, time when taken, xcoords, ycoords and resolution.
 
         """
-
+        meta_data = read(self.file)[1] 
+        
+        return meta_data
 
     def data(self):
         """Extracts data from the input file.
@@ -66,7 +68,9 @@ class SatMap:
               Image data taken with the respective instrument.
 
         """
+        data=read(self.file)[0]
 
+        return data
 
 
     def shape(self):
@@ -83,6 +87,8 @@ class SatMap:
         shape: tuple
               Shape of the data.
         """
+
+        return np.shape(self.data())
 
 
 
@@ -102,6 +108,11 @@ class SatMap:
         """
 
 
+        x_min_max, y_min_max = self.meta()['xcoords'], self.meta()['ycoords']
+        fov = (x_min_max[1] - x_min_max[0], y_min_max[1] - y_min_max[0])
+
+        return fov
+
 
 
     def centre(self):
@@ -118,6 +129,32 @@ class SatMap:
         centre: tuple
               Coordinates of the centre of the image.
         """
+
+        x_min_max, y_min_max = self.meta()['xcoords'], self.meta()['ycoords']
+
+        centre = (    (x_min_max[1] + x_min_max[0])/2  ,   (y_min_max[1] - y_min_max[0])/2  )
+
+        return centre
+
+
+
+
+
+
+
+satmap = SatMap("aigean_man_20221206_181924.hdf5")
+satmap = SatMap("aigean_lir_20221205_191610.asdf")
+
+#print(satmap.data())
+
+#print(satmap.meta())
+print(satmap.data())
+print(satmap.meta())
+print(type(satmap.shape()))
+print(type(satmap.fov()))
+print(satmap.fov())
+#print(pixel_to_earth("aigean_lir_20221205_191610.asdf", satmap.data()[0]))
+
 
 
 
