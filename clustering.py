@@ -2,6 +2,7 @@ from math import *
 from random import *
 from pathlib import Path
 import csv
+from argparse import ArgumentParser
 
 
 def load_data(filepath: Path):
@@ -14,9 +15,6 @@ def load_data(filepath: Path):
     return points
 
 
-points = load_data(Path("samples.csv"))
-
-
 def distance(point1: tuple, point2: tuple):
     dist = sqrt((point1[0] - point2[0]) ** 2 + (point1[1] - point2[1]) ** 2 + (point1[2] - point2[2]) ** 2)
     return dist
@@ -25,7 +23,6 @@ def distance(point1: tuple, point2: tuple):
 def cluster(data: list, iterations: int):
     num = len(data)
     centres = [data[randrange(num)], data[randrange(num)], data[randrange(num)]]
-
     alloc = [None] * num
     count = 0
     while count < iterations:
@@ -43,11 +40,22 @@ def cluster(data: list, iterations: int):
             centres[i] = new_mean
         count = count + 1
 
-    for i in range(3):
-        alloc_ps = [p for j, p in enumerate(points) if alloc[j] == i]
-        print("Cluster " + str(i) + " is centred at " + str(centres[i]) + " and has " + str(len(alloc_ps)) + " points.")
+    return alloc, centres
 
+
+def process():
+    parser = ArgumentParser(description="Generate clusters using kmean")
+    parser.add_argument('--iters', type=int, default=10)
+    parser.add_argument('Path')
+    arguments = parser.parse_args()
+    data = load_data(Path(f'{arguments.Path}'))
+    alloc, centres = cluster(data, arguments.iters)
+    for i in range(3):
+        alloc_ps = [p for j, p in enumerate(data) if alloc[j] == i]
+        print("Cluster " + str(i) + " is centred at " + str(centres[i]) +
+              " and has " + str(len(alloc_ps)) + " points.")
         print(alloc_ps)
 
 
-cluster(points, 20)
+if __name__ == "__main__":
+    process()
