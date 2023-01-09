@@ -1,9 +1,12 @@
-from ctypes import Union
+from typing import Union
 from pathlib import Path
 from aigeanpy.utils import earth_to_pixel, pixel_to_earth
 import numpy as np
-import datetime
+from datetime import datetime
 from skimage.transform import rescale, downscale_local_mean
+import os
+import matplotlib.pyplot as plt
+import json
 
 
 class SatMap:
@@ -51,7 +54,7 @@ class SatMap:
         fov = (xHigh - xLow, yHigh - yLow)
         centre = ((xHigh+xLow)/2, (yHigh+yLow)/2)
 
-        now = datetime.datetime.now()
+        now = datetime.now()
 
         meta = dict()
         meta['archive'] = self.meta['archive']
@@ -69,7 +72,7 @@ class SatMap:
         # return the new SatMap instance
         return SatMap(meta, data, shape, fov, centre)
 
-    def __sub__(self, other):
+    def __sub__(self, other: 'SatMap'):
         # check if the two images can be added or not
         if self.meta['date'] == other.meta['date']:
             raise Exception("only the images from two different days can be subtracted")
@@ -112,7 +115,7 @@ class SatMap:
         fov = (xHigh - xLow, yHigh - yLow)
         centre = ((xHigh+xLow)/2, (yHigh+yLow)/2)
 
-        now = datetime.datetime.now()
+        now = datetime.now()
 
         meta = dict()
         meta['archive'] = self.meta['archive']
@@ -130,7 +133,7 @@ class SatMap:
         # return the new SatMap instance
         return SatMap(meta, data, shape, fov, centre)
 
-    def mosaic(self, other: 'SatMap', resolution=None, padding=True) -> 'SatMap':
+    def mosaic(self, other: 'SatMap', resolution: int = None, padding: bool = True) -> 'SatMap':
         # allow to combine images as when using + but allowing mixing instruments (with different resolution!).
 
         # check if the two images can be added or not
@@ -183,7 +186,7 @@ class SatMap:
         fov = (xHigh - xLow, yHigh - yLow)
         centre = ((xHigh+xLow)/2, (yHigh+yLow)/2)
 
-        now = datetime.datetime.now()
+        now = datetime.now()
 
         meta = dict()
         meta['archive'] = self.meta['archive']
@@ -201,9 +204,45 @@ class SatMap:
         # return the new SatMap instance
         return SatMap(meta, data, shape, fov, centre)
 
-    def visualise(self, save: bool, savepath:Union(Path, str), **kwargs) -> None:
-        # todo: Show the axis as in earth coordinates and with the proper orientation of the image.
-        ...
+    def visualise(self, save: bool = False, savepath: Union[Path, str] = os.getcwd(), **kwargs):
+        # Show the axis as in earth coordinates and with the proper orientation of the image.
+
+        # get the self.data as the pixel coord, and convert it to earth coord
+        earth = pixel_to_earth(self.data, self.meta)
+        earthArray = earth['earthCoord']
+
+        xLow, xHigh = list(self.meta['xcoords'])
+        yLow, yHigh = list(self.meta['ycoords'])
+
+        resolution = int(self.meta['resolution'])
+
+        xDist = xHigh - xLow
+        yDist = yHigh - yLow
+
+        fig = plt.figure(figsize=(xDist/(1.2*resolution), yDist/(1.2*resolution)))
+        plt.imshow(earthArray, cmap='Blues', origin='lower')
+        plt.colorbar()
+        plt.yticks(np.arange(0, yHigh - yLow, resolution), np.arange(yLow, yHigh, resolution))
+        plt.xticks(np.arange(0, xHigh - xLow, resolution), np.arange(xLow, xHigh, resolution), rotation=270)
+
+        if save:
+            # if save=True, save the graph:
+            observatory = str(self.meta['observatory'])
+            instrument = str(self.meta['instrument'])
+            source = str(self.meta.get("source", "origin"))
+            date = "".join(str(self.meta['date']).split('-'))
+
+            time = str(self.meta['time'])
+            time = time[:8] if len(time) >= 8 else time
+            time = "".join(time.split(":"))
+
+            title = "_".join([observatory, instrument, date, time, source])
+
+            path = os.path.join(savepath, title)
+            plt.savefig(path)
+        else:
+            # otherwise, show the graph
+            plt.show()
 
 
 def get_satmap(file_name) -> 'SatMap':

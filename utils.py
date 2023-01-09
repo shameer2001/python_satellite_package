@@ -4,7 +4,7 @@ import json
 import datetime
 
 
-def earth_to_pixel(earth_coord, meta, resolution=None):
+def earth_to_pixel(earth_coord, meta: 'dict', resolution: float = None):
     # convert earth coordinates to pixels, provide the top-right corner of the earth coordinate
 
     # get the resolution setting
@@ -41,8 +41,6 @@ def earth_to_pixel(earth_coord, meta, resolution=None):
             y += step
 
     return pixel
-
-
 
 
 def pixel_to_earth(pixel_coord, meta, resolution=None):
