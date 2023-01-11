@@ -10,6 +10,7 @@ import json
 
 from read import *
 
+
 class SatMap:
     """
 
@@ -27,7 +28,6 @@ class SatMap:
                 and filetype != '.zip':
 
                 raise NameError("")
-
 
     # support the + and - operation
     def __add__(self, other: 'SatMap'):
