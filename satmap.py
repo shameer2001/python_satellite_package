@@ -31,6 +31,26 @@ class SatMap:
 
     # support the + and - operation
     def __add__(self, other: 'SatMap'):
+        """self defined + operation, collate two images and create the new SatMap instance (i.e, if we got an image
+            covering the (0,0)-(10,10) range and another from (12, 5)-(22,15), then we would end up with a “canvas”
+            that goes from (0,0)-(22,15).)
+
+        Parameters
+        ----------
+        other: SatMap
+               Another image to be added to the current image
+
+        Notes
+        -----
+        When the two images are overlapping, the values of the overlapping areas should not be added. Otherwise
+        it would give the wrong impression. Values should be the same when observed the same day.
+
+        Returns
+        -------
+        result: SatMap
+                the image created by the addition of two input images
+        """
+
         # check if the two images can be added or not
         if self.meta['date'] != other.meta['date']:
             raise Exception("only the images from the same day can be added")
@@ -85,6 +105,26 @@ class SatMap:
         return SatMap(meta, data, shape, fov, centre)
 
     def __sub__(self, other: 'SatMap'):
+        """self defined - operation, obtain a difference image to measure change between the days, which will only work
+            when the data is overlapping. (i.e, if we have taken an image yesterday covering (0,0)-(10,10), and today
+            another in the range of (5, 5)-(15, 15), the resultant image should be the difference between the both for
+            the range (5, 5)-(10, 10).)
+
+        Parameters
+        ----------
+        other: SatMap
+               Another image to be subtracted from the current image
+
+        Notes
+        -----
+        Two images must be taken from different days. And they must overlap with each other
+
+        Returns
+        -------
+        result: SatMap
+                the image created by the subtraction of two input images
+        """
+
         # check if the two images can be added or not
         if self.meta['date'] == other.meta['date']:
             raise Exception("only the images from two different days can be subtracted")
@@ -146,6 +186,28 @@ class SatMap:
         return SatMap(meta, data, shape, fov, centre)
 
     def mosaic(self, other: 'SatMap', resolution: int = None, padding: bool = True) -> 'SatMap':
+        """allow to combine images as when using + but allowing mixing instruments with different resolution
+
+        Parameters
+        ----------
+        other: SatMap
+               Another image which do the mosaic operation with current image
+
+        resolution: int, optional
+                    If the resolution is not provided it should use the one of the two satmaps with larger detail, and
+                    expand the other to that level.
+
+        padding: bool, optional
+                 padding should be True by default, i.e., to return an image with blanks (NaNs) on it. However, if
+                 padding is set as False the resultant image should only cover maximum portion without blanks on the
+                 image. Besides, if padding is False, then two images must overlap with each other
+
+        Returns
+        -------
+        result: SatMap
+                the image created by doing the mosaic operation on two input images
+        """
+
         # allow to combine images as when using + but allowing mixing instruments (with different resolution!).
 
         # check if the two images can be added or not
@@ -217,6 +279,24 @@ class SatMap:
         return SatMap(meta, data, shape, fov, centre)
 
     def visualise(self, save: bool = False, savepath: Union[Path, str] = os.getcwd(), **kwargs):
+        """ visualise the image, show the axis as in earth coordinates and with the proper orientation of the image.
+
+        Parameters
+        ----------
+        save: bool, optional
+               If save is set to True, then the image should not be displayed on the screen and saved in the required
+               path
+
+        savepath: Union[Path, str], optional
+                the required saved path, if not set, the savepath will be the current directory
+
+
+        Notes
+        -----
+        the saved image is titled with the following pattern: {observatory}_{instrument}_{date}_{time}{_extra}.png,
+        where the date and time are formatted as YYYYmmdd (e.g., 20221231) and HHMMSS (e.g., 120034) respectively.
+        """
+
         # Show the axis as in earth coordinates and with the proper orientation of the image.
 
         # get the self.data as the pixel coord, and convert it to earth coord
@@ -256,8 +336,6 @@ class SatMap:
             # otherwise, show the graph
             plt.show()
 
-
-
     def meta(self):
         """Extracts meta data from the input file.
 
@@ -296,7 +374,6 @@ class SatMap:
 
         return data
 
-
     def shape(self):
         """The shape of the data from the imager instrument.
 
@@ -313,8 +390,6 @@ class SatMap:
         """
 
         return np.shape(self.data())
-
-
 
     def fov(self):
         """Field of view of the images captured by the instrument (i.e., the difference between the boundaries).
@@ -337,8 +412,6 @@ class SatMap:
 
         return fov
 
-
-
     def centre(self):
         """Centre of the image taken by the instrument.
 
@@ -359,11 +432,6 @@ class SatMap:
         centre = (    (x_min_max[1] + x_min_max[0])/2  ,   (y_min_max[1] - y_min_max[0])/2  )
 
         return centre
-
-
-
-
-
 
 
 satmap = SatMap("aigean_man_20221206_181924.hdf5")

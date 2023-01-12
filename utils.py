@@ -4,7 +4,32 @@ import json
 import datetime
 
 
-def earth_to_pixel(earth_coord, meta: 'dict', resolution: float = None):
+def earth_to_pixel(earth_coord: 'np.array', meta: 'dict', resolution: float = None) -> np.array:
+    """convert image to the pixel coord from earth coord
+
+    Parameters
+    ----------
+    earth_coord: Numpy.array
+           the image under the earth coord
+
+    meta: dict
+          Other information about the data including the archive, year, observatory, instrument, date when taken, time
+          when taken, xcoords, ycoords and resolution.
+
+    resolution: float, optional
+          if provided, use this as the resolution, otherwise use the resolution provided in the meta (used in the
+          SatMap.mosaic func, where user can specify the resolution)
+
+    Notes
+    -----
+    In the case when the earth coordinate falls in the centre of multiple pixels, give the top-left corner
+
+    Returns
+    -------
+    result: Numpy.array
+            the image under the pixel coord
+    """
+
     # convert earth coordinates to pixels, provide the top-right corner of the earth coordinate
 
     # get the resolution setting
@@ -43,7 +68,38 @@ def earth_to_pixel(earth_coord, meta: 'dict', resolution: float = None):
     return pixel
 
 
-def pixel_to_earth(pixel_coord, meta, resolution=None):
+def pixel_to_earth(pixel_coord: 'np.array', meta, resolution=None) -> dict:
+    """convert image to the earth coord from pixel coord
+
+    Parameters
+    ----------
+    pixel_coord: Numpy.array
+           the image under the pixel coord
+
+    meta: dict
+          Other information about the data including the archive, year, observatory, instrument, date when taken, time
+          when taken, xcoords, ycoords and resolution.
+
+    resolution: float, optional
+          if provided, use this as the resolution, otherwise use the resolution provided in the meta (used in the
+          SatMap.mosaic func, where user can specify the resolution)
+
+    Notes
+    -----
+    In the case when the earth coordinate falls in the centre of multiple pixels, give the top-left corner;
+
+    Depending on the resolution of the image, a pixel may correspond to multiple earth coordinates. In such cases,
+    pixel_to_earth should provide the coordinate of the centre of the pixel.
+
+
+    Returns
+    -------
+    result: dict
+            'earthCoord' gives the image under the earth pixel
+            'centralCoord' gives the cenre of the pixel when a pixel correspond to multiple earth coordinates, otherwise
+            is None
+    """
+
     # convert pixels to earth coordinates, provide the coordinate of the centre of the pixel.
 
     # get the resolution setting
