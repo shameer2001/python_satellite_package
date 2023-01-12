@@ -6,13 +6,44 @@ from datetime import date
 from datetime import timedelta
 from satmap_copy import SatMap
 from net_copy import net
-def aigean_metadata(args):
-    # todo: given the list of file, extracting the metadata information
-    ...
-    # print(len(args),type(args))
+
+def aigean_metadata(filenames):
+    """ Extractin the metadata information from correct files, and show the uncorrect files name below
+
+    Parameters
+    ----------
+    filenames: str
+        A given filename or list of them, such as aigean_man_20221205_194510.hdf5 or aigean_fan_20221206_190424.zip
+    
+    Returns
+    ----------
+    string
+        meta information outputs of given files
+
+    Examples
+    ----------
+    >>> from aigean_metadata import aigean_metadata
+    >>> aigean_metadata(['aigean_man_20221205_194510.hdf5','aigean_fan_20221205_192210.zip','asadasf.py'])
+    aigean_man_20221205_194510.hdf5:archive: ISA
+    aigean_man_20221205_194510.hdf5:observatory: Aigean
+    aigean_man_20221205_194510.hdf5:instrument: Manannan
+    aigean_man_20221205_194510.hdf5:obs_date: 2022-12-05 19:45:10
+    aigean_man_20221205_194510.hdf5:resolution: 15
+    aigean_man_20221205_194510.hdf5:xcoords: [ 750. 1200.]
+    aigean_man_20221205_194510.hdf5:ycoords: [250. 400.]
+    aigean_fan_20221205_192210.zip:archive: ISA
+    aigean_fan_20221205_192210.zip:observatory: Aigean
+    aigean_fan_20221205_192210.zip:instrument: Fand
+    aigean_fan_20221205_192210.zip:obs_date: 2022-12-05 19:22:10
+    aigean_fan_20221205_192210.zip:resolution: 5
+    aigean_fan_20221205_192210.zip:xcoords: [300.0, 525.0]
+    aigean_fan_20221205_192210.zip:ycoords: [50.0, 100.0]
+    These files failed while being processed
+     - asadasf.py
+    """
     error_file = []
-    if len(args) == 1:
-        for i in args:
+    if len(filenames) == 1:
+        for i in filenames:
             filename = i
             filetype = filename.split('.')[1]
             if filetype in ('asdf','hdf5','zip'):
@@ -24,10 +55,7 @@ def aigean_metadata(args):
                     # download_file = requests.get('http://dokku-app.dokku.arc.ucl.ac.uk/isa-archive/download/?',
                     #                 params= {'filename':str(kwargs)})
                     satmap_file = SatMap(filename)
-                    print(download_file)
                     meta_data = satmap_file.meta()
-                    print(len(meta_data))
-                    print(meta_data)
                     if len(meta_data) == 9:
                         ## use the function get_map after branch merger
                         archive = meta_data['archive']
@@ -55,7 +83,7 @@ def aigean_metadata(args):
             return
     
     else:
-        for i in args:
+        for i in filenames:
             filename = i
             filetype = filename.split('.')[1]
             if filetype in ('asdf','hdf5','zip'):
@@ -98,17 +126,19 @@ def aigean_metadata(args):
             print (' - {}'.format(error_file[i]))
         return
 # x = aigean_metadata('aigean_man_20221205_194510.hdf5','aigean_fan_20221206_190424.zip', 'aigean_fan_20221205_192210.zip')
+# x = aigean_metadata(['aigean_man_20221205_194510.hdf5','aigean_fan_20221205_192210.zip','asadasf.py'])
 
 def process_metadata():
     parser = ArgumentParser(description='Extracting the file metadata information')
-    parser.add_argument('filename',type=str,nargs='+',help='input a file or list of them')
+    parser.add_argument('filenames',type=str,nargs='+',help='input a file or list of them')
     args_metadata = parser.parse_args()
-    obv = aigean_metadata(args_metadata.filename)
-    # print(obv)
+    obv = aigean_metadata(args_metadata.filenames)
+
 
 
  
 
 if __name__ == "__main__":
     process_metadata()
+
     
