@@ -3,8 +3,12 @@ import numpy as np
 import json
 import datetime
 
+from typing import Union
+from pathlib import Path
+import os
 
-def earth_to_pixel(earth_coord: 'np.array', meta: 'dict', resolution: float = None) -> np.array:
+
+def earth_to_pixel(earth_coord: 'np.ndarray', meta: 'dict', resolution: float = None) -> np.array:
     """convert image to the pixel coord from earth coord
 
     Parameters
@@ -29,6 +33,16 @@ def earth_to_pixel(earth_coord: 'np.array', meta: 'dict', resolution: float = No
     result: Numpy.array
             the image under the pixel coord
     """
+
+    # error raising: query using wrong data format
+    if type(earth_coord) != np.ndarray:
+        raise TypeError("The attribute earth_coord must be an numpy array.")
+
+    if type(meta) != dict:
+        raise TypeError("The attribute meta must be a dict.")
+
+    if resolution and type(resolution) != float:
+        raise TypeError("The attribute resolution must be a float number.")
 
     # convert earth coordinates to pixels, provide the top-right corner of the earth coordinate
 
@@ -99,6 +113,15 @@ def pixel_to_earth(pixel_coord: 'np.array', meta, resolution=None) -> dict:
             'centralCoord' gives the cenre of the pixel when a pixel correspond to multiple earth coordinates, otherwise
             is None
     """
+    # error raising: query using wrong data format
+    if type(pixel_coord) != np.ndarray:
+        raise TypeError("The attribute pixel_coord must be an numpy array.")
+
+    if type(meta) != dict:
+        raise TypeError("The attribute meta must be a dict.")
+
+    if resolution and type(resolution) != float:
+        raise TypeError("The attribute resolution must be a float number.")
 
     # convert pixels to earth coordinates, provide the coordinate of the centre of the pixel.
 
@@ -159,6 +182,7 @@ if __name__ == "__main__":
     #print(earth)
 
     pixel = np.load('observation.npy')
+    print(type(pixel) == np.ndarray)
     f = open('metadata.json')
     meta = json.load(f)
     print(meta)
@@ -180,6 +204,7 @@ if __name__ == "__main__":
     #a[:2, :2] = b
     #print(a)
 
+    print(type(os.getcwd()))
 
 
 

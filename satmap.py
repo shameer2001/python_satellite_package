@@ -51,6 +51,10 @@ class SatMap:
                 the image created by the addition of two input images
         """
 
+        # error raising: query using wrong data format
+        if type(other) != SatMap:
+            raise TypeError("The attribute other must be a SatMap instance.")
+
         # check if the two images can be added or not
         if self.meta['date'] != other.meta['date']:
             raise Exception("only the images from the same day can be added")
@@ -124,6 +128,10 @@ class SatMap:
         result: SatMap
                 the image created by the subtraction of two input images
         """
+
+        # error raising: query using wrong data format
+        if type(other) != SatMap:
+            raise TypeError("The attribute other must be a SatMap instance.")
 
         # check if the two images can be added or not
         if self.meta['date'] == other.meta['date']:
@@ -208,6 +216,16 @@ class SatMap:
                 the image created by doing the mosaic operation on two input images
         """
 
+        # error raising: query using wrong data format
+        if type(other) != SatMap:
+            raise TypeError("The attribute other must be a SatMap instance.")
+
+        if resolution and type(resolution) != int:
+            raise TypeError("The attribute resolution must be an integer.")
+
+        if padding and type(padding) != bool:
+            raise TypeError("The attribute padding must be a boolean value.")
+
         # allow to combine images as when using + but allowing mixing instruments (with different resolution!).
 
         # check if the two images can be added or not
@@ -240,6 +258,16 @@ class SatMap:
 
         xLowB, xHighB = other.meta['xcoords']
         yLowB, yHighB = other.meta['ycoords']
+
+        if not padding:
+            xDist = abs(xLowA - xLowB)
+            yDist = abs(yLowA - yLowB)
+
+            maxX = max(abs(xHighB-xLowB), abs(xHighA-xLowA))
+            maxY = max(abs(yHighB-yLowB), abs(yHighA-yLowA))
+
+            if yDist >= maxY or xDist >= maxX:
+                raise Exception("cannot perform mosaic without padding on these two images because they have no overlap")
 
         # the xcoord and ycoord choice differs depending on the padding
         if not padding:
@@ -293,9 +321,20 @@ class SatMap:
 
         Notes
         -----
-        the saved image is titled with the following pattern: {observatory}_{instrument}_{date}_{time}{_extra}.png,
-        where the date and time are formatted as YYYYmmdd (e.g., 20221231) and HHMMSS (e.g., 120034) respectively.
+        the saved image is titled with the following pattern: {observatory}_{instrument}_{date}_{time}{_source}.png,
+        where the date and time are formatted as YYYYmmdd (e.g., 20221231) and HHMMSS (e.g., 120034) respectively, the
+        source has four different values: add/subtract/mosaic/origin, each indicate how that image is generated.
         """
+
+        # error raising: query using wrong data format
+        if save and type(save) != bool:
+            raise TypeError("The attribute save must be a boolean value.")
+
+        if savepath and type(savepath) != int:
+            raise TypeError("The attribute resolution must be an integer.")
+
+        if savepath and type(savepath) != str and type(savepath) != Path:
+            raise TypeError("The attribute savepath must be either a string or a Path instance.")
 
         # Show the axis as in earth coordinates and with the proper orientation of the image.
 
@@ -455,4 +494,5 @@ def get_satmap(file_name) -> 'SatMap':
     #  where data gives the array, meta gives a dictionary with the metadata of the file.
     ...
 
-
+if __name__ == "__main__":
+    type(Union[Path, str])
