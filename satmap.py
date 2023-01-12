@@ -22,15 +22,7 @@ class SatMap:
 
 
 
-    # def mosaic(self, otherMap: 'SatMap', resolution: int, padding: bool) -> 'SatMap':
-    #     # todo: allow to combine images as when using + but allowing mixing instruments (with different resolution!).
-    #     ...
 
-    # def visualise(self, save: bool, savepath:Union(Path, str), **kwargs) -> None:
-    #     # todo: Show the axis as in earth coordinates and with the proper orientation of the image.
-    #     ...
-
-    # todo: Also need to support the + and - operation
 
 
 
@@ -138,6 +130,15 @@ class SatMap:
 
 
 
+    def mosaic(self, otherMap: 'SatMap', resolution: int, padding: bool):
+    #     # todo: allow to combine images as when using + but allowing mixing instruments (with different resolution!).
+        ...
+
+    def visualise(self, save: bool, savepath:Union(Path, str), **kwargs):
+    #     # todo: Show the axis as in earth coordinates and with the proper orientation of the image.
+        ...
+
+    # todo: Also need to support the + and - operation
 
 
 
@@ -161,7 +162,23 @@ print(satmap.fov())
 def get_satmap(file_name) -> 'SatMap':
     # todo: Give the name of the file, and return the data and meta,
     #  where data gives the array, meta gives a dictionary with the metadata of the file.
-    ...
+
+
+    return SatMap(file_name)
 
 
 
+
+
+
+satmap = get_satmap("aigean_man_20221206_181924.hdf5")
+satmap = get_satmap("aigean_lir_20221205_191610.asdf")
+
+#print(satmap.data())
+
+#print(satmap.meta())
+print(satmap.data())
+print(satmap.meta())
+print(type(satmap.shape()))
+print(type(satmap.fov()))
+print(satmap.fov())
