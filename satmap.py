@@ -14,10 +14,10 @@ def fov(meta):
     meta: dict
          Meta data of the measurements taken by the instrument.
 
-        Returns
-        -------
-        fov: tuple
-              The range of x-coordinates and range of y-coordinates (i.e the field of view).
+    Returns
+    -------
+    fov: tuple
+         The range of x-coordinates and range of y-coordinates (i.e the field of view).
     """
 
 
@@ -31,16 +31,16 @@ def fov(meta):
 def centre(meta):
     """Centre of the image taken by the instrument.
         
-        Parameters
-        ----------
+    Parameters
+    ----------
 
-        meta: dict
-              Meta data of the measurements taken by the instrument.
+    meta: dict
+          Meta data of the measurements taken by the instrument.
 
-        Returns
-        -------
-        centre: tuple
-              Coordinates of the centre of the image.
+    Returns
+    -------
+    centre: tuple
+            Coordinates of the centre of the image.
     """
 
     x_min_max, y_min_max = meta['xcoords'], meta['ycoords']
@@ -103,11 +103,9 @@ class SatMap:
 def get_satmap(file_name) -> 'SatMap':
     # todo: Give the name of the file, and return the data and meta,
     #  where data gives the array, meta gives a dictionary with the metadata of the file.
-
-
+    
+    
     return SatMap(file_name)
-
-
 
 
 
@@ -115,14 +113,7 @@ def get_satmap(file_name) -> 'SatMap':
 satmap = get_satmap("aigean_man_20221206_181924.hdf5")
 satmap = get_satmap("aigean_lir_20221205_191610.asdf")
 
-#print(satmap.data())
 
-#print(satmap.meta())
-#print(satmap.data())
-#print(satmap.meta())
-# print(type(satmap.shape()))
-# print(type(satmap.fov()))
-# print(satmap.fov())
 
 print(satmap.meta)
 print(satmap.data)
@@ -136,3 +127,4 @@ print(type(satmap.data))
 print(type(satmap.shape))
 print(type(satmap.fov))
 print(type(satmap.centre))
+
