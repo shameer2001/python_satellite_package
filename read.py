@@ -149,7 +149,7 @@ def read(file):
 
 
 
-        
+
 
     filetype = os.path.splitext(file)[1] # obtain file extension
 
@@ -237,7 +237,8 @@ def read(file):
             return turbulence, salinity, algal_density
 
 
-
+    else:
+        raise NameError("The extension for the input file is not supported by this function. Only these file types are accepted: '.asdf', '.hdf5', '.zip' and '.csv'.")
 
 with asdf.open("aigean_lir_20221205_191610.asdf", 'r') as af:
     print(af['xcoords'])
