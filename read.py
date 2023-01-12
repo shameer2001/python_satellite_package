@@ -149,7 +149,7 @@ def read(file):
 
 
 
-        
+
 
     filetype = os.path.splitext(file)[1] # obtain file extension
 
@@ -237,10 +237,11 @@ def read(file):
             return turbulence, salinity, algal_density
 
 
+    else:
+        raise NameError("The extension for the input file is not supported by this function. Only these file types are accepted: '.asdf', '.hdf5', '.zip' and '.csv'.")
 
-
-with asdf.open("aigean_lir_20221205_191610.asdf", 'r') as af:
-    print(af['xcoords'])
+#with asdf.open("aigean_lir_20221205_191610.asdf", 'r') as af:
+ #   print(af['xcoords'])
 
 # #read("aigean_lir_20221205_191610.asdf") 
 
@@ -249,8 +250,8 @@ with asdf.open("aigean_lir_20221205_191610.asdf", 'r') as af:
 
 # show_green_in_png(r.content)
 
-print( net.query_isa("2022-12-05", "2022-12-06", "fand") )
-net.download_isa('aigean_fan_20221206_190424.zip')
+#print( net.query_isa("2022-12-05", "2022-12-06", "fand") )
+#net.download_isa('aigean_fan_20221206_190424.zip')
 
 myzipp = ZipFile('aigean_fan_20221206_190424.zip', 'r')
 
@@ -291,26 +292,26 @@ jsonnn = json.load(BytesIO(lol2))
 #print(jsonnn)
 
 
-print( net.query_isa("2022-12-05", "2022-12-06", "ecne") )
+#print( net.query_isa("2022-12-05", "2022-12-06", "ecne") )
 net.download_isa('aigean_ecn_20221205_191610.csv')
 
 
 
-with open('aigean_ecn_20221205_191610.csv') as mycsv:
-    csvv = csv.reader(mycsv, delimiter=',')
+# with open('aigean_ecn_20221205_191610.csv') as mycsv:
+#     csvv = csv.reader(mycsv, delimiter=',')
 
-    turbulence = []
-    salinity = []
-    algal_density = []
+#     turbulence = []
+#     salinity = []
+#     algal_density = []
 
-    for row in csvv:
-        turbulence.append(row[0])
-        salinity.append(row[1])
-        algal_density.append(row[2])
+#     for row in csvv:
+#         turbulence.append(row[0])
+#         salinity.append(row[1])
+#         algal_density.append(row[2])
 
-    print(turbulence)
+#     print(turbulence)
 
-print(net.query_isa("2022-12-05", "2022-12-06", "manannan") )
+#print(net.query_isa("2022-12-05", "2022-12-06", "manannan") )
 net.download_isa('aigean_man_20221206_181924.hdf5')
 
 f = h5py.File('aigean_man_20221206_181924.hdf5', 'r')
@@ -333,22 +334,24 @@ jsonnn = json.load(BytesIO(lol2))
 # for i in jsonnn:
 #     print(i)
 
-print(type(read('aigean_lir_20221205_191610.asdf')[0]))
-print(type(read('aigean_lir_20221205_191610.asdf')[1]))
+
+
+# print(type(read('aigean_lir_20221205_191610.asdf')[0]))
+# print(type(read('aigean_lir_20221205_191610.asdf')[1]))
 
 
 
-print(type(read('aigean_man_20221206_181924.hdf5')[0]))
-print(type(read('aigean_man_20221206_181924.hdf5')[1]))
+# print(type(read('aigean_man_20221206_181924.hdf5')[0]))
+# print(type(read('aigean_man_20221206_181924.hdf5')[1]))
 
 
 
 
-print(type(read('aigean_fan_20221206_190424.zip')[0]))
-print(type(read('aigean_fan_20221206_190424.zip')[1]))
+# print(type(read('aigean_fan_20221206_190424.zip')[0]))
+# print(type(read('aigean_fan_20221206_190424.zip')[1]))
 
 
 
-print(type(read('aigean_ecn_20221205_191610.csv')[0]))
-print(type(read('aigean_ecn_20221205_191610.csv')[1]))
-print(type(read('aigean_ecn_20221205_191610.csv')[2]))
+# print(type(read('aigean_ecn_20221205_191610.csv')[0]))
+# print(type(read('aigean_ecn_20221205_191610.csv')[1]))
+# print(type(read('aigean_ecn_20221205_191610.csv')[2]))
