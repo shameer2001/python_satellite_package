@@ -21,24 +21,20 @@ def distance(centres: np.array, points: np.array):
     return mat_dist
 
 
-def cluster(data: list, clusters: int = 3, iterations: int = 10):
+def cluster(data: np.array, clusters: int = 3, iterations: int = 10):
     num = len(data)
     k = clusters
-    centres = []
-    for i in range(k):
-        centres.append(data[randrange(num)])
-    alloc = [None] * num
+    rand_index = np.random.randint(num, size=k)
+    centres = data[rand_index]
     count = 0
     while count < iterations:
         dist_mat = distance(centres, data)
         alloc = np.array(np.argmin(dist_mat, axis=1).T)[0]
         for i in range(k):
-            alloc_ps = [p for j, p in enumerate(data) if alloc[j] == i]
-            new_mean = (sum([a[0] for a in alloc_ps]) / len(alloc_ps),
-                        sum([a[1] for a in alloc_ps]) / len(alloc_ps), sum([a[2] for a in alloc_ps]) / len(alloc_ps))
+            alloc_ps = np.array([p for j, p in enumerate(data) if alloc[j] == i])
+            new_mean = np.array(np.sum(alloc_ps, axis=0) / len(alloc_ps))
             centres[i] = new_mean
         count = count + 1
-
     return alloc, centres
 
 
