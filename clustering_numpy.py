@@ -48,8 +48,8 @@ def process():
     alloc, centres = cluster(data, arguments.clusters, arguments.iters)
     k = len(centres)
     for i in range(k):
-        alloc_ps = [p for j, p in enumerate(data) if alloc[j] == i]
-        print("Cluster " + str(i) + " is centred at " + str(centres[i]) +
+        alloc_ps = [tuple(p) for j, p in enumerate(data) if alloc[j] == i]
+        print("Cluster " + str(i) + " is centred at " + str(tuple(centres[i])) +
               " and has " + str(len(alloc_ps)) + " points.")
         print(alloc_ps)
 
