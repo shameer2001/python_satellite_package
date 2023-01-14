@@ -14,7 +14,7 @@ def distance(centres: np.array, points: np.array):
     mat_A = np.tile(np.matrix(np.square(points).sum(axis=1)).T, (1, n))
     mat_B = np.tile(np.matrix(np.square(centres).sum(axis=1)), (m, 1))
     mat_C = points @ centres.T
-    mat_dist = np.sqrt(-2 * mat_C + mat_A + mat_B)
+    mat_dist = np.sqrt(abs(-2 * mat_C + mat_A + mat_B))
     return mat_dist
 
 
