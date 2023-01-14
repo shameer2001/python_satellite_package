@@ -10,3 +10,7 @@ import clustering
 def with_np(data: np.array, clusters: int=3, iterations: int=10):
     alloc, centres = clustering_numpy.cluster(data, clusters, iterations)
     pass
+
+def without_np(data: np.array, clusters: int=3, iterations: int=10):
+    alloc, centres = clustering.cluster(data, clusters, iterations)
+    pass
