@@ -11,9 +11,14 @@ def load_data(filepath: Path):
     return data
 
 
-def distance(point1: tuple, point2: tuple):
-    dist = sqrt((point1[0] - point2[0]) ** 2 + (point1[1] - point2[1]) ** 2 + (point1[2] - point2[2]) ** 2)
-    return dist
+def distance(centres: np.array, points: np.array):
+    n, _ = np.shape(centres)
+    m, _ = np.shape(points)
+    mat_A = np.tile(np.matrix(np.square(points).sum(axis=1)).T, (1, n))
+    mat_B = np.tile(np.matrix(np.square(centres).sum(axis=1)), (m, 1))
+    mat_C = points @ centres.T
+    mat_dist = np.sqrt(-2 * mat_C + mat_A + mat_B)
+    return mat_dist
 
 
 def cluster(data: list, clusters: int = 3, iterations: int = 10):
@@ -25,12 +30,8 @@ def cluster(data: list, clusters: int = 3, iterations: int = 10):
     alloc = [None] * num
     count = 0
     while count < iterations:
-        for i in range(num):
-            point = data[i]
-            dist = [None] * k
-            for j in range(k):
-                dist[j] = distance(point, centres[j])
-            alloc[i] = dist.index(min(dist))
+        dist_mat = distance(centres, data)
+        alloc = np.array(np.argmin(dist_mat, axis=1).T)[0]
         for i in range(k):
             alloc_ps = [p for j, p in enumerate(data) if alloc[j] == i]
             new_mean = (sum([a[0] for a in alloc_ps]) / len(alloc_ps),
