@@ -50,6 +50,3 @@ def kmeans(filename: Union[Path, str], clusters: int = 3, iterations: int = 10):
     alloc, centres = cluster(data, clusters, iterations)
 
     return alloc
-
-
-print(kmeans("samples.csv", 4))
