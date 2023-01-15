@@ -4,9 +4,9 @@ from datetime import datetime as dt
 from datetime import timedelta
 
 class net:
-    todays_date = dt.today().strftime('%Y-%m-%d')
+    
 
-    def query_isa(start_date = todays_date, stop_date = todays_date, instrument = None):
+    def query_isa(start_date = None, stop_date = None, instrument = None):
         """Returns a JSON file of the results from the query service. 
         
         Parameters
@@ -40,25 +40,18 @@ class net:
         """
         # Error messages for incorrect inputs:
          
-        if type(start_date) != str:
+        if type(start_date) != str and start_date != None:
             raise TypeError("The start date must be a string in the form YYYY-mm-dd.")
             
-        if type(stop_date) != str:
+        if type(stop_date) != str and stop_date != None:
             raise TypeError("The stop date must be a string in the form YYYY-mm-dd.")
             
         if type(instrument) != str and (instrument != None):
             raise TypeError("The instrument name must be string.")
-            
-
-        # this will print a ValueError if dates are not in the correct format of YYYY-mm-dd (error messages built into datetime library)
-        start_date_dt = dt.strptime(start_date, "%Y-%m-%d") 
-        stop_date_dt = dt.strptime(stop_date, "%Y-%m-%d")
-           
-        if start_date_dt > stop_date_dt:
-            raise ValueError("The start date must be earlier than the stop date.")
-            
-        if stop_date_dt - start_date_dt > timedelta(3): # error for queries larger than three days
-            raise ValueError("Queries larger than three days are not allowed.") 
+        
+        if instrument != 'lir' and instrument != 'manannan' \
+        and instrument != 'fand' and  instrument != 'ecne' and instrument != None: \
+            raise ValueError("Instrument not found. The four instruments are: 'lir', 'manannan', 'fand' and 'ecne'. The default value for this parameter is all 4.")
 
 
 
@@ -73,9 +66,11 @@ class net:
         for i in r.json():
             if i=='message':
                 error_message = r.json()['message']
-                print(error_message)
+                raise ValueError(error_message) # raise errors built-in to the archive query service
+        
             else:
-                return r.json() # Return json file
+                #print(r.json())
+                return r.json() # Return json for testing
         
 
 
@@ -133,7 +128,18 @@ class net:
 
 
 
-print(net.query_isa("2022-12-05", "2022-12-06", "lir") )
+#print(net.query_isa("2022-12-05", "2022-12-06", "lir") )
 #print(type(query_isa("2022-12-05", "2022-12-06", "lir") ))
 
 net.download_isa("aigean_lir_20221205_191610.asdf")
+import json
+import numpy as np
+query = net.query_isa()
+#query = net.query_isa("2022-12-05", "2022-12-06", "lir")
+print(query)
+
+#query = json.load(query)
+#print(np.array(query))
+print(type(query))
+
+#print(query[-1])

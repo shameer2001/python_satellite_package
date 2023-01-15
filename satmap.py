@@ -1,9 +1,9 @@
 from typing import Union
 from pathlib import Path
-from aigeanpy.utils import earth_to_pixel, pixel_to_earth
+from utils import earth_to_pixel, pixel_to_earth
 import numpy as np
 from datetime import datetime
-from skimage.transform import rescale, downscale_local_mean
+#from skimage.transform import rescale, downscale_local_mean
 import os
 import matplotlib.pyplot as plt
 import json
@@ -385,6 +385,9 @@ def get_satmap(file_name) -> 'SatMap':
             and filetype != '.zip':
         raise NameError("The file format is not supported. Only these are accepted: ASDF, HDF5 and ZIP.")
 
+
+    
+    # the attributes of the SatMap class:
     meta = read(file_name)[1]
     data = read(file_name)[0]
     shape = np.shape(data)
@@ -430,6 +433,9 @@ def centre(meta):
     centre: tuple
             Coordinates of the centre of the image.
     """
+
+    # ERROR MESSAGE:
+    for i in query: assert (np.size(i['xcoords']) == 2 and np.size(i['ycoords']) == 2)  # test for shape of x and y coordinate range
 
     x_min_max, y_min_max = meta['xcoords'], meta['ycoords']
 
