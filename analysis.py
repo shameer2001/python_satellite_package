@@ -24,6 +24,10 @@ def kmeans(filename: Union[Path, str], clusters: int = 3, iterations: int = 10):
     alloc : np.ndarray
         Index of clusters where each point belong to
     """
+    # error raising: filename using wrong format
+    if not (isinstance(filename, Path) or isinstance(filename, str)):
+        raise TypeError("The filename must be a Path or string")
+
     # This function is from clustering_numpy.
     data = load_data(filename)
     # Perform the algorithm to the dataset we loaded.
