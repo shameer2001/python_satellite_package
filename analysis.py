@@ -1,46 +1,52 @@
-from ctypes import Union
+from clustering_numpy import *
 from pathlib import Path
-from math import *
-from random import *
+from typing import Union
 
 
-# todo: transform the code to incorporate the k-means algorithm to the project
-def process(clusters: int, iterations: int) -> list:
-    k = 3
+# Add a function kmeans() to perform kmean algorithm on csv file provided.
+def kmeans(filename: Union[Path, str], clusters: int = 3, iterations: int = 10):
+    """
+    Use kmean algorithm (numpy version) to classify dataset provided.
 
-    lines = open('samples.csv', 'r').readlines()
-    ps = []
-    for line in lines: ps.append(tuple(map(float, line.strip().split(','))))
+    Parameters
+    ----------
+    filename : Path
+        A given Path, such as "samples.csv"
 
-    m = [ps[randrange(len(ps))], ps[randrange(len(ps))], ps[randrange(len(ps))]]
+    clusters : int, optional
+        Number of clusters to divide the dataset into, default is 3
 
-    alloc = [None] * len(ps)
-    n = 0
-    while n < 10:
-        for i in range(len(ps)):
-            p = ps[i]
-            d = [None] * 3
-            d[0] = sqrt((p[0] - m[0][0]) ** 2 + (p[1] - m[0][1]) ** 2 + (p[2] - m[0][2]) ** 2)
-            d[1] = sqrt((p[0] - m[1][0]) ** 2 + (p[1] - m[1][1]) ** 2 + (p[2] - m[1][2]) ** 2)
-            d[2] = sqrt((p[0] - m[2][0]) ** 2 + (p[1] - m[2][1]) ** 2 + (p[2] - m[2][2]) ** 2)
-            alloc[i] = d.index(min(d))
-        for i in range(3):
-            alloc_ps = [p for j, p in enumerate(ps) if alloc[j] == i]
-            new_mean = (sum([a[0] for a in alloc_ps]) / len(alloc_ps), sum([a[1] for a in alloc_ps]) / len(alloc_ps),
-                        sum([a[2] for a in alloc_ps]) / len(alloc_ps))
-            m[i] = new_mean
-        n = n + 1
+    iterations : int, optional
+        Number of iterations to upload the centres, default is 10
 
-    for i in range(3):
-        alloc_ps = [p for j, p in enumerate(ps) if alloc[j] == i]
-        print("Cluster " + str(i) + " is centred at " + str(m[i]) + " and has " + str(len(alloc_ps)) + " points.")
+    Returns
+    -------
+    alloc : np.ndarray
+        Index of clusters where each point belong to
+    """
+    # error raising: filename using wrong format
+    if not (isinstance(filename, Path) or isinstance(filename, str)):
+        raise TypeError("The filename must be a Path or string")
 
-        print(alloc_ps)
+    # error raising: This function should only accept CSV file
+    if not str(filename).endswith('.csv'):
+        raise TypeError("The file inputted must be a csv file")
 
-    return []
+    # error raising: clusters using wrong format
+    if not isinstance(clusters, int):
+        raise TypeError("Clusters must be an integer")
 
+    # error raising: iterations using wrong format
+    if not isinstance(iterations, int):
+        raise TypeError("iterations must be an integer")
 
-def kmeans(filename: Union(Path, str), clusters: int, iterations: int) -> list:
-    # todo: separate Ecne data points into groups using k-means algorithm
-    process(clusters, iterations)
-    ...
+    # error raising: clusters and iterations are not positive.
+    if clusters <= 0 or iterations <= 0:
+        raise TypeError("clusters and iterations must be positive")
+
+    # This function is from clustering_numpy.
+    data = load_data(filename)
+    # Perform the algorithm to the dataset we loaded.
+    alloc, centres = cluster(data, clusters, iterations)
+
+    return alloc
