@@ -1,10 +1,11 @@
 import numpy as np
 from pathlib import Path
 from argparse import ArgumentParser
+from typing import Union
 
 
 # Use numpy to load data.
-def load_data(filepath: Path):
+def load_data(filepath: Union[Path, str]):
     """
     Loading data from csv file.
 
