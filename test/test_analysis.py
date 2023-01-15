@@ -16,3 +16,8 @@ def test_kmeans_fails_on_non_csv_file():
 def test_kmeans_fails_on_non_integer_clusters():
     with raises(TypeError, match="Clusters must be an integer"):
         kmeans("samples.csv", 3.6)
+
+
+def test_kmeans_fails_on_non_integer_iterations():
+    with raises(TypeError, match="iterations must be an integer"):
+        kmeans("samples.csv", 3, 14.3)
