@@ -28,6 +28,10 @@ def kmeans(filename: Union[Path, str], clusters: int = 3, iterations: int = 10):
     if not (isinstance(filename, Path) or isinstance(filename, str)):
         raise TypeError("The filename must be a Path or string")
 
+    # error raising: This function should only accept CSV file
+    if not str(filename).endswith('.csv'):
+        raise TypeError("The file inputted must be a csv file")
+
     # error raising: clusters using wrong format
     if not isinstance(clusters, int):
         raise TypeError("Clusters must be an integer")
