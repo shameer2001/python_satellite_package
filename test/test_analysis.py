@@ -28,3 +28,5 @@ def test_kmeans_fails_on_non_positive_clusters_and_iterations():
         kmeans("samples.csv", -3, 14)
     with raises(TypeError, match="clusters and iterations must be positive"):
         kmeans("samples.csv", 3, -14)
+    with raises(TypeError, match="clusters and iterations must be positive"):
+        kmeans("samples.csv", -3, -14)
