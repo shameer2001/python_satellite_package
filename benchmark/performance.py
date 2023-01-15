@@ -10,13 +10,13 @@ import clustering
 
 
 # Version of cluster with numpy
-def with_np(data: np.array, clusters: int = 3, iterations: int = 10):
+def with_np(data: np.ndarray, clusters: int = 3, iterations: int = 10):
     """
     Perform the numpy version where return is unnecessary
 
     Parameters
     ----------
-    data: np.array
+    data: np.ndarray
         Dataset loaded from the csv file, which is an array
 
     clusters : int, optional
@@ -30,13 +30,13 @@ def with_np(data: np.array, clusters: int = 3, iterations: int = 10):
 
 
 # Version of cluster without numpy
-def without_np(data: np.array, clusters: int = 3, iterations: int = 10):
+def without_np(data: np.ndarray, clusters: int = 3, iterations: int = 10):
     """
     Perform the without numpy version where return is unnecessary
 
     Parameters
     ----------
-    data : np.array
+    data : np.ndarray
         Dataset loaded from the csv file, which is an array
 
     clusters : int, optional

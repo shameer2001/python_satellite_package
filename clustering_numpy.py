@@ -15,7 +15,7 @@ def load_data(filepath: Path):
 
     Returns
     -------
-    data : np.array
+    data : np.matrix
         The data from the csv file.
     """
     data = np.loadtxt(filepath, dtype=float, delimiter=',')
@@ -23,7 +23,7 @@ def load_data(filepath: Path):
 
 
 # Add distance function to reduce repetition and for loops.
-def distance(centres: np.array, points: np.array):
+def distance(centres: np.ndarray, points: np.ndarray):
     """
     This function calculates the euclidean distance between each point from centres and each point from dataset
     and stores those distances in an array by using matrix product, which can reduce the usage of for loops and
@@ -31,10 +31,10 @@ def distance(centres: np.array, points: np.array):
 
     Parameters
     ----------
-    centres: np.array
+    centres: np.ndarray
         A set of points which contains all centres
 
-    points: np.array
+    points: np.ndarray
         Dataset loaded from the csv file contains all points
 
     Returns
@@ -53,13 +53,13 @@ def distance(centres: np.array, points: np.array):
 
 
 # Perform the kmean algorithm using numpy.
-def cluster(data: np.array, clusters: int = 3, iterations: int = 10):
+def cluster(data: np.ndarray, clusters: int = 3, iterations: int = 10):
     """
     Use kmean algorithm (numpy version) to classify dataset provided.
 
     Parameters
     ----------
-    data: np.array
+    data: np.ndarray
         Dataset loaded from the csv file, which is an array
 
     clusters : int, optional
@@ -70,10 +70,10 @@ def cluster(data: np.array, clusters: int = 3, iterations: int = 10):
 
     Returns
     -------
-    alloc : np.array
+    alloc : np.ndarray
         Index of clusters where each points belong to
 
-    centres : np.array
+    centres : np.ndarray
         The final centres for each cluster
     """
     num = len(data)

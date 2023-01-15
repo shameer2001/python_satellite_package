@@ -20,7 +20,7 @@ def kmeans(filename: Path, clusters: int = 3, iterations: int = 10):
 
     Returns
     -------
-    alloc : np.array
+    alloc : np.ndarray
         Index of clusters where each point belong to
     """
     # This function is from clustering_numpy.
