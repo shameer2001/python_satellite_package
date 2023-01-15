@@ -36,6 +36,10 @@ def kmeans(filename: Union[Path, str], clusters: int = 3, iterations: int = 10):
     if not isinstance(iterations, int):
         raise TypeError("iterations must be an integer")
 
+    # error raising: clusters and iterations are not positive.
+    if clusters <= 0 or iterations <= 0:
+        raise TypeError("clusters and iterations must be positive")
+
     # This function is from clustering_numpy.
     data = load_data(filename)
     # Perform the algorithm to the dataset we loaded.
