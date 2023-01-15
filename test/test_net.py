@@ -143,3 +143,90 @@ def test_query_err_instr2():
         assert False, "ValueError not raised for invalid instrument input."
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+############################## download_isa():###################################
+
+
+
+@pytest.mark.parametrize('instruments', [('lir'), ('manannan'), ('fand'), ('ecne'),] )
+def test_download(instruments):
+    """Testing the download_isa() function without `save_dir` parameter.
+    """
+
+    query = net.query_isa("2022-12-05", "2022-12-07", instruments)
+    net.download_isa(query[0]['filename'])
+
+    # test if the file exists:
+    assert Path(query[0]['filename']).exists() == True, "The file did not download."
+
+
+
+@pytest.mark.parametrize('instruments', [('lir'), ('manannan'), ('fand'), ('ecne'),] )
+def test_download_save(instruments):
+    """Testing the download_isa() function WITH `save_dir` parameter.
+    """
+
+    query = net.query_isa("2022-12-05", "2022-12-07", instruments)
+    net.download_isa(query[0]['filename'], '..')
+    
+    # test if the file path exists:
+    assert Path('../{}'.format(query[0]['filename'])).exists() == True, "The `save_dir` path does not exists and/or the file did not download."
+
+
+
+
+
+
+########## NEGATIVE TESTS ###########
+
+@pytest.mark.parametrize('types', [(123), (False), (1.23)]) # parameter that will input 3 different file types one-by-one
+def test_download_err_filename(types):
+    """Test TypeError for filename input.
+    """
+    try:
+        net.download_isa(filename=types)
+    except TypeError as e:
+        assert str(e) == "The filename must be a string."
+    else:
+        assert False, "TypeError not raised for filename input."
+
+
+@pytest.mark.parametrize('types', [(123), (False), (1.23)])
+def test_download_err_savedir(types):
+    """Test TypeError for save_dir input.
+    """
+    try:
+        net.download_isa(filename="test.txt", save_dir=types)
+    except TypeError as e:
+        assert str(e) == "The `save_dir` variable is not a string."
+    else:
+        assert False, "TypeError not raised for save_dir input."
+
+
+def test_download_error_savedir2():
+    """Test NotADirectoryError for non-existent save_dir input.
+    """
+    try:
+        net.download_isa(filename="test.txt", save_dir="invalid_dir")
+    except NotADirectoryError as e:
+        assert str(e) == "The directory given, for the `save_dir` variable, does not exist."
+    else:
+        assert False, "NotADirectoryError not raised for non-existent save_dir input."
