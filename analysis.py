@@ -1,9 +1,10 @@
 from clustering_numpy import *
 from pathlib import Path
+from typing import Union
 
 
 # Add a function kmeans() to perform kmean algorithm on csv file provided.
-def kmeans(filename: Path, clusters: int = 3, iterations: int = 10):
+def kmeans(filename: Union[Path, str], clusters: int = 3, iterations: int = 10):
     """
     Use kmean algorithm (numpy version) to classify dataset provided.
 
@@ -29,3 +30,6 @@ def kmeans(filename: Path, clusters: int = 3, iterations: int = 10):
     alloc, centres = cluster(data, clusters, iterations)
 
     return alloc
+
+
+print(kmeans("samples.csv"))
