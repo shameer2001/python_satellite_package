@@ -11,3 +11,8 @@ def test_kmeans_fails_on_wrong_format_filename():
 def test_kmeans_fails_on_non_csv_file():
     with raises(TypeError, match="The file inputted must be a csv file"):
         kmeans("samples.txt")
+
+
+def test_kmeans_fails_on_non_integer_clusters():
+    with raises(TypeError, match="Clusters must be an integer"):
+        kmeans("samples.csv", 3.6)
