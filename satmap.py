@@ -1,6 +1,6 @@
 from typing import Union
 from pathlib import Path
-from utils import earth_to_pixel, pixel_to_earth
+from aigeanpy.utils import earth_to_pixel, pixel_to_earth
 import numpy as np
 from datetime import datetime
 from skimage.transform import rescale, downscale_local_mean
@@ -8,7 +8,7 @@ import os
 import matplotlib.pyplot as plt
 import json
 
-from read import *
+from aigeanpy.read import *
 
 
 
@@ -78,9 +78,9 @@ class SatMap:
         yLow, yHigh = min(yLowA, yLowB), max(yHighA, yHighB)
 
         # do the add logic
-        data = np.zeros((yHigh - yLow, xHigh - xLow))
-        data[yLowA - yLow:yHighA - yHigh, xLowA - xLow:xHighA - xLow] = coordA
-        data[yLowB - yLow:yHighB - yHigh, xLowB - xLow:xHighB - xLow] = coordB
+        data = np.zeros((int(yHigh - yLow), int(xHigh - xLow)))
+        data[int(yLowA-yLow):int(yHighA-yLow), int(xLowA-xLow):int(xHighA-xLow)] = coordA
+        data[int(yLowB-yLow):int(yHighB-yLow), int(xLowB-xLow):int(xHighB-xLow)] = coordB
         data = earth_to_pixel(data, self.meta)
 
         # create the new SatMap instance to store the result
@@ -165,7 +165,7 @@ class SatMap:
         yLow, yHigh = max(yLowA, yLowB), min(yHighA, yHighB)
 
         # do the subtract logic
-        data = coordA[xLow-xLowA:xHigh, yLow-yLowA:yHigh] - coordB[xLow-xLowB:xHigh, yLow-yLowB:yHigh]
+        data = coordA[int(xLow-xLowA):int(xHigh), int(yLow-yLowA):int(yHigh)] - coordB[int(xLow-xLowB):int(xHigh), int(yLow-yLowB):int(yHigh)]
         data = earth_to_pixel(data, self.meta)
 
         # create the new SatMap instance to store the result
