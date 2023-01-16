@@ -43,16 +43,21 @@ def aigean_metadata(filenames):
      - asadasf.py
     """
     for i in filenames:
+        # filter input in wrong type
         if type(i) != str:
             raise TypeError("name of files inpute must be string")
+        # filter inputs are not in right file format (xxxxx.xxx) 
         if len(i.split('.')) != 2:
             raise ValueError("name of files should in right format")
+    # create this list to collect file names are corrupted or failed to process 
     error_file = []
+    # create test_dist to collect first 4 key elements for testing purpose
     test_dict = {}
     if len(filenames) == 1:
         for i in filenames:
             filename = i
             filetype = filename.split('.')[1]
+            # filter file with wrong type
             if filetype in ('asdf','hdf5','zip'):
                 download_form = filename.split('_')[0]
                 # to see if the file is downloaded from 'aigean' file
@@ -61,7 +66,8 @@ def aigean_metadata(filenames):
                     satmap_file = get_satmap(filename)
                     meta_data = satmap_file.meta
                     # to check if the file is corrupted and missed meta data
-                    if len(meta_data) == 9:
+                    # we take the file with less than 9 keys as corrupted
+                    if len(meta_data) >= 9:
                         ## use the function get_map after branch merger
                         archive = meta_data['archive']
                         obv = meta_data['observatory']
@@ -88,21 +94,24 @@ def aigean_metadata(filenames):
             else:
                 print('These files failed while being processed')
                 print(' - {}'.format(filename))
+
             return test_dict
     
     else:
         for i in filenames:
             filename = i
             filetype = filename.split('.')[1]
+            # filter file with wrong type
             if filetype in ('asdf','hdf5','zip'):
                 download_form = filename.split('_')[0]
+                # to see if the file is downloaded from 'aigean' file
                 if download_form in ('aigean'):
                     download_file = net.download_isa (filename)
                     satmap_file = get_satmap(filename)
                     meta_data = satmap_file.meta
-                    # to check if the file is corrupted and missed meta data
-                    if len(meta_data) == 9:               
-                        ## use the function get_map after
+                    # to check if the file is corrupted and missed meta data, we see file with less than 9 key elements as a corrupted one
+                    if len(meta_data) >= 9:               
+                        # extract 9 key elements
                         archive = meta_data['archive']
                         obv = meta_data['observatory']
                         instrument = meta_data['instrument']
@@ -125,14 +134,15 @@ def aigean_metadata(filenames):
                     error_file.append(filename)
             else:
                 error_file.append(filename)
-        # list of the files that were incorrectly read
+        # list of the files that were corrupted or failed to process, and print them out
         print('These files failed while being processed')
         for i in range(len(error_file)):
             print (' - {}'.format(error_file[i]))
         return
-
+# test sample
 # x =aigean_metadata(['aigean_man_20221205_194510.hdf5'])
 
+# command line interface setting
 def process_metadata():
     parser = ArgumentParser(description='Extracting the file metadata information')
     parser.add_argument('filenames',type=str,nargs='+',help='input a file or list of them')
