@@ -38,13 +38,13 @@ def test_add(date, xcoords, ycoords, shape, commonX, commonY, AX, AY):
     assert satmap.data[commonYLow:commonYHigh, commonXLow:commonXHigh].all() == satmapA.data[AYLow:AYHigh, AXLow:AXHigh].all()
 
 
-#@pytest.mark.parametrize('start, stop, xcoords, ycoords, shape, AX, AY, BX, BY', [
-#    ("2023-01-03", "2023-01-04", [600.0, 800.0], [0.0, 300.0], (10, 7), [14, 27], [0, 10], [0, 7], [0, 10])
-#])
-#def test_sub(start, stop, xcoords, ycoords, shape, AX, AY, BX, BY):
+@pytest.mark.parametrize('start, stop, xcoords, ycoords, shape, AX, AY, BX, BY', [
+    ("2023-01-07", "2023-01-10", [400.0, 700.0], [200.0, 500.0], (10, 10), [10, 20], [0, 10], [0, 10], [0, 10])
+])
+def test_sub(start, stop, xcoords, ycoords, shape, AX, AY, BX, BY):
     """Testing the SatMap.__sub__() function for subtracting two images taken in the different days and using the same instrument
     """
-    """
+
 
     query = net.query_isa(start, stop, 'lir')
     net.download_isa(query[0]['filename'])
@@ -57,7 +57,7 @@ def test_add(date, xcoords, ycoords, shape, commonX, commonY, AX, AY):
 
     assert satmap.meta['xcoords'] == xcoords
     assert satmap.meta['ycoords'] == ycoords
-    assert satmap.meta['extra'] == 'subtract'
+    assert satmap.meta['source'] == 'subtract'
     assert satmap.shape == approx(shape, rel=0.1)
 
     # x, y for the satmapA (overlap)
@@ -68,8 +68,7 @@ def test_add(date, xcoords, ycoords, shape, commonX, commonY, AX, AY):
     BXLow, BXHigh = BX
     BYLow, BYHigh = BY
 
-    assert satmap.data == satmapA.data[AYLow:AYHigh, AXLow:AXHigh] - satmapB.data[BYLow:BYHigh, BXLow:BXHigh]
-        """
+    assert satmap.data.all() == (satmapA.data[AYLow:AYHigh, AXLow:AXHigh] - satmapB.data[BYLow:BYHigh, BXLow:BXHigh]).all()
 
 
 

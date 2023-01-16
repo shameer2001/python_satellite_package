@@ -161,15 +161,21 @@ class SatMap:
         coordB = earthB['earthCoord']
 
         # specify the boundary of final combined result (top-left, bottom-right)
-        xLow, xHigh = max(xLowA, xLowB), min(xHighA, xHighB)
-        yLow, yHigh = max(yLowA, yLowB), min(yHighA, yHighB)
+        xLow, xHigh = min(xLowA, xLowB), max(xHighA, xHighB)
+        yLow, yHigh = min(yLowA, yLowB), max(yHighA, yHighB)
 
-        # do the subtract logic
-        data = coordA[int(xLow-xLowA):int(xHigh), int(yLow-yLowA):int(yHigh)] - coordB[int(xLow-xLowB):int(xHigh), int(yLow-yLowB):int(yHigh)]
-        data = earth_to_pixel(data, self.meta)
+        # do the add logic
+        dataA = np.zeros((int(yHigh - yLow), int(xHigh - xLow)))
+        dataB = np.zeros((int(yHigh - yLow), int(xHigh - xLow)))
+        dataA[int(yLowA-yLow):int(yHighA-yLow), int(xLowA-xLow):int(xHighA-xLow)] = coordA
+        dataB[int(yLowB-yLow):int(yHighB-yLow), int(xLowB-xLow):int(xHighB-xLow)] = coordB
+        data = dataA-dataB
+        finalData = data[int(max(yLowA-yLow, yLowB-yLow)):int(min(yHighA-yLow, yHighB-yLow)), int(max(xLowA-xLow, xLowB-xLow)):int(min(xHighA-xLow, xHighB-xLow))]
+
+        finalData = earth_to_pixel(finalData, self.meta)
 
         # create the new SatMap instance to store the result
-        shape = data.shape
+        shape = finalData.shape
         fov = (xHigh - xLow, yHigh - yLow)
         centre = ((xHigh+xLow)/2, (yHigh+yLow)/2)
 
@@ -182,8 +188,8 @@ class SatMap:
         meta['instrument'] = self.meta['instrument']
         meta['date'] = now.date()
         meta['time'] = now.time()
-        meta['xcoords'] = [xLow, xHigh]
-        meta['ycoords'] = [yLow, yHigh]
+        meta['xcoords'] = [max(xLowA, xLowB), min(xHighA, xHighB)]
+        meta['ycoords'] = [max(yLowA, yLowB), min(yHighA, yHighB)]
         meta['resolution'] = self.meta['resolution']
         # add the extra property, indicating the source of the image (add/subtract/mosaic/origin)
         meta['source'] = "subtract"
