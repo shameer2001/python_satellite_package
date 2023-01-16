@@ -52,11 +52,12 @@ def aigean_today(instrument = None, saveplot=False):
     # transform type of text from str to list
     most_recent_date_update = eval(text)
     date_list = []
+    # find the most recent observation
     for i in range(len(most_recent_date_update)):
         date_list.append(most_recent_date_update[i]['time'])
     most_recent_obv_index = date_list.index(max(date_list))
     most_recent_obv = most_recent_date_update[most_recent_obv_index]
-    # download to current working directory
+    # download file to current working directory
     download_file = net.download_isa (most_recent_obv['filename'])
 
     if saveplot == True:  
@@ -94,6 +95,7 @@ def aigean_today(instrument = None, saveplot=False):
 # test sample
 # aigean_today(instrument='lir',saveplot=True)
 
+# command line interface setting
 def process_today():
     parser = ArgumentParser(description='Generate the last observation data ot image')
 

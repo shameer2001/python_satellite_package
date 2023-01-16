@@ -1,7 +1,7 @@
 import pytest
 from pathlib import Path
-from aigean_today import aigean_today
-from aigean_metadata import aigean_metadata
+from aigeanpy.aigean_today import aigean_today
+from aigeanpy.aigean_metadata import aigean_metadata
 class Test_aigean_today(object):
     # the negative test
     def test_instrument_input_type_error(self):
@@ -33,10 +33,12 @@ class Test_aigean_metadata(object):
 
     
 # the negative test
+# test all these wrong inputs
 test_1 = Test_aigean_today.test_instrument_input_type_error(123)
 test_2 = Test_aigean_today.test_instrument_input_value_error('abc')
 test_3 = Test_aigean_metadata.test_filename_input_type_error([123,251.23])
 test_4 = Test_aigean_metadata.test_filename_input_value_error(['abc'])
 # the positive test
+# test with the sample file with it first 4 key elements.
 test_5 = Test_aigean_metadata.test_function_return(['aigean_man_20221205_194510.hdf5'])
 # it all passed
