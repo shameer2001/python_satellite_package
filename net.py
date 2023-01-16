@@ -1,7 +1,5 @@
 from requests import *
 from pathlib import Path
-from datetime import datetime as dt
-from datetime import timedelta
 
 class net:
     
@@ -71,6 +69,13 @@ class net:
             else:
                 #print(r.json())
                 return r.json() # Return json for testing
+
+        
+        # Raise error if empty query results (likely due to no data in given data range):
+        if r.content == b'[]\n':
+            raise ValueError("There is no data available on this date for the instrument(s) selected.")
+
+    
         
 
 
@@ -134,12 +139,13 @@ class net:
 net.download_isa("aigean_lir_20221205_191610.asdf")
 import json
 import numpy as np
-query = net.query_isa()
+#query = net.query_isa()
 #query = net.query_isa("2022-12-05", "2022-12-06", "lir")
-print(query)
+
+#print(query)
 
 #query = json.load(query)
 #print(np.array(query))
-print(type(query))
+#print(type(query))
 
 #print(query[-1])

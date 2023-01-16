@@ -1,6 +1,5 @@
 from net import *
 import pytest
-import numpy as np
 
 
 ############################## query_isa():###################################
@@ -73,7 +72,7 @@ def test_default_query_keys():
     for i in query: assert list( i.keys() ) == expected_query_keys, "One or more of the keys in one or more of the query result(s) is incorrect."
 
 
-def test_default_query_keys(instruments):
+def test_default_query_keys():
 
     query = net.query_isa()  
     for i in query: assert (i['instrument']=='lir' or i['instrument']=='manannan' or i['instrument']=='fand' or i['instrument']=='ecne'), "The instrument in one or more of the query result does not match the input." 
@@ -98,7 +97,63 @@ def test_default_query_keys():
 
 
 
-########## NEGATIVE TESTS ###########
+
+
+
+
+
+############################## download_isa():###################################
+
+
+
+@pytest.mark.parametrize('instruments', [('lir'), ('manannan'), ('fand'), ('ecne'),] )
+def test_download(instruments):
+    """Testing the download_isa() function without `save_dir` parameter.
+    """
+
+    query = net.query_isa("2022-12-05", "2022-12-07", instruments)
+    net.download_isa(query[0]['filename'])
+
+    # test if the file exists:
+    assert Path(query[0]['filename']).exists() == True, "The file did not download."
+
+
+
+@pytest.mark.parametrize('instruments', [('lir'), ('manannan'), ('fand'), ('ecne'),] )
+def test_download_save(instruments):
+    """Testing the download_isa() function WITH `save_dir` parameter.
+    """
+
+    query = net.query_isa("2022-12-05", "2022-12-07", instruments)
+    net.download_isa(query[0]['filename'], '..')
+    
+    # test if the file path exists:
+    assert Path('../{}'.format(query[0]['filename'])).exists() == True, "The `save_dir` path does not exists and/or the file did not download."
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+########## query_isa() NEGATIVE TESTS ###########
 
 
 def test_query_err_startdate():
@@ -149,53 +204,8 @@ def test_query_err_instr2():
 
 
 
+########## download_isa() NEGATIVE TESTS ###########
 
-
-
-
-
-
-
-
-
-
-
-
-
-############################## download_isa():###################################
-
-
-
-@pytest.mark.parametrize('instruments', [('lir'), ('manannan'), ('fand'), ('ecne'),] )
-def test_download(instruments):
-    """Testing the download_isa() function without `save_dir` parameter.
-    """
-
-    query = net.query_isa("2022-12-05", "2022-12-07", instruments)
-    net.download_isa(query[0]['filename'])
-
-    # test if the file exists:
-    assert Path(query[0]['filename']).exists() == True, "The file did not download."
-
-
-
-@pytest.mark.parametrize('instruments', [('lir'), ('manannan'), ('fand'), ('ecne'),] )
-def test_download_save(instruments):
-    """Testing the download_isa() function WITH `save_dir` parameter.
-    """
-
-    query = net.query_isa("2022-12-05", "2022-12-07", instruments)
-    net.download_isa(query[0]['filename'], '..')
-    
-    # test if the file path exists:
-    assert Path('../{}'.format(query[0]['filename'])).exists() == True, "The `save_dir` path does not exists and/or the file did not download."
-
-
-
-
-
-
-########## NEGATIVE TESTS ###########
 
 @pytest.mark.parametrize('types', [(123), (False), (1.23)]) # parameter that will input 3 different file types one-by-one
 def test_download_err_filename(types):
