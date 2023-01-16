@@ -86,3 +86,67 @@ def test_data_shape(instruments, shapes):
     
 
 
+# input the instrument name with the corresponding expected "field of views" one after the other:
+@pytest.mark.parametrize('instruments, FOVs', [('lir', (600,300) ), ('manannan', (450,150) ), ('fand', (225,50) )]) # expected fov calculated with excel
+def test_data_fov(instruments, FOVs):
+    '''Testing that the field of view is correct with the expected result form excel
+    '''
+    query = net.query_isa("2022-12-15", "2022-12-17", instruments)
+    net.download_isa(query[0]['filename'])
+    satmap = get_satmap(query[0]['filename'])
+
+    result = satmap.fov
+    expected_fov = FOVs
+
+
+    assert result == approx(expected_fov, rel=0.1), "The 'field of view' calculation is incorrect."
+
+
+
+# input the instrument name with the corresponding expected "centres" one after the other:
+@pytest.mark.parametrize('instruments, centres', [('lir', (300,150) ), ('manannan', (225, 75) ), ('fand', (187.5,25) )]) # expected centre calculated with excel
+def test_data_centre(instruments, centres):
+
+    query = net.query_isa("2022-12-02", "2022-12-05", instruments)
+    net.download_isa(query[0]['filename'])
+    satmap = get_satmap(query[0]['filename'])
+
+    result = satmap.centre
+    expected_centre = centres
+
+
+    assert result == approx(expected_centre, rel=0.1), "The calculation of the centre of the image is incorrect."
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+########## NEGATIVE TESTS ###########
+
+
+
+def test_get_satmap_typeerror():
+    '''Test case where file_name input is not a string
+    '''
+    with pytest.raises(TypeError, match="The file-name must be a string"):
+        get_satmap(123)
+
+def test_get_satmap_filenotfounderror():
+    '''Test case where file does not exist
+    '''
+    with pytest.raises(FileNotFoundError, match="The input file does not exist."):
+        get_satmap("non_existent_file.asdf")
+
+def test_get_satmap_nameerror():
+    '''Test case where file format is not supported
+    '''
+    with pytest.raises(NameError, match="The file format is not supported. Only these are accepted: ASDF, HDF5 and ZIP."):
+        get_satmap("file.txt")  
