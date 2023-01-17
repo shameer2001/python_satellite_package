@@ -13,7 +13,7 @@ author = 'Shameer Ahmad, Junyi Yin, Siqing Huang, Qiang Hu, Zhang Zhouhan'
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = []
+extensions = ['sphinx.ext.autodoc']  #enable autodoc function
 
 templates_path = ['_templates']
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
@@ -25,3 +25,11 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
 html_theme = 'alabaster'
 html_static_path = ['_static']
+
+
+# -- Path setup --------------------------------------------------------------
+
+import os
+import sys
+sys.path.insert(0, os.path.abspath('..'))
+#sys.path.insert(0, os.path.abspath('../net.py'))
