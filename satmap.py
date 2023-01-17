@@ -55,10 +55,10 @@ class SatMap:
 
         # check if the two images can be added or not
         if self.meta['date'] != other.meta['date']:
-            raise Exception("only the images from the same day can be added")
+            raise TypeError("only the images from the same day can be added")
 
         if self.meta['instrument'] != other.meta['instrument']:
-            raise Exception("only the images from the same instrument can be added")
+            raise TypeError("only the images from the same instrument can be added")
 
         # convert both of two image pixel data into earth coord
         earthA = pixel_to_earth(self.data, self.meta)
@@ -133,10 +133,10 @@ class SatMap:
 
         # check if the two images can be added or not
         if self.meta['date'] == other.meta['date']:
-            raise Exception("only the images from two different days can be subtracted")
+            raise TypeError("only the images from two different days can be subtracted")
 
         if self.meta['instrument'] != other.meta['instrument']:
-            raise Exception("only the images from the same instrument can be subtracted")
+            raise TypeError("only the images from the same instrument can be subtracted")
 
         xLowA, xHighA = self.meta['xcoords']
         yLowA, yHighA = self.meta['ycoords']
@@ -151,7 +151,7 @@ class SatMap:
         maxY = max(abs(yHighB-yLowB), abs(yHighA-yLowA))
 
         if yDist >= maxY or xDist >= maxX:
-            raise Exception("two images can not be subtracted because they have no overlap")
+            raise TypeError("two images can not be subtracted because they have no overlap")
 
         # convert both of two image pixel data into earth coord
         earthA = pixel_to_earth(self.data, self.meta)
