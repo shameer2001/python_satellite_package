@@ -114,8 +114,6 @@ def pixel_to_earth(pixel_coord: 'np.array', meta, resolution=None) -> dict:
             is None
     """
     # error raising: query using wrong data format
-    if type(pixel_coord) != np.ndarray:
-        raise TypeError("The attribute pixel_coord must be an numpy array.")
 
     if type(meta) != dict:
         raise TypeError("The attribute meta must be a dict.")
