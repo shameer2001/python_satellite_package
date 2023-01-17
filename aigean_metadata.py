@@ -1,6 +1,7 @@
 from argparse import ArgumentParser
 from satmap import SatMap, get_satmap
 from net import net
+from datetime import date
 
 def aigean_metadata(filenames):
     """ Extractin the metadata information from correct files, and show the uncorrect files name below
@@ -46,9 +47,14 @@ def aigean_metadata(filenames):
         # filter input in wrong type
         if type(i) != str:
             raise TypeError("name of files inpute must be string")
-        # filter inputs are not in right file format (xxxxx.xxx) 
+        # filter inputs are not in right file format (e.g. xxxxx.xxx) 
         if len(i.split('.')) != 2:
             raise ValueError("name of files should in right format")
+        # filter inputs with wrong date format in file name (e.g. 1332)
+        if int(i.split('_')[2][4:6]) > 12 or int(i.split('_')[2][6:8]) > 31:
+            raise ValueError("date in file name is wrong")
+
+        
     # create this list to collect file names are corrupted or failed to process 
     error_file = []
     # create test_dist to collect first 4 key elements for testing purpose
@@ -77,15 +83,24 @@ def aigean_metadata(filenames):
                         resolution = meta_data['resolution']
                         xcoords = meta_data['xcoords'] 
                         ycoords = meta_data['ycoords']
+                        date_metadata = meta_data['date']
                         test_dict = {'archive:': archive, 'observatory:': obv, 'instrument:': instrument, 'obs_date:': obs_date}
-                        print ('archive:', archive)
-                        print ('observatory:', obv)
-                        print ('instrument:', instrument)
-                        print ('obs_date:', obs_date)
-                        print ('year:', year)
-                        print ('resolution:', resolution)
-                        print ('xcoords:', xcoords)
-                        print ('ycoords:', ycoords)
+                        # filter file with wrong date information in mate data
+                        if int(date_metadata.split('-')[1]) > 12 or int(date_metadata.split('-')[2]) > 31:
+                            print('These files failed while being processed')
+                            print(' - {}'.format(filename))
+                        elif str(date.today()) < date_metadata:
+                            print('These files failed while being processed')
+                            print(' - {}'.format(filename))  
+                        else:                 
+                            print ('archive:', archive)
+                            print ('observatory:', obv)
+                            print ('instrument:', instrument)
+                            print ('obs_date:', obs_date)
+                            print ('year:', year)
+                            print ('resolution:', resolution)
+                            print ('xcoords:', xcoords)
+                            print ('ycoords:', ycoords)
                     
                     else:
                         print('These files failed while being processed')
@@ -120,14 +135,23 @@ def aigean_metadata(filenames):
                         year = meta_data['year']
                         xcoords = meta_data['xcoords'] 
                         ycoords = meta_data['ycoords']
-                        print ('{}:archive: {}'.format(filename,archive))
-                        print ('{}:observatory: {}'.format(filename,obv))
-                        print ('{}:instrument: {}'.format(filename,instrument))
-                        print ('{}:obs_date: {}'.format(filename,obs_date))
-                        print ('{}:year: {}'.format(filename,year))
-                        print ('{}:resolution: {}'.format(filename,resolution))
-                        print ('{}:xcoords: {}'.format(filename,xcoords))
-                        print ('{}:ycoords: {}'.format(filename,ycoords))
+                        date_metadata = meta_data['date']
+                        # filter file with wrong date information in meta data
+                        if int(date_metadata.split('-')[1]) > 12 or int(date_metadata.split('-')[2]) > 31:
+                            error_file.append(filename)
+                        # filter file with wrong date information in meta data
+                        elif str(date.today()) < date_metadata:
+                            error_file.append(filename)
+                        else:
+                            print (meta_data['date'])
+                            print ('{}:archive: {}'.format(filename,archive))
+                            print ('{}:observatory: {}'.format(filename,obv))
+                            print ('{}:instrument: {}'.format(filename,instrument))
+                            print ('{}:obs_date: {}'.format(filename,obs_date))
+                            print ('{}:year: {}'.format(filename,year))
+                            print ('{}:resolution: {}'.format(filename,resolution))
+                            print ('{}:xcoords: {}'.format(filename,xcoords))
+                            print ('{}:ycoords: {}'.format(filename,ycoords))
                     else:
                         error_file.append(filename)
                 else:
@@ -140,6 +164,7 @@ def aigean_metadata(filenames):
             print (' - {}'.format(error_file[i]))
         return
 # test sample
+# x =aigean_metadata(['aigean_man_20221205_194510.hdf5','aigean_fan_20221206_190424.zip'])
 # x =aigean_metadata(['aigean_man_20221205_194510.hdf5'])
 
 # command line interface setting
