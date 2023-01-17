@@ -1,14 +1,14 @@
 from typing import Union
 from pathlib import Path
-from utils import earth_to_pixel, pixel_to_earth
+from aigeanpy.utils import earth_to_pixel, pixel_to_earth
 import numpy as np
 from datetime import datetime
-from skimage.transform import rescale, downscale_local_mean
+from skimage.transform import rescale, downscale_local_mean, resize
 import os
 import matplotlib.pyplot as plt
 import json
 
-from read import *
+from aigeanpy.read import *
 
 
 
@@ -55,10 +55,10 @@ class SatMap:
 
         # check if the two images can be added or not
         if self.meta['date'] != other.meta['date']:
-            raise Exception("only the images from the same day can be added")
+            raise TypeError("only the images from the same day can be added")
 
         if self.meta['instrument'] != other.meta['instrument']:
-            raise Exception("only the images from the same instrument can be added")
+            raise TypeError("only the images from the same instrument can be added")
 
         # convert both of two image pixel data into earth coord
         earthA = pixel_to_earth(self.data, self.meta)
@@ -78,9 +78,9 @@ class SatMap:
         yLow, yHigh = min(yLowA, yLowB), max(yHighA, yHighB)
 
         # do the add logic
-        data = np.zeros((yHigh - yLow, xHigh - xLow))
-        data[yLowA - yLow:yHighA - yHigh, xLowA - xLow:xHighA - xLow] = coordA
-        data[yLowB - yLow:yHighB - yHigh, xLowB - xLow:xHighB - xLow] = coordB
+        data = np.zeros((int(yHigh - yLow), int(xHigh - xLow)))
+        data[int(yLowA-yLow):int(yHighA-yLow), int(xLowA-xLow):int(xHighA-xLow)] = coordA
+        data[int(yLowB-yLow):int(yHighB-yLow), int(xLowB-xLow):int(xHighB-xLow)] = coordB
         data = earth_to_pixel(data, self.meta)
 
         # create the new SatMap instance to store the result
@@ -133,10 +133,10 @@ class SatMap:
 
         # check if the two images can be added or not
         if self.meta['date'] == other.meta['date']:
-            raise Exception("only the images from two different days can be subtracted")
+            raise TypeError("only the images from two different days can be subtracted")
 
         if self.meta['instrument'] != other.meta['instrument']:
-            raise Exception("only the images from the same instrument can be subtracted")
+            raise TypeError("only the images from the same instrument can be subtracted")
 
         xLowA, xHighA = self.meta['xcoords']
         yLowA, yHighA = self.meta['ycoords']
@@ -151,7 +151,7 @@ class SatMap:
         maxY = max(abs(yHighB-yLowB), abs(yHighA-yLowA))
 
         if yDist >= maxY or xDist >= maxX:
-            raise Exception("two images can not be subtracted because they have no overlap")
+            raise TypeError("two images can not be subtracted because they have no overlap")
 
         # convert both of two image pixel data into earth coord
         earthA = pixel_to_earth(self.data, self.meta)
@@ -161,15 +161,21 @@ class SatMap:
         coordB = earthB['earthCoord']
 
         # specify the boundary of final combined result (top-left, bottom-right)
-        xLow, xHigh = max(xLowA, xLowB), min(xHighA, xHighB)
-        yLow, yHigh = max(yLowA, yLowB), min(yHighA, yHighB)
+        xLow, xHigh = min(xLowA, xLowB), max(xHighA, xHighB)
+        yLow, yHigh = min(yLowA, yLowB), max(yHighA, yHighB)
 
-        # do the subtract logic
-        data = coordA[xLow-xLowA:xHigh, yLow-yLowA:yHigh] - coordB[xLow-xLowB:xHigh, yLow-yLowB:yHigh]
-        data = earth_to_pixel(data, self.meta)
+        # do the add logic
+        dataA = np.zeros((int(yHigh - yLow), int(xHigh - xLow)))
+        dataB = np.zeros((int(yHigh - yLow), int(xHigh - xLow)))
+        dataA[int(yLowA-yLow):int(yHighA-yLow), int(xLowA-xLow):int(xHighA-xLow)] = coordA
+        dataB[int(yLowB-yLow):int(yHighB-yLow), int(xLowB-xLow):int(xHighB-xLow)] = coordB
+        data = dataA-dataB
+        finalData = data[int(max(yLowA-yLow, yLowB-yLow)):int(min(yHighA-yLow, yHighB-yLow)), int(max(xLowA-xLow, xLowB-xLow)):int(min(xHighA-xLow, xHighB-xLow))]
+
+        finalData = earth_to_pixel(finalData, self.meta)
 
         # create the new SatMap instance to store the result
-        shape = data.shape
+        shape = finalData.shape
         fov = (xHigh - xLow, yHigh - yLow)
         centre = ((xHigh+xLow)/2, (yHigh+yLow)/2)
 
@@ -182,8 +188,8 @@ class SatMap:
         meta['instrument'] = self.meta['instrument']
         meta['date'] = now.date()
         meta['time'] = now.time()
-        meta['xcoords'] = [xLow, xHigh]
-        meta['ycoords'] = [yLow, yHigh]
+        meta['xcoords'] = [max(xLowA, xLowB), min(xHighA, xHighB)]
+        meta['ycoords'] = [max(yLowA, yLowB), min(yHighA, yHighB)]
         meta['resolution'] = self.meta['resolution']
         # add the extra property, indicating the source of the image (add/subtract/mosaic/origin)
         meta['source'] = "subtract"
@@ -231,60 +237,63 @@ class SatMap:
             raise Exception("only the images from the same day can be added")
 
         # get the rescale factor for both images
-        resolution = float(resolution) if not None else max(float(self.meta['resolution']), float(other.meta['resolution']))
-        factorA = self.meta['resolution'] / resolution
-        factorB = other.meta['resolution'] / resolution
+        resolution = min(self.meta['resolution'], other.meta['resolution']) if resolution is None else resolution
+        scaledA = rescale(self.data, self.meta['resolution'])
+        scaledB = rescale(other.data, other.meta['resolution'])
 
-        # rescale the pixelA and pixelB, to uniform their resolution
-        pixelA = rescale(self.data, factorA) if factorA <= 1 else downscale_local_mean(self.data, (factorA, factorA))
-        pixelB = rescale(other.data, factorB) if factorB <= 1 else downscale_local_mean(other.data, (factorB, factorB))
-
-        # then execute the identical logic as the + operation
-        # convert both of two image pixel data into earth coord
-        earthA = pixel_to_earth(pixelA, self.meta, resolution)
-        earthB = pixel_to_earth(pixelB, other.meta, resolution)
-
-        # todo Note that changes in resolution may necessitate changes in field-of-view.
-        #  In this case, your code should raise an appropriate exception (NOT SURE HOW TO DO)
-
-        coordA = earthA['earthCoord']
-        coordB = earthB['earthCoord']
-
-        # specify the boundary of final combined result (top-left, bottom-right)
         xLowA, xHighA = self.meta['xcoords']
         yLowA, yHighA = self.meta['ycoords']
 
         xLowB, xHighB = other.meta['xcoords']
         yLowB, yHighB = other.meta['ycoords']
 
+        scaledA = resize(scaledA, ((yHighA-yLowA), (xHighA-xLowA)))
+        scaledB = resize(scaledB, ((yHighB-yLowB), (xHighB-xLowB)))
+
+        xLowA, xHighA = int(xLowA), int(xHighA)
+        yLowA, yHighA = int(yLowA), int(yHighA)
+
+        xLowB, xHighB = int(xLowB), int(xHighB)
+        yLowB, yHighB = int(yLowB), int(yHighB)
+
+        # calculate the size of the combined image
+        top = max(yHighA, yHighB)
+        bottom = min(yLowA, yLowB)
+        left = min(xLowA, xLowB)
+        right = max(xHighA, xHighB)
+
+        data = np.zeros((int(top-bottom), int(right-left)))
+        data[:, :] = np.nan
+
+        data[yLowA-bottom:yHighA-bottom, xLowA-left:xHighA-left] = scaledA[::-1, ::]
+        data[yLowB-bottom:yHighB-bottom, xLowB-left:xHighB-left] = scaledB[::-1, ::]
+
+        ranges = [bottom, top, left, right]
+
+        # do the padding
         if not padding:
-            xDist = abs(xLowA - xLowB)
-            yDist = abs(yLowA - yLowB)
+            # raise the error if two images are not overlapping
+            if xHighA < xLowB or yHighA < yLowB or xLowA > xHighB or yLowA > yHighB:
+                raise IndexError("mosaic operation can only be done on the two overlapping images")
 
-            maxX = max(abs(xHighB-xLowB), abs(xHighA-xLowA))
-            maxY = max(abs(yHighB-yLowB), abs(yHighA-yLowA))
+            topCommon = min(yHighA, yHighB)
+            leftCommon = max(xLowA, xLowB)
+            rightCommon = min(xHighA, xHighB)
+            bottomCommon = max(yLowA, yLowB)
 
-            if yDist >= maxY or xDist >= maxX:
-                raise Exception("cannot perform mosaic without padding on these two images because they have no overlap")
+            sizeHorizontal = (topCommon - bottomCommon) * (right-left)
+            sizeVertical = (rightCommon-leftCommon) * (top-bottom)
 
-        # the xcoord and ycoord choice differs depending on the padding
-        if not padding:
-            xLow, xHigh = min(xLowA, xLowB), max(xHighA, xHighB)
-            yLow, yHigh = max(yLowA, yLowB), min(yHighA, yHighB)
-        else:
-            xLow, xHigh = min(xLowA, xLowB), max(xHighA, xHighB)
-            yLow, yHigh = min(yLowA, yLowB), max(yHighA, yHighB)
+            ranges = [bottomCommon, topCommon, left, right] if sizeHorizontal > sizeVertical else [bottom, top, leftCommon, rightCommon]
 
-        # do the add logic
-        data = np.zeros((yHigh - yLow, xHigh - xLow))
-        data[yLowA - yLow:yHighA - yHigh, xLowA - xLow:xHighA - xLow] = coordA
-        data[yLowB - yLow:yHighB - yHigh, xLowB - xLow:xHighB - xLow] = coordB
-        data = earth_to_pixel(data, self.meta, resolution)
+        data = data[ranges[0]-bottom:ranges[1]-bottom, ranges[2]-left:ranges[3]-left]
+        data = downscale_local_mean(data, resolution)[::-1, ::]
+
 
         # create the new SatMap instance to store the result
         shape = data.shape
-        fov = (xHigh - xLow, yHigh - yLow)
-        centre = ((xHigh+xLow)/2, (yHigh+yLow)/2)
+        fov = ((right-left)/resolution, (top-bottom)/resolution)
+        centre = ((left+right)/2, (top+bottom)/2)
 
         now = datetime.now()
 
@@ -295,8 +304,8 @@ class SatMap:
         meta['instrument'] = self.meta['instrument'] + ' + ' + other.meta['instrument']
         meta['date'] = now.date()
         meta['time'] = now.time()
-        meta['xcoords'] = [xLow, xHigh]
-        meta['ycoords'] = [yLow, yHigh]
+        meta['xcoords'] = [ranges[2], ranges[3]]
+        meta['ycoords'] = [ranges[0], ranges[1]]
         meta['resolution'] = resolution
         # add the extra property, indicating the source of the image (add/subtract/mosaic/origin)
         meta['source'] = "mosaic"
