@@ -70,15 +70,18 @@ def test_sub(start, stop, xcoords, ycoords, shape, AX, AY, BX, BY):
 
     assert satmap.data.all() == (satmapA.data[AYLow:AYHigh, AXLow:AXHigh] - satmapB.data[BYLow:BYHigh, BXLow:BXHigh]).all()
 
+#{"date":"2023-01-03","filename":"aigean_lir_20230103_154956.asdf","instrument":"lir","resolution":30,"time":"15:49:56","xcoords":[200.0,800.0],"ycoords":[0.0,300.0]}
+#{"date":"2023-01-03","filename":"aigean_man_20230103_154956.hdf5","instrument":"manannan","resolution":15,"time":"15:49:56","xcoords":[0.0,450.0],"ycoords":[0.0,150.0]}
 
-
-#@pytest.mark.parametrize('date, instruments, xcoords, ycoords, shape, commonX, commonY, AX, AY, resolution, padding', [
-#    ("2023-01-03", ['lir', 'manannan'], [0.0, 800.0], [0.0, 300.0], (10, 7), [14, 27], [0, 10], [0, 7], [0, 10])
-#])
-#def test_mosaic(date, instruments, xcoords, ycoords, shape, commonX, commonY, AX, AY, resolution, padding):
+@pytest.mark.parametrize('date, instruments, xcoords, ycoords, resolution, padding', [
+    ("2023-01-03", ['lir', 'manannan'], [0.0, 800.0], [0.0, 300.0], None, True),
+    ("2023-01-03", ['lir', 'manannan'], [0.0, 800.0], [0.0, 300.0], 20, True),
+    ("2023-01-03", ['lir', 'manannan'], [200.0, 450.0], [0.0, 150.0], None, False)
+])
+def test_mosaic(date, instruments, xcoords, ycoords, resolution, padding):
     """#Testing the SatMap.mosaic() function for adding two images taken in the same day, but it can use different instruments
 """
-"""
+
     queryA = net.query_isa(date, date, instruments[0])
     net.download_isa(queryA[0]['filename'])
 
@@ -88,23 +91,15 @@ def test_sub(start, stop, xcoords, ycoords, shape, AX, AY, BX, BY):
     satmapA = get_satmap(queryA[0]['filename'])
     satmapB = get_satmap(queryB[0]['filename'])
 
-    satmap = satmapA.mosaic(satmapB, resolution, padding)
+    result1 = satmapA.mosaic(satmapB, resolution, padding)
+    result2 = satmapB.mosaic(satmapA, resolution, padding)
 
-    assert satmap.meta['xcoords'] == xcoords
-    assert satmap.meta['ycoords'] == ycoords
-    assert satmap.meta['extra'] == 'mosaic'
-    assert satmap.shape == approx(shape, rel=0.1)
+    assert result1.meta['xcoords'] == result2.meta['xcoords'] == xcoords
+    assert result1.meta['ycoords'] == result2.meta['ycoords'] == ycoords
+    assert result1.meta['source'] == result2.meta['source'] == 'mosaic'
+    assert result1.shape == result2.shape
+    assert result1.data.all() == result2.data.all()
 
-    # x, y for the combined image (overlap)
-    commonXLow, commonXHigh = commonX
-    commonYLow, commonYHigh = commonY
-
-    # x, y for the satmapA (overlap)
-    AXLow, AXHigh = AX
-    AYLow, AYHigh = AY
-
-    assert satmap.data[commonYLow:commonYHigh, commonXLow:commonXHigh] == satmapA.data[AYLow:AYHigh, AXLow:AXHigh]
-    """
 
 if __name__ == '__main__':
-   pytest.main(["-s","-v","test_satmap_method.py"])
+   pytest.main(["-s", "-v", "test_satmap_method.py"])
