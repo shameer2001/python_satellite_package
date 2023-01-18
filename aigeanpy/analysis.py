@@ -1,4 +1,4 @@
-from clustering_numpy import *
+from aigeanpy.clustering_numpy import *
 from pathlib import Path
 from typing import Union
 
@@ -48,5 +48,9 @@ def kmeans(filename: Union[Path, str], clusters: int = 3, iterations: int = 10):
     data = load_data(filename)
     # Perform the algorithm to the dataset we loaded.
     alloc, centres = cluster(data, clusters, iterations)
+    indices = []
+    for i in range(clusters):
+        index_ps = [j for j, p in enumerate(data) if alloc[j] == i]
+        indices.append(index_ps)
 
-    return alloc
+    return indices
