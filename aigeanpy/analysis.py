@@ -21,8 +21,8 @@ def kmeans(filename: Union[Path, str], clusters: int = 3, iterations: int = 10):
 
     Returns
     -------
-    alloc : np.ndarray
-        Index of clusters where each point belong to
+    indices : list
+        Indices of the measurements for each group
     """
     # error raising: filename using wrong format
     if not (isinstance(filename, Path) or isinstance(filename, str)):
