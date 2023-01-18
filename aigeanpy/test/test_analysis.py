@@ -1,6 +1,6 @@
 import numpy as np
 from pytest import raises
-from analysis import kmeans
+from aigeanpy.analysis import kmeans
 
 
 # Negative test
@@ -35,5 +35,5 @@ def test_kmeans_fails_on_non_positive_clusters_and_iterations():
 
 # Unit test for kmeans
 def test_kmeans():
-    alloc = kmeans("../samples.csv")
-    assert (np.unique(alloc) == np.array([0, 1, 2])).all()
+    index = kmeans("../samples.csv")
+    assert len(index) == 3
