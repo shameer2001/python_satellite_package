@@ -15,8 +15,8 @@ from aigeanpy.satmap import *
 def test_conversion(date, instrument):
     """Testing the pixel_to_earth() and earth_to_pixel() functions
     """
-    query = net.query_isa(date, date, instrument)
-    net.download_isa(query[0]['filename'])
+    query = query_isa(date, date, instrument)
+    download_isa(query[0]['filename'])
 
     satmap = get_satmap(query[0]['filename'])
 

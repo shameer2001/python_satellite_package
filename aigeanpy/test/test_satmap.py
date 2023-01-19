@@ -16,8 +16,8 @@ def test_meta_keys(instruments):
                  The name of each instrument. Used to input all instruments one after the other automatically.
     '''
 
-    query = net.query_isa("2022-12-18", "2022-12-21", instruments)
-    net.download_isa(query[0]['filename'])
+    query = query_isa("2022-12-18", "2022-12-21", instruments)
+    download_isa(query[0]['filename'])
     satmap = get_satmap(query[0]['filename'])
 
     result = list(satmap.meta.keys()) # keys of the meta-data as a list
@@ -40,8 +40,8 @@ def test_meta_keys(instruments):
 def test_meta_instr(instruments, instrument_name):
     '''Testing the instrument name in the meta-data.
     '''
-    query = net.query_isa("2023-01-07", "2023-01-10", instruments)
-    net.download_isa(query[0]['filename'])
+    query = query_isa("2023-01-07", "2023-01-10", instruments)
+    download_isa(query[0]['filename'])
     satmap = get_satmap(query[0]['filename'])
 
     result = satmap.meta['instrument'] # keys of the meta-data as a list
@@ -57,8 +57,8 @@ def test_meta_instr(instruments, instrument_name):
 def test_meta_res(instruments, resolutions):
     '''Testing that the resolution in the meta-data is as expected.
     '''
-    query = net.query_isa("2023-01-10", "2023-01-13", instruments)
-    net.download_isa(query[0]['filename'])
+    query = query_isa("2023-01-10", "2023-01-13", instruments)
+    download_isa(query[0]['filename'])
     satmap = get_satmap(query[0]['filename'])
 
     result = satmap.meta['resolution'] 
@@ -73,8 +73,8 @@ def test_meta_res(instruments, resolutions):
 @pytest.mark.parametrize('instruments, shapes', [('lir', (10,20)), ('manannan', (10,30)), ('fand', (10,45))]) 
 def test_data_shape(instruments, shapes):
 
-    query = net.query_isa("2023-01-01", "2023-01-04", instruments)
-    net.download_isa(query[0]['filename'])
+    query = query_isa("2023-01-01", "2023-01-04", instruments)
+    download_isa(query[0]['filename'])
     satmap = get_satmap(query[0]['filename'])
 
     result = satmap.shape
@@ -91,8 +91,8 @@ def test_data_shape(instruments, shapes):
 def test_data_fov(instruments, FOVs):
     '''Testing that the field of view is correct with the expected result form excel
     '''
-    query = net.query_isa("2022-12-15", "2022-12-17", instruments)
-    net.download_isa(query[0]['filename'])
+    query = query_isa("2022-12-15", "2022-12-17", instruments)
+    download_isa(query[0]['filename'])
     satmap = get_satmap(query[0]['filename'])
 
     result = satmap.fov
@@ -107,8 +107,8 @@ def test_data_fov(instruments, FOVs):
 @pytest.mark.parametrize('instruments, centres', [('lir', (300,150) ), ('manannan', (225, 75) ), ('fand', (187.5,25) )]) # expected centre calculated with excel
 def test_data_centre(instruments, centres):
 
-    query = net.query_isa("2022-12-02", "2022-12-05", instruments)
-    net.download_isa(query[0]['filename'])
+    query = query_isa("2022-12-02", "2022-12-05", instruments)
+    download_isa(query[0]['filename'])
     satmap = get_satmap(query[0]['filename'])
 
     result = satmap.centre
