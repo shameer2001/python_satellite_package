@@ -1,6 +1,6 @@
 from argparse import ArgumentParser
 from aigeanpy.satmap import SatMap, get_satmap
-from aigeanpy.net import net
+from aigeanpy.net import *
 from datetime import date
 
 def aigean_metadata(filenames):
@@ -22,7 +22,7 @@ def aigean_metadata(filenames):
 
     Examples
     ----------
-    >>> from aigean_metadata import aigean_metadata
+    >>> from aigeanpy.aigean_metadata import aigean_metadata
     >>> aigean_metadata(['aigean_man_20221205_194510.hdf5','aigean_fan_20221205_192210.zip','asadasf.py'])
     aigean_man_20221205_194510.hdf5:archive: ISA
     aigean_man_20221205_194510.hdf5:observatory: Aigean
@@ -69,7 +69,7 @@ def aigean_metadata(filenames):
                 download_form = filename.split('_')[0]
                 # to see if the file is downloaded from 'aigean' file
                 if download_form in ('aigean'):
-                    download_file = net.download_isa (filename)
+                    download_file = download_isa (filename)
                     satmap_file = get_satmap(filename)
                     meta_data = satmap_file.meta
                     # to check if the file is corrupted and missed meta data
@@ -122,7 +122,7 @@ def aigean_metadata(filenames):
                 download_form = filename.split('_')[0]
                 # to see if the file is downloaded from 'aigean' file
                 if download_form in ('aigean'):
-                    download_file = net.download_isa (filename)
+                    download_file = download_isa (filename)
                     satmap_file = get_satmap(filename)
                     meta_data = satmap_file.meta
                     # to check if the file is corrupted and missed meta data, we see file with less than 9 key elements as a corrupted one
