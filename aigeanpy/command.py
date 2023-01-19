@@ -18,6 +18,15 @@ def process_metadata():
     args_metadata = parser.parse_args()
     obv = aigean_metadata(args_metadata.filenames)
 
+def process_metadata():
+    parser = argparse.ArgumentParser(description='Mosaic multiple Aigean images')
+    parser.add_argument('filelist', metavar='file', type=str, nargs='+',
+                        help='List of files to be used for mosaic')
+    parser.add_argument('-r', '--resolution', type=int, default=30,
+                        help='Resolution of the final mosaic')
+    args = parser.parse_args()
+
+
 if __name__ == "__main__":
     process_metadata()
     process_today()
