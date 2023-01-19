@@ -1,4 +1,4 @@
-from net import *
+from aigeanpy.net import *
 import h5py
 import asdf
 import json

@@ -334,9 +334,6 @@ class SatMap:
         if save and type(save) != bool:
             raise TypeError("The attribute save must be a boolean value.")
 
-        if savepath and type(savepath) != int:
-            raise TypeError("The attribute resolution must be an integer.")
-
         if savepath and type(savepath) != str and type(savepath) != Path:
             raise TypeError("The attribute savepath must be either a string or a Path instance.")
 
@@ -455,7 +452,7 @@ def centre(meta):
     """
 
     # ERROR MESSAGE:
-    for i in query: assert (np.size(i['xcoords']) == 2 and np.size(i['ycoords']) == 2)  # test for shape of x and y coordinate range
+    # for i in query: assert (np.size(i['xcoords']) == 2 and np.size(i['ycoords']) == 2)  # test for shape of x and y coordinate range
 
     x_min_max, y_min_max = meta['xcoords'], meta['ycoords']
 
@@ -522,8 +519,8 @@ def centre(meta):
 # #print(query)
 # net.download_isa(query[0]['filename'])
 
-query = net.query_isa("2022-12-02", "2022-12-05", 'lir')
-net.download_isa(query[0]['filename'])
-satmap = get_satmap(query[0]['filename'])
+# query = query_isa("2022-12-02", "2022-12-05", 'lir')
+# download_isa(query[0]['filename'])
+# satmap = get_satmap(query[0]['filename'])
 
-print(satmap.centre)
+# print(satmap.centre)
