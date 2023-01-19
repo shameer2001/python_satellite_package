@@ -21,12 +21,12 @@ def process_metadata():
 
 def process_mosaic():
     parser = ArgumentParser(description='Mosaic multiple Aigean images')
+    parser.add_argument('--resolution', '-r', type=int, default=30,
+                    help='Resolution of the final mosaic')
     parser.add_argument('filelist', metavar='file', type=str, nargs='+',
                         help='List of files to be used for mosaic')
-    parser.add_argument('--resolution', '-r', type=int, default=30,
-                        help='Resolution of the final mosaic')
     args_mosaic = parser.parse_args()
-    obv = aigean_mosaic(args_mosaic.filelist, args_mosaic.resolution)
+    obv = aigean_mosaic(args_mosaic.resolution, args_mosaic.filelist)
 
 
 if __name__ == "__main__":
