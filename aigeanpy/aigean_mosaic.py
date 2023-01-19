@@ -1,9 +1,21 @@
 import sys
-import argparse
 from aigeanpy.satmap import get_satmap
-from aigeanpy.net import net
+from aigeanpy.net import *
 
 def aigean_mosaic(filelist, resolution = None):
+    """ Creatubg a mosaic by giving multiple filenames
+
+    Parameters
+    ----------
+    resolution: int, optional
+        A resolution argument
+    filelist: list, positional
+        A given filename or list of them, such as aigean_man_20221205_194510.hdf5 or aigean_fan_20221206_190424.zip
+
+    Notes
+    ----------
+    This function only accept two or more filenames
+    """
     
     # check if all the files passed are valid Aigean images
     print(filelist)
@@ -13,7 +25,7 @@ def aigean_mosaic(filelist, resolution = None):
     satmaps = []
     for file in filelist:
         try:
-            download_file = net.download_isa (file)
+            download_file = download_isa (file)
             satmap = get_satmap(file)
             satmaps.append(satmap)
         except ValueError:
@@ -34,7 +46,7 @@ def aigean_mosaic(filelist, resolution = None):
         mosaic_map = mosaic_map.mosaic(satmaps[i], resolution) if resolution is not None else mosaic_map.mosaic(satmaps[i])
 
     # save the mosaic
-    mosaic_map.visualise(save=True)
-    return 
+    return mosaic_map.visualise(save=True)
+     
 
 # x = aigean_mosaic(['aigean_lir_20230105_135624.asdf', 'aigean_lir_20230105_142424.asdf'])

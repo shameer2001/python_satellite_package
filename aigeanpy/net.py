@@ -133,9 +133,9 @@ def download_isa(filename, save_dir = None) -> None:
 #print(net.query_isa("2022-12-05", "2022-12-06", "lir") )
 #print(type(query_isa("2022-12-05", "2022-12-06", "lir") ))
 
-download_isa("aigean_lir_20221205_191610.asdf")
-import json
-import numpy as np
+# download_isa("aigean_lir_20221205_191610.asdf")
+# import json
+# import numpy as np
 #query = net.query_isa()
 #query = net.query_isa("2022-12-05", "2022-12-06", "lir")
 
