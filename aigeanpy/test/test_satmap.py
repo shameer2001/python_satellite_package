@@ -1,5 +1,5 @@
-from net import *
-from satmap import *
+from aigeanpy.net import *
+from aigeanpy.satmap import *
 import pytest
 from pytest import approx
 
