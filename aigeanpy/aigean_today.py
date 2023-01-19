@@ -2,7 +2,7 @@ from argparse import ArgumentParser
 import requests
 from datetime import date
 from datetime import timedelta
-from aigeanpy.net import net
+from aigeanpy.net import *
 from aigeanpy.satmap import SatMap, get_satmap
 
 
@@ -58,7 +58,7 @@ def aigean_today(instrument = None, saveplot=False):
     most_recent_obv_index = date_list.index(max(date_list))
     most_recent_obv = most_recent_date_update[most_recent_obv_index]
     # download file to current working directory
-    download_file = net.download_isa (most_recent_obv['filename'])
+    download_file = download_isa (most_recent_obv['filename'])
 
     if saveplot == True:  
         if most_recent_obv['instrument'] != 'ecne':

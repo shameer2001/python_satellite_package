@@ -1,7 +1,7 @@
 import sys
 import argparse
 from aigeanpy.satmap import get_satmap
-from aigeanpy.net import net
+from aigeanpy.net import *
 
 def aigean_mosaic(filelist, resolution = None):
     
@@ -13,7 +13,7 @@ def aigean_mosaic(filelist, resolution = None):
     satmaps = []
     for file in filelist:
         try:
-            download_file = net.download_isa (file)
+            download_file = download_isa (file)
             satmap = get_satmap(file)
             satmaps.append(satmap)
         except ValueError:
