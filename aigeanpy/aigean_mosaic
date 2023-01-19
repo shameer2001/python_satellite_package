@@ -1,7 +1,7 @@
 #!python
 import sys
 import argparse
-from satmap import get_satmap
+from aigeanpy.satmap import get_satmap
 
 def aigean_mosaic():
     parser = argparse.ArgumentParser(description='Mosaic multiple Aigean images')

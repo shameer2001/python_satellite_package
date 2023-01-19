@@ -13,9 +13,9 @@ from pytest import approx
 def test_add(date, xcoords, ycoords, shape, commonX, commonY, AX, AY):
     """Testing the SatMap.__add__() function for adding two images taken in the same day and using the same instrument
     """
-    query = net.query_isa(date, date, 'lir')
-    net.download_isa(query[0]['filename'])
-    net.download_isa(query[1]['filename'])
+    query = query_isa(date, date, 'lir')
+    download_isa(query[0]['filename'])
+    download_isa(query[1]['filename'])
 
     satmapA = get_satmap(query[0]['filename'])
     satmapB = get_satmap(query[1]['filename'])
@@ -46,9 +46,9 @@ def test_sub(start, stop, xcoords, ycoords, shape, AX, AY, BX, BY):
     """
 
 
-    query = net.query_isa(start, stop, 'lir')
-    net.download_isa(query[0]['filename'])
-    net.download_isa(query[-1]['filename'])
+    query = query_isa(start, stop, 'lir')
+    download_isa(query[0]['filename'])
+    download_isa(query[-1]['filename'])
 
     satmapA = get_satmap(query[0]['filename'])
     satmapB = get_satmap(query[-1]['filename'])
@@ -82,11 +82,11 @@ def test_mosaic(date, instruments, xcoords, ycoords, resolution, padding):
     """#Testing the SatMap.mosaic() function for adding two images taken in the same day, but it can use different instruments
 """
 
-    queryA = net.query_isa(date, date, instruments[0])
-    net.download_isa(queryA[0]['filename'])
+    queryA = query_isa(date, date, instruments[0])
+    download_isa(queryA[0]['filename'])
 
-    queryB = net.query_isa(date, date, instruments[1])
-    net.download_isa(queryB[0]['filename'])
+    queryB = query_isa(date, date, instruments[1])
+    download_isa(queryB[0]['filename'])
 
     satmapA = get_satmap(queryA[0]['filename'])
     satmapB = get_satmap(queryB[0]['filename'])
@@ -110,11 +110,11 @@ def test_mosaic(date, instruments, xcoords, ycoords, resolution, padding):
 def test_add_with_different_resolution(date, instruments):
     """Testing the SatMap.__add__() function for adding two images taken in the same day and using different instruments
     """
-    queryA = net.query_isa(date, date, instruments[0])
-    net.download_isa(queryA[0]['filename'])
+    queryA = query_isa(date, date, instruments[0])
+    download_isa(queryA[0]['filename'])
 
-    queryB = net.query_isa(date, date, instruments[1])
-    net.download_isa(queryB[0]['filename'])
+    queryB = query_isa(date, date, instruments[1])
+    download_isa(queryB[0]['filename'])
 
     satmapA = get_satmap(queryA[0]['filename'])
     satmapB = get_satmap(queryB[0]['filename'])
@@ -129,9 +129,9 @@ def test_add_with_different_resolution(date, instruments):
 def test_add_from_different_date(date, instruments):
     """Testing the SatMap.__add__() function for adding two images taken in the same day and using different instruments
     """
-    query = net.query_isa(date[0], date[1], instruments)
-    net.download_isa(query[0]['filename'])
-    net.download_isa(query[-1]['filename'])
+    query = query_isa(date[0], date[1], instruments)
+    download_isa(query[0]['filename'])
+    download_isa(query[-1]['filename'])
 
     satmapA = get_satmap(query[0]['filename'])
     satmapB = get_satmap(query[-1]['filename'])
@@ -146,9 +146,9 @@ def test_add_from_different_date(date, instruments):
 def test_sub_from_same_date(date, instrument):
     """Testing the SatMap.__add__() function for adding two images taken in the same day and using different instruments
     """
-    query = net.query_isa(date, date, 'lir')
-    net.download_isa(query[0]['filename'])
-    net.download_isa(query[1]['filename'])
+    query = query_isa(date, date, 'lir')
+    download_isa(query[0]['filename'])
+    download_isa(query[1]['filename'])
 
     satmapA = get_satmap(query[0]['filename'])
     satmapB = get_satmap(query[1]['filename'])
@@ -163,9 +163,9 @@ def test_sub_from_same_date(date, instrument):
 def test_sub_without_overlap(date, instrument):
     """Testing the SatMap.__add__() function for adding two images taken in the same day and using different instruments
     """
-    query = net.query_isa(date[0], date[1], 'lir')
-    net.download_isa(query[0]['filename'])
-    net.download_isa(query[-1]['filename'])
+    query = query_isa(date[0], date[1], 'lir')
+    download_isa(query[0]['filename'])
+    download_isa(query[-1]['filename'])
 
     satmapA = get_satmap(query[0]['filename'])
     satmapB = get_satmap(query[-1]['filename'])
