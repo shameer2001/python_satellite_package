@@ -26,6 +26,7 @@ def process_metadata():
                         help='Resolution of the final mosaic')
     args = parser.parse_args()
 
+
 if __name__ == "__main__":
     process_metadata()
     process_today()

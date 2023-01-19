@@ -2,8 +2,8 @@ from argparse import ArgumentParser
 import requests
 from datetime import date
 from datetime import timedelta
-from net import net
-from satmap import SatMap, get_satmap
+from aigeanpy.net import net
+from aigeanpy.satmap import SatMap, get_satmap
 
 
 def aigean_today(instrument = None, saveplot=False):
@@ -95,17 +95,3 @@ def aigean_today(instrument = None, saveplot=False):
 # test sample
 # aigean_today(instrument='lir',saveplot=True)
 
-# command line interface setting
-def process_today():
-    parser = ArgumentParser(description='Generate the last observation data ot image')
-
-    parser.add_argument('--instrument','-i', help= 'Specified instrument')
-    parser.add_argument('--saveplot','-s',action="store_true", help='Determined whether we want to generate a png')
-    
-    args_today = parser.parse_args()
-    obv = aigean_today(args_today.instrument, args_today.saveplot)
-
- 
-
-if __name__ == "__main__":
-    process_today()
