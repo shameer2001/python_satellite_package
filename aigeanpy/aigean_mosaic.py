@@ -1,6 +1,7 @@
 import sys
 import argparse
 from aigeanpy.satmap import get_satmap
+from aigeanpy.net import net
 
 def aigean_mosaic(filelist, resolution = None):
     
@@ -12,6 +13,7 @@ def aigean_mosaic(filelist, resolution = None):
     satmaps = []
     for file in filelist:
         try:
+            download_file = net.download_isa (file)
             satmap = get_satmap(file)
             satmaps.append(satmap)
         except ValueError:
@@ -35,4 +37,4 @@ def aigean_mosaic(filelist, resolution = None):
     mosaic_map.visualise(save=True)
     return 
 
-x = aigean_mosaic(['aigean_fan_20221206_190424.zip', 'aigean_lir_20221205_191610.asdf'])
+# x = aigean_mosaic(['aigean_lir_20230105_135624.asdf', 'aigean_lir_20230105_142424.asdf'])
