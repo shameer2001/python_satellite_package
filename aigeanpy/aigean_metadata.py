@@ -1,6 +1,6 @@
 from argparse import ArgumentParser
-from satmap import SatMap, get_satmap
-from net import net
+from aigeanpy.satmap import SatMap, get_satmap
+from aigeanpy.net import net
 from datetime import date
 
 def aigean_metadata(filenames):
@@ -143,7 +143,6 @@ def aigean_metadata(filenames):
                         elif str(date.today()) < date_metadata:
                             error_file.append(filename)
                         else:
-                            print (meta_data['date'])
                             print ('{}:archive: {}'.format(filename,archive))
                             print ('{}:observatory: {}'.format(filename,obv))
                             print ('{}:instrument: {}'.format(filename,instrument))
@@ -167,18 +166,6 @@ def aigean_metadata(filenames):
 # x =aigean_metadata(['aigean_man_20221205_194510.hdf5','aigean_fan_20221206_190424.zip'])
 # x =aigean_metadata(['aigean_man_20221205_194510.hdf5'])
 
-# command line interface setting
-def process_metadata():
-    parser = ArgumentParser(description='Extracting the file metadata information')
-    parser.add_argument('filenames',type=str,nargs='+',help='input a file or list of them')
-    args_metadata = parser.parse_args()
-    obv = aigean_metadata(args_metadata.filenames)
 
-
-
- 
-
-if __name__ == "__main__":
-    process_metadata()
 
     
