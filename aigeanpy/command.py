@@ -1,26 +1,23 @@
+from argparse import ArgumentParser
+from aigeanpy.aigean_today import aigean_today
+from aigeanpy.aigean_metadata import aigean_metadata
 
-import sys
+# command line interface setting
+def process_today():
+    parser = ArgumentParser(description='Generate the last observation data ot image')
 
+    parser.add_argument('--instrument','-i', help= 'Specified instrument')
+    parser.add_argument('--saveplot','-s',action="store_true", help='Determined whether we want to generate a png')
+    
+    args_today = parser.parse_args()
+    obv = aigean_today(args_today.instrument, args_today.saveplot)
 
-def aigean_today(instrument, saveplot):
-    # todo: Getting the latest image of the archive,
-    #  download the most recent data taken by a specified instrument and create or downloaded in the directory
-    ...
-
-
-def aigean_metadata(filename, **kwargs):
-    # todo: given the list of file, extracting the metadata information
-    ...
-
-
-def aigean_mosaic(filename, **kwargs):
-    # todo: Creating a mosaic from the command line
-    ...
-
+def process_metadata():
+    parser = ArgumentParser(description='Extracting the file metadata information')
+    parser.add_argument('filenames',type=str,nargs='+',help='input a file or list of them')
+    args_metadata = parser.parse_args()
+    obv = aigean_metadata(args_metadata.filenames)
 
 if __name__ == "__main__":
-    args = sys.argv
-    # args[0] = current file
-    # args[1] = function name
-    # args[2:] = function args : (*unpacked)
-    globals()[args[1]](*args[2:])
+    process_metadata()
+    process_today()
