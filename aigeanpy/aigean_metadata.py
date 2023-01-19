@@ -28,7 +28,7 @@ def aigean_metadata(filenames):
     aigean_man_20221205_194510.hdf5:observatory: Aigean
     aigean_man_20221205_194510.hdf5:instrument: Manannan
     aigean_man_20221205_194510.hdf5:obs_date: 2022-12-05 19:45:10
-    aigean_fan_20221205_192210.zip:year: 2023
+    aigean_man_20221205_194510.hdf5:year: 2023
     aigean_man_20221205_194510.hdf5:resolution: 15
     aigean_man_20221205_194510.hdf5:xcoords: [ 750. 1200.]
     aigean_man_20221205_194510.hdf5:ycoords: [250. 400.]
@@ -50,9 +50,10 @@ def aigean_metadata(filenames):
         # filter inputs are not in right file format (e.g. xxxxx.xxx) 
         if len(i.split('.')) != 2:
             raise ValueError("name of files should in right format")
-        # filter inputs with wrong date format in file name (e.g. 1332)
-        if int(i.split('_')[2][4:6]) > 12 or int(i.split('_')[2][6:8]) > 31:
-            raise ValueError("date in file name is wrong")
+        if i.split('.')[1] in ('asdf','hdf5','zip'):
+            # filter inputs with wrong date format in file name (e.g. 1332)
+            if int(i.split('_')[2][4:6]) > 12 or int(i.split('_')[2][6:8]) > 31:
+                raise ValueError("date in file name is wrong")
 
         
     # create this list to collect file names are corrupted or failed to process 
@@ -163,9 +164,7 @@ def aigean_metadata(filenames):
             print (' - {}'.format(error_file[i]))
         return
 # test sample
-x =aigean_metadata(['aigean_man_20221205_194510.hdf5','aigean_fan_20221206_190424.zip'])
-# x =aigean_metadata(['aigean_man_20221205_194510.hdf5'])
-
-
+# x =aigean_metadata(['aigean_man_20221205_194510.hdf5','aigean_fan_20221206_190424.zip'])
+# x = aigean_metadata(['aigean_man_20221205_194510.hdf5','aigean_fan_20221205_192210.zip','asadasf.py'])
 
     
