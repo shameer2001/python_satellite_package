@@ -1,6 +1,7 @@
 from argparse import ArgumentParser
 from aigeanpy.aigean_today import aigean_today
 from aigeanpy.aigean_metadata import aigean_metadata
+from aigeanpy.aigean_mosaic import aigean_mosaic
 
 # command line interface setting
 def process_today():
@@ -18,15 +19,17 @@ def process_metadata():
     args_metadata = parser.parse_args()
     obv = aigean_metadata(args_metadata.filenames)
 
-def process_metadata():
-    parser = argparse.ArgumentParser(description='Mosaic multiple Aigean images')
+def process_mosaic():
+    parser = ArgumentParser(description='Mosaic multiple Aigean images')
     parser.add_argument('filelist', metavar='file', type=str, nargs='+',
                         help='List of files to be used for mosaic')
-    parser.add_argument('-r', '--resolution', type=int, default=30,
+    parser.add_argument('--resolution', '-r', type=int, default=30,
                         help='Resolution of the final mosaic')
-    args = parser.parse_args()
+    args_mosaic = parser.parse_args()
+    obv = aigean_mosaic(args_mosaic.filelist, args_mosaic.resolution)
 
 
 if __name__ == "__main__":
     process_metadata()
     process_today()
+    process_mosaic()

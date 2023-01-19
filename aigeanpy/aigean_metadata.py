@@ -163,7 +163,7 @@ def aigean_metadata(filenames):
             print (' - {}'.format(error_file[i]))
         return
 # test sample
-# x =aigean_metadata(['aigean_man_20221205_194510.hdf5','aigean_fan_20221206_190424.zip'])
+x =aigean_metadata(['aigean_man_20221205_194510.hdf5','aigean_fan_20221206_190424.zip'])
 # x =aigean_metadata(['aigean_man_20221205_194510.hdf5'])
 
 
