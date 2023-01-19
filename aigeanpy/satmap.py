@@ -452,7 +452,7 @@ def centre(meta):
     """
 
     # ERROR MESSAGE:
-    for i in query: assert (np.size(i['xcoords']) == 2 and np.size(i['ycoords']) == 2)  # test for shape of x and y coordinate range
+    # for i in query: assert (np.size(i['xcoords']) == 2 and np.size(i['ycoords']) == 2)  # test for shape of x and y coordinate range
 
     x_min_max, y_min_max = meta['xcoords'], meta['ycoords']
 
@@ -519,8 +519,8 @@ def centre(meta):
 # #print(query)
 # net.download_isa(query[0]['filename'])
 
-query = query_isa("2022-12-02", "2022-12-05", 'lir')
-download_isa(query[0]['filename'])
-satmap = get_satmap(query[0]['filename'])
+# query = query_isa("2022-12-02", "2022-12-05", 'lir')
+# download_isa(query[0]['filename'])
+# satmap = get_satmap(query[0]['filename'])
 
-print(satmap.centre)
+# print(satmap.centre)
