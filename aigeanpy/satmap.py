@@ -47,6 +47,22 @@ class SatMap:
         -------
         result: SatMap
                 the image created by the addition of two input images
+
+        Examples
+        --------
+        >>> from aigeanpy.satmap import get_satmap
+        >>> from aigeanpy.net import download_isa
+        >>> download_isa("aigean_lir_20221205_191610.asdf")
+        >>> download_isa("aigean_lir_20221205_194510.asdf")
+        >>> satmap1 = get_satmap("aigean_lir_20221205_191610.asdf")
+        >>> satmap2 = get_satmap("aigean_lir_20221205_194510.asdf")
+        >>> combine = satmap1 + satmap2
+        >>> combine.shape
+        (13, 30)
+        >>> combine.fov
+        (900.0, 400.0)
+        >>> combine.centre
+        (950.0, 300.0)
         """
 
         # error raising: query using wrong data format
@@ -125,6 +141,22 @@ class SatMap:
         -------
         result: SatMap
                 the image created by the subtraction of two input images
+
+        Examples
+        --------
+        >>> from aigeanpy.satmap import get_satmap
+        >>> from aigeanpy.net import download_isa
+        >>> download_isa("aigean_lir_20221205_191610.asdf")
+        >>> download_isa("aigean_lir_20221207_175138.asdf")
+        >>> satmap1 = get_satmap("aigean_lir_20221205_191610.asdf")
+        >>> satmap2 = get_satmap("aigean_lir_20221207_175138.asdf")
+        >>> combine = satmap1 - satmap2
+        >>> combine.shape
+        (10, 16)
+        >>> combine.fov
+        (700.0, 300.0)
+        >>> combine.centre
+        (750.0, 350.0)
         """
 
         # error raising: query using wrong data format
@@ -524,3 +556,11 @@ def centre(meta):
 # satmap = get_satmap(query[0]['filename'])
 
 # print(satmap.centre)
+
+if __name__ == "__main__":
+    satmap1 = get_satmap("aigean_lir_20221205_191610.asdf")
+    satmap2 = get_satmap("aigean_lir_20221207_175138.asdf")
+    combine = satmap1 - satmap2
+    print(combine.shape)
+    print(combine.fov)
+    print(combine.centre)

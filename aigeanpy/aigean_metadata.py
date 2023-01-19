@@ -22,7 +22,7 @@ def aigean_metadata(filenames):
 
     Examples
     ----------
-    >>> from aigean_metadata import aigean_metadata
+    >>> from aigeanpy.aigean_metadata import aigean_metadata
     >>> aigean_metadata(['aigean_man_20221205_194510.hdf5','aigean_fan_20221205_192210.zip','asadasf.py'])
     aigean_man_20221205_194510.hdf5:archive: ISA
     aigean_man_20221205_194510.hdf5:observatory: Aigean
