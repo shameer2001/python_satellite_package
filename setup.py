@@ -8,13 +8,11 @@ setup(
         'numpy',
         'requests',
         'datetime',
-        'timeit',
         'h5py',
         'asdf',
         'pathlib',
-        'sys',
         'typing',
-        'matplotlib'
+        'matplotlib',
         'scikit-image',
         'scikit-learn',
         'argparse'
