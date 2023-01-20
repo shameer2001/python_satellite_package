@@ -26,7 +26,7 @@ def process_mosaic():
     parser.add_argument('filelist', metavar='file', type=str, nargs='+',
                         help='List of files to be used for mosaic')
     args_mosaic = parser.parse_args()
-    obv = aigean_mosaic(args_mosaic.resolution, args_mosaic.filelist)
+    obv = aigean_mosaic(args_mosaic.filelist, args_mosaic.resolution)
 
 
 if __name__ == "__main__":
