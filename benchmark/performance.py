@@ -2,11 +2,8 @@ import numpy as np
 from timeit import timeit
 from matplotlib import pyplot as plt
 from pathlib import Path
-import sys
-
-sys.path.append('..')
-import clustering_numpy
-import clustering
+import aigeanpy.clustering_numpy
+import aigeanpy.clustering
 
 
 # Version of cluster with numpy
@@ -25,7 +22,7 @@ def with_np(data: np.ndarray, clusters: int = 3, iterations: int = 10):
     iterations : int, optional
         Number of iterations to upload the centres, default is 10
     """
-    alloc, centres = clustering_numpy.cluster(data, clusters, iterations)
+    alloc, centres = aigeanpy.clustering_numpy.cluster(data, clusters, iterations)
     pass
 
 
@@ -45,7 +42,7 @@ def without_np(data: np.ndarray, clusters: int = 3, iterations: int = 10):
     iterations : int, optional
         Number of iterations to upload the centres, default is 10
     """
-    alloc, centres = clustering.cluster(data, clusters, iterations)
+    alloc, centres = aigeanpy.clustering.cluster(data, clusters, iterations)
     pass
 
 
@@ -57,10 +54,10 @@ def save_figure(filename: Path):
     Parameters
     ----------
     filename : Path
-        A given Path, such as '../samples.csv'
+        A given Path, such as '../aigeanpy/samples.csv'
     """
     T_np, T_non = np.zeros(10), np.zeros(10)
-    data = clustering_numpy.load_data(filename)
+    data = aigeanpy.clustering_numpy.load_data(filename)
     # Enlarge dataset by 30 times
     data_full = np.array(list(data) * 34)
     # Set ten different sizes of dataset.
@@ -84,4 +81,4 @@ def save_figure(filename: Path):
 
 
 if __name__ == "__main__":
-    save_figure('../samples.csv')
+    save_figure(Path('../aigeanpy/samples.csv'))
