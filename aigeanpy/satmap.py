@@ -1,20 +1,58 @@
 from typing import Union
 from pathlib import Path
 from aigeanpy.utils import earth_to_pixel, pixel_to_earth
+
 import numpy as np
 from datetime import datetime
 from skimage.transform import rescale, downscale_local_mean, resize
 import os
 import matplotlib.pyplot as plt
 import json
+from net import *
 
-from aigeanpy.read import *
+#from aigeanpy.read import *
+from read import *
 
 
 
 
 class SatMap:
     """
+    Obtains data, meta-data, properties and also manipulates the image(s).
+    
+
+    Attributes
+    ----------
+    meta: dict
+          Other information about the data of the input file. This includes archive it's stored in, year, observatory, instrument, date when taken, time when taken, xcoords, ycoords, resolution. For ASDF files (ie Lir instrument data) the information about the asdf library is also included.
+    data: ndarray
+          Image datal (from the input file) taken with the Lir, Manannan or Fand instrument for ASDF, HDF5 and ZIP files respectivley.
+    shape: tuple
+           Shape of the data of the input file.
+    fov: tuple
+         The range of x-coordinates and range of y-coordinates (i.e the field of view).
+    centre: tuple
+            Coordinates of the centre of the image in the input file.
+    
+
+
+
+    Methods
+    -------
+    __add__(other: 'SatMap')
+           Collate two images and create the new SatMap instance
+
+    __sub__(other: 'SatMap')
+           Obtain a difference image to measure change between the days, which will only work
+           when the data is overlapping.
+    
+    mosaic (other: 'SatMap', resolution: int = None, padding: bool = True)
+          Combine images as when using + but allowing mixing instruments with different resolution
+    
+    visualise (save: bool = False, savepath: Union[Path, str] = os.getcwd(), **kwargs)
+            Visualise the image, show the axis as in earth coordinates and with the proper orientation of the image.
+
+
 
 
     """
@@ -410,6 +448,20 @@ class SatMap:
 
 
 def get_satmap(file_name) -> 'SatMap':
+    """Generates a SatMap object for a given file.
+
+    Parameter
+    ---------
+    file_name: str
+               The name of the file that the function will return a SatMap object of.
+
+    Returns
+    -------
+    satmap: 'SatMap'
+             A SatMap class oject for the file named 'file_name'
+
+             
+    """
     # Give the name of the file, and return the data and meta,
     #  where data gives the array, meta gives a dictionary with the metadata of the file.
     # Raise Error:
@@ -555,7 +607,17 @@ def centre(meta):
 # download_isa(query[0]['filename'])
 # satmap = get_satmap(query[0]['filename'])
 
-# print(satmap.centre)
+#print(satmap.centre)
+
+
+# query2 = net.query_isa("2022-12-02", "2022-12-05", 'lir')
+# net.download_isa(query2[1]['filename'])
+# satmap2 = get_satmap(query2[1]['filename'])
+
+# mos_satmap = satmap.mosaic(other=satmap2)
+# print(mos_satmap.data)
+
+# # print(satmap.centre)
 
 if __name__ == "__main__":
     satmap1 = get_satmap("aigean_lir_20221205_191610.asdf")

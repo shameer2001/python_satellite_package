@@ -1,4 +1,5 @@
-from aigeanpy.net import *
+#from aigeanpy.net import *
+from net import *
 import h5py
 import asdf
 import json
@@ -24,7 +25,9 @@ def read(file):
     Fand stores the data in 'npy' format and the meta data in JSON files
     Ecne measures turbulence, salinity and algal density and stores the data in CSV format
     To understand this function better, the content structure of the types of files are detailed below:
-    The structure of the '.asdf' files:
+
+    **The structure of the '.asdf' files:**
+
     root (asdf object)
     ├─asdf_library (Software)
     │ ├─author (str): The ASDF Developers
@@ -48,7 +51,11 @@ def read(file):
     │ ├─[0] (float): val
     │ └─[1] (float): val
     └─year (int): YYYY
-    The structure of the '.hdf5' files:
+
+
+
+    **The structure of the '.hdf5' files:**
+
     root (hdf5 object)
     |─attrs:
       |─archive (str) = 'ISA'
@@ -84,10 +91,16 @@ def read(file):
       ├─[0] (float): val
       └─[1] (float): val
     |─resolution (int): 5
-    The structure of the '.npy' files:
-    Array (NDArrayType)
+
+
+    **The structure of the '.npy' files:**
+
+    Array (ndarray)
     |─shape=(val, val), dtype=float64 
-    The structure of the '.csv' files:
+
+
+
+    **The structure of the '.csv' files:**
     
     Shape: 300 rows, 3 columns
     Columns: turbulence, salinity, algal density
@@ -97,7 +110,9 @@ def read(file):
     data: ndarray
           Image data taken with the Lir, Manannan or Fand instrument for ASDF, HDF5 and ZIP files respectivley.
     meta_data: dict
-               Other information about the data. This includes archive it's stored in, year, observatory, instrument, date when taken, time when taken, xcoords, ycoords, resolution. For ASDF files (ie Lir instrument data) the information about the asdf library is also included
+               Other information about the data. This includes archive it's stored in, year, observatory, instrument, date when taken, time when taken, xcoords, ycoords, resolution. For ASDF files (ie Lir instrument data) the information about the asdf library is also included.
+
+
     For '.csv' files:
     turbulence: list
                 300 turbulence measurements taken from the 300 deepest points in an area around the target region. 
