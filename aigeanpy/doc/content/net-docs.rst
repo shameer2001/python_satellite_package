@@ -1,6 +1,11 @@
-`net` Functions
-========================
+The `net` Module Functions
+==========================
 
-.. autofunction:: net.query_isa
-    
-.. autofunction:: net.download_isa
+
+.. currentmodule:: net
+
+.. autosummary::
+   :toctree: functions
+
+   query_isa
+   download_isa

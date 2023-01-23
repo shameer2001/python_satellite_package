@@ -1,14 +1,15 @@
 The `SatMap` Class
-=================================
+==================
 
 
-.. autoclass:: satmap.SatMap
-    
-.. autofunction:: satmap.SatMap.__add__
+.. .. :autoclass:: satmap.SatMap
+..     :members:
 
-.. autofunction:: satmap.SatMap.__sub__
+.. autosummary::
+   :toctree: satmap-functinos
 
-.. autofunction:: satmap.SatMap.mosaic
-
-.. autofunction:: satmap.SatMap.visualise
-
+   satmap.SatMap.__add__
+   satmap.SatMap.__sub__
+   satmap.SatMap.mosaic
+   satmap.SatMap.visualise
+   

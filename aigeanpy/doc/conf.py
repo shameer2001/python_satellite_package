@@ -13,7 +13,7 @@ author = 'Shameer Ahmad, Junyi Yin, Siqing Huang, Qiang Hu, Zhang Zhouhan'
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = ['sphinx.ext.autodoc']  #enable autodoc function
+extensions = ['sphinx.ext.autodoc', 'sphinx.ext.autosummary']  #enable autodoc function
 
 templates_path = ['_templates']
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']

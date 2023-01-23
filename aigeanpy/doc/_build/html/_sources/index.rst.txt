@@ -12,6 +12,8 @@ Welcome to aigeanpy's documentation!
 
    content/net-docs
    content/satmap-docs
+   content/aigean-docs
+   content/utils-docs
 
 Indices and tables
 ==================

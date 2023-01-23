@@ -1,0 +1,143 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>utils.pixel_to_earth &#8212; aigeanpy  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="utils-pixel-to-earth">
+<h1>utils.pixel_to_earth<a class="headerlink" href="#utils-pixel-to-earth" title="Permalink to this heading">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.pixel_to_earth">
+<span class="sig-prename descclassname"><span class="pre">utils.</span></span><span class="sig-name descname"><span class="pre">pixel_to_earth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pixel_coord</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">meta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resolution</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#utils.pixel_to_earth" title="Permalink to this definition">¶</a></dt>
+<dd><p>convert image to the earth coord from pixel coord</p>
+<section id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>pixel_coord: Numpy.array</dt><dd><p>the image under the pixel coord</p>
+</dd>
+<dt>meta: dict</dt><dd><p>Other information about the data including the archive, year, observatory, instrument, date when taken, time
+when taken, xcoords, ycoords and resolution.</p>
+</dd>
+<dt>resolution: float, optional</dt><dd><p>if provided, use this as the resolution, otherwise use the resolution provided in the meta (used in the
+SatMap.mosaic func, where user can specify the resolution)</p>
+</dd>
+</dl>
+</section>
+<section id="notes">
+<h2>Notes<a class="headerlink" href="#notes" title="Permalink to this heading">¶</a></h2>
+<p>In the case when the earth coordinate falls in the centre of multiple pixels, give the top-left corner;</p>
+<p>Depending on the resolution of the image, a pixel may correspond to multiple earth coordinates. In such cases,
+pixel_to_earth should provide the coordinate of the centre of the pixel.</p>
+</section>
+<section id="returns">
+<h2>Returns<a class="headerlink" href="#returns" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>result: dict</dt><dd><p>‘earthCoord’ gives the image under the earth pixel
+‘centralCoord’ gives the cenre of the pixel when a pixel correspond to multiple earth coordinates, otherwise
+is None</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">aigeanpy</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../net-docs.html">The <cite>net</cite> Module Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../satmap-docs.html">The <cite>SatMap</cite> Class</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../aigean-docs.html">Command-Line Functions</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, Shameer Ahmad, Junyi Yin, Siqing Huang, Qiang Hu, Zhang Zhouhan.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.3.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../../_sources/content/utils-functions/utils.pixel_to_earth.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

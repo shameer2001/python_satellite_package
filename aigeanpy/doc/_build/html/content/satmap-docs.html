@@ -17,7 +17,8 @@
     <script src="../_static/sphinx_highlight.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="prev" title="net Functions" href="net-docs.html" />
+    <link rel="next" title="satmap.SatMap.__add__" href="satmap-functinos/satmap.SatMap.__add__.html" />
+    <link rel="prev" title="net.download_isa" href="functions/net.download_isa.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
@@ -36,184 +37,22 @@
             
   <section id="the-satmap-class">
 <h1>The <cite>SatMap</cite> Class<a class="headerlink" href="#the-satmap-class" title="Permalink to this heading">¶</a></h1>
-<dl class="py class">
-<dt class="sig sig-object py" id="satmap.SatMap">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">satmap.</span></span><span class="sig-name descname"><span class="pre">SatMap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">meta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fov</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">centre</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#satmap.SatMap" title="Permalink to this definition">¶</a></dt>
-<dd><p>Obtains data, meta-data, properties and also manipulates the image(s).</p>
-<section id="attributes">
-<h2>Attributes<a class="headerlink" href="#attributes" title="Permalink to this heading">¶</a></h2>
-<dl class="simple">
-<dt>meta: dict</dt><dd><p>Other information about the data of the input file. This includes archive it is stored in, year observatory, instrument, date when taken, time when taken, xcoords, ycoords, resolution. For ASDF file (ie Lir instrument data) the information about the asdf library is also included.</p>
-</dd>
-<dt>data: ndarray</dt><dd><p>Image datal (from the input file) taken with the Lir, Manannan or Fand instrument for ASDF, HDF5 and ZIP files respectivley.</p>
-</dd>
-<dt>shape: tuple</dt><dd><p>Shape of the data of the input file.</p>
-</dd>
-<dt>fov: tuple</dt><dd><p>The range of x-coordinates and range of y-coordinates (i.e the field of view).</p>
-</dd>
-<dt>centre: tuple</dt><dd><p>Coordinates of the centre of the image in the input file.</p>
-</dd>
-</dl>
-</section>
-<section id="methods">
-<h2>Methods<a class="headerlink" href="#methods" title="Permalink to this heading">¶</a></h2>
-<dl class="simple">
-<dt>__add__(other: ‘SatMap’)</dt><dd><p>Collate two images and create the new SatMap instance</p>
-</dd>
-<dt>__sub__(other: ‘SatMap’)</dt><dd><p>Obtain a difference image to measure change between the days, which will only work
-when the data is overlapping.</p>
-</dd>
-<dt>mosaic (other: ‘SatMap’, resolution: int = None, padding: bool = True)</dt><dd><p>Combine images as when using + but allowing mixing instruments with different resolution</p>
-</dd>
-<dt>visualise (save: bool = False, savepath: Union[Path, str] = os.getcwd())</dt><dd><p>Visualise the image, show the axis as in earth coordinates and with the proper orientation of the image.</p>
-</dd>
-</dl>
-</section>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="satmap.SatMap.__add__">
-<span class="sig-prename descclassname"><span class="pre">satmap.SatMap.</span></span><span class="sig-name descname"><span class="pre">__add__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">other</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#satmap.SatMap" title="satmap.SatMap"><span class="pre">SatMap</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#satmap.SatMap.__add__" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="simple">
-<dt>self defined + operation, collate two images and create the new SatMap instance (i.e, if we got an image</dt><dd><p>covering the (0,0)-(10,10) range and another from (12, 5)-(22,15), then we would end up with a “canvas”
-that goes from (0,0)-(22,15).)</p>
-</dd>
-</dl>
-<section id="parameters">
-<h2>Parameters<a class="headerlink" href="#parameters" title="Permalink to this heading">¶</a></h2>
-<dl class="simple">
-<dt>other: SatMap</dt><dd><p>Another image to be added to the current image</p>
-</dd>
-</dl>
-</section>
-<section id="notes">
-<h2>Notes<a class="headerlink" href="#notes" title="Permalink to this heading">¶</a></h2>
-<p>When the two images are overlapping, the values of the overlapping areas should not be added. Otherwise
-it would give the wrong impression. Values should be the same when observed the same day.</p>
-</section>
-<section id="returns">
-<h2>Returns<a class="headerlink" href="#returns" title="Permalink to this heading">¶</a></h2>
-<dl class="simple">
-<dt>result: SatMap</dt><dd><p>the image created by the addition of two input images</p>
-</dd>
-</dl>
-</section>
-<section id="examples">
-<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this heading">¶</a></h2>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">aigeanpy.satmap</span> <span class="kn">import</span> <span class="n">get_satmap</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">aigeanpy.net</span> <span class="kn">import</span> <span class="n">download_isa</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">download_isa</span><span class="p">(</span><span class="s2">&quot;aigean_lir_20221205_191610.asdf&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">download_isa</span><span class="p">(</span><span class="s2">&quot;aigean_lir_20221205_194510.asdf&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">satmap1</span> <span class="o">=</span> <span class="n">get_satmap</span><span class="p">(</span><span class="s2">&quot;aigean_lir_20221205_191610.asdf&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">satmap2</span> <span class="o">=</span> <span class="n">get_satmap</span><span class="p">(</span><span class="s2">&quot;aigean_lir_20221205_194510.asdf&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">combine</span> <span class="o">=</span> <span class="n">satmap1</span> <span class="o">+</span> <span class="n">satmap2</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">combine</span><span class="o">.</span><span class="n">shape</span>
-<span class="go">(13, 30)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">combine</span><span class="o">.</span><span class="n">fov</span>
-<span class="go">(900.0, 400.0)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">combine</span><span class="o">.</span><span class="n">centre</span>
-<span class="go">(950.0, 300.0)</span>
-</pre></div>
-</div>
-</section>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="satmap.SatMap.__sub__">
-<span class="sig-prename descclassname"><span class="pre">satmap.SatMap.</span></span><span class="sig-name descname"><span class="pre">__sub__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">other</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#satmap.SatMap" title="satmap.SatMap"><span class="pre">SatMap</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#satmap.SatMap.__sub__" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="simple">
-<dt>self defined - operation, obtain a difference image to measure change between the days, which will only work</dt><dd><p>when the data is overlapping. (i.e, if we have taken an image yesterday covering (0,0)-(10,10), and today
-another in the range of (5, 5)-(15, 15), the resultant image should be the difference between the both for
-the range (5, 5)-(10, 10).)</p>
-</dd>
-</dl>
-<section id="id1">
-<h2>Parameters<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h2>
-<dl class="simple">
-<dt>other: SatMap</dt><dd><p>Another image to be subtracted from the current image</p>
-</dd>
-</dl>
-</section>
-<section id="id2">
-<h2>Notes<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h2>
-<p>Two images must be taken from different days. And they must overlap with each other</p>
-</section>
-<section id="id3">
-<h2>Returns<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h2>
-<dl class="simple">
-<dt>result: SatMap</dt><dd><p>the image created by the subtraction of two input images</p>
-</dd>
-</dl>
-</section>
-<section id="id4">
-<h2>Examples<a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h2>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">aigeanpy.satmap</span> <span class="kn">import</span> <span class="n">get_satmap</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">aigeanpy.net</span> <span class="kn">import</span> <span class="n">download_isa</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">download_isa</span><span class="p">(</span><span class="s2">&quot;aigean_lir_20221205_191610.asdf&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">download_isa</span><span class="p">(</span><span class="s2">&quot;aigean_lir_20221207_175138.asdf&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">satmap1</span> <span class="o">=</span> <span class="n">get_satmap</span><span class="p">(</span><span class="s2">&quot;aigean_lir_20221205_191610.asdf&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">satmap2</span> <span class="o">=</span> <span class="n">get_satmap</span><span class="p">(</span><span class="s2">&quot;aigean_lir_20221207_175138.asdf&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">combine</span> <span class="o">=</span> <span class="n">satmap1</span> <span class="o">-</span> <span class="n">satmap2</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">combine</span><span class="o">.</span><span class="n">shape</span>
-<span class="go">(10, 16)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">combine</span><span class="o">.</span><span class="n">fov</span>
-<span class="go">(700.0, 300.0)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">combine</span><span class="o">.</span><span class="n">centre</span>
-<span class="go">(750.0, 350.0)</span>
-</pre></div>
-</div>
-</section>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="satmap.SatMap.mosaic">
-<span class="sig-prename descclassname"><span class="pre">satmap.SatMap.</span></span><span class="sig-name descname"><span class="pre">mosaic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">other</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#satmap.SatMap" title="satmap.SatMap"><span class="pre">SatMap</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">resolution</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">padding</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#satmap.SatMap" title="satmap.SatMap"><span class="pre">SatMap</span></a></span></span><a class="headerlink" href="#satmap.SatMap.mosaic" title="Permalink to this definition">¶</a></dt>
-<dd><p>allow to combine images as when using + but allowing mixing instruments with different resolution</p>
-<section id="id5">
-<h2>Parameters<a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h2>
-<dl class="simple">
-<dt>other: SatMap</dt><dd><p>Another image which do the mosaic operation with current image</p>
-</dd>
-<dt>resolution: int, optional</dt><dd><p>If the resolution is not provided it should use the one of the two satmaps with larger detail, and
-expand the other to that level.</p>
-</dd>
-<dt>padding: bool, optional</dt><dd><p>padding should be True by default, i.e., to return an image with blanks (NaNs) on it. However, if
-padding is set as False the resultant image should only cover maximum portion without blanks on the
-image. Besides, if padding is False, then two images must overlap with each other</p>
-</dd>
-</dl>
-</section>
-<section id="id6">
-<h2>Returns<a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h2>
-<dl class="simple">
-<dt>result: SatMap</dt><dd><p>the image created by doing the mosaic operation on two input images</p>
-</dd>
-</dl>
-</section>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="satmap.SatMap.visualise">
-<span class="sig-prename descclassname"><span class="pre">satmap.SatMap.</span></span><span class="sig-name descname"><span class="pre">visualise</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">savepath</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">Path</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'C:\\Users\\Shameer\\Desktop\\Work\\UNI\\4th</span> <span class="pre">Year\\COMP0023</span> <span class="pre">-</span> <span class="pre">Research</span> <span class="pre">Software</span> <span class="pre">Engineering</span> <span class="pre">with</span> <span class="pre">Python\\aigeanpy-Working-Group-01\\aigeanpy\\doc'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#satmap.SatMap.visualise" title="Permalink to this definition">¶</a></dt>
-<dd><p>visualise the image, show the axis as in earth coordinates and with the proper orientation of the image.</p>
-<section id="id7">
-<h2>Parameters<a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h2>
-<dl class="simple">
-<dt>save: bool, optional</dt><dd><p>If save is set to True, then the image should not be displayed on the screen and saved in the required
-path</p>
-</dd>
-<dt>savepath: Union[Path, str], optional</dt><dd><p>the required saved path, if not set, the savepath will be the current directory</p>
-</dd>
-</dl>
-</section>
-<section id="id8">
-<h2>Notes<a class="headerlink" href="#id8" title="Permalink to this heading">¶</a></h2>
-<p>the saved image is titled with the following pattern: {observatory}_{instrument}_{date}_{time}{_source}.png,
-where the date and time are formatted as YYYYmmdd (e.g., 20221231) and HHMMSS (e.g., 120034) respectively, the
-source has four different values: add/subtract/mosaic/origin, each indicate how that image is generated.</p>
-</section>
-</dd></dl>
-
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="satmap-functinos/satmap.SatMap.__add__.html#satmap.SatMap.__add__" title="satmap.SatMap.__add__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">satmap.SatMap.__add__</span></code></a>(other)</p></td>
+<td><p>self defined + operation, collate two images and create the new SatMap instance (i.e, if we got an image</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="satmap-functinos/satmap.SatMap.__sub__.html#satmap.SatMap.__sub__" title="satmap.SatMap.__sub__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">satmap.SatMap.__sub__</span></code></a>(other)</p></td>
+<td><p>self defined - operation, obtain a difference image to measure change between the days, which will only work</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="satmap-functinos/satmap.SatMap.mosaic.html#satmap.SatMap.mosaic" title="satmap.SatMap.mosaic"><code class="xref py py-obj docutils literal notranslate"><span class="pre">satmap.SatMap.mosaic</span></code></a>(other[, resolution, ...])</p></td>
+<td><p>allow to combine images as when using + but allowing mixing instruments with different resolution</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="satmap-functinos/satmap.SatMap.visualise.html#satmap.SatMap.visualise" title="satmap.SatMap.visualise"><code class="xref py py-obj docutils literal notranslate"><span class="pre">satmap.SatMap.visualise</span></code></a>([save, savepath])</p></td>
+<td><p>visualise the image, show the axis as in earth coordinates and with the proper orientation of the image.</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 
 
@@ -235,22 +74,24 @@ source has four different values: add/subtract/mosaic/origin, each indicate how 
 <h3>Navigation</h3>
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="net-docs.html"><cite>net</cite> Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="net-docs.html">The <cite>net</cite> Module Functions</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">The <cite>SatMap</cite> Class</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#satmap.SatMap"><code class="docutils literal notranslate"><span class="pre">SatMap</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="#satmap.SatMap.__add__"><code class="docutils literal notranslate"><span class="pre">__add__()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="#satmap.SatMap.__sub__"><code class="docutils literal notranslate"><span class="pre">__sub__()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="#satmap.SatMap.mosaic"><code class="docutils literal notranslate"><span class="pre">mosaic()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="#satmap.SatMap.visualise"><code class="docutils literal notranslate"><span class="pre">visualise()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="satmap-functinos/satmap.SatMap.__add__.html">satmap.SatMap.__add__</a></li>
+<li class="toctree-l2"><a class="reference internal" href="satmap-functinos/satmap.SatMap.__sub__.html">satmap.SatMap.__sub__</a></li>
+<li class="toctree-l2"><a class="reference internal" href="satmap-functinos/satmap.SatMap.mosaic.html">satmap.SatMap.mosaic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="satmap-functinos/satmap.SatMap.visualise.html">satmap.SatMap.visualise</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="aigean-docs.html">Command-Line Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils-docs.html">The <cite>utils</cite> Functions</a></li>
 </ul>
 
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="net-docs.html" title="previous chapter"><cite>net</cite> Functions</a></li>
+      <li>Previous: <a href="functions/net.download_isa.html" title="previous chapter">net.download_isa</a></li>
+      <li>Next: <a href="satmap-functinos/satmap.SatMap.__add__.html" title="next chapter">satmap.SatMap.__add__</a></li>
   </ul></li>
 </ul>
 </div>

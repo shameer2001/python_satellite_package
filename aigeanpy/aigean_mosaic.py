@@ -1,9 +1,9 @@
 import sys
-from aigeanpy.satmap import get_satmap
-from aigeanpy.net import *
+from satmap import get_satmap
+from net import *
 
 def aigean_mosaic(filelist, resolution = None):
-    """ Creatubg a mosaic by giving multiple filenames
+    """ Create a mosaic by giving multiple filenames.
 
     Parameters
     ----------
@@ -13,8 +13,8 @@ def aigean_mosaic(filelist, resolution = None):
         A given filename or list of them, such as aigean_man_20221205_194510.hdf5 or aigean_fan_20221206_190424.zip
 
     Notes
-    ----------
-    This function only accept two or more filenames
+    -----
+    This function only accepts two or more filenames.
     """
     
     # check if all the files passed are valid Aigean images
