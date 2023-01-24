@@ -6,12 +6,13 @@ from typing import Union
 import os
 
 
+
 def earth_to_pixel(earth_coord: np.ndarray, meta: dict, resolution: Union[float, None] = None) -> np.ndarray:
-    """convert image to the pixel coord from earth coord
+    """Convert image to the pixel coord from earth coord
 
     Parameters
     ----------
-    earth_coord: Numpy.array
+    earth_coord: np..ndarray
            the image under the earth coord
 
     meta: dict
@@ -28,8 +29,19 @@ def earth_to_pixel(earth_coord: np.ndarray, meta: dict, resolution: Union[float,
 
     Returns
     -------
-    result: Numpy.array
+    result: np.ndarray
             the image under the pixel coord
+
+    >>> from aigeanpy.satmap import get_satmap
+    >>> from aigeanpy.net import download_isa
+    >>> download_isa("aigean_lir_20221205_191610.asdf")
+    >>> satmap = get_satmap("aigean_lir_20221205_191610.asdf")
+    >>> dict = pixel_to_earth(satmap.data, satmap.meta)
+    >>> earthCoord = dict.get('earthCoord')
+    >>> centralCoord = dict.get('centralCoord')
+    >>> predictedPixel = earth_to_pixel(earthCoord, satmap.meta)
+    >>> print(predictedPixel.shape)
+    (10, 20)
     """
 
     # error raising: query using wrong data format
@@ -81,7 +93,7 @@ def earth_to_pixel(earth_coord: np.ndarray, meta: dict, resolution: Union[float,
 
 
 def pixel_to_earth(pixel_coord: np.ndarray, meta: dict, resolution: Union[float, None] = None) -> dict:
-    """convert image to the earth coord from pixel coord
+    """Convert image to the earth coord from pixel coord
 
     Parameters
     ----------
@@ -110,6 +122,18 @@ def pixel_to_earth(pixel_coord: np.ndarray, meta: dict, resolution: Union[float,
             'earthCoord' gives the image under the earth pixel
             'centralCoord' gives the cenre of the pixel when a pixel correspond to multiple earth coordinates, otherwise
             is None
+
+        >>> from aigeanpy.satmap import get_satmap
+        >>> from aigeanpy.net import download_isa
+        >>> download_isa("aigean_lir_20221205_191610.asdf")
+        >>> satmap = get_satmap("aigean_lir_20221205_191610.asdf")
+        >>> dict = pixel_to_earth(satmap.data, satmap.meta)
+        >>> earthCoord = dict.get('earthCoord')
+        >>> centralCoord = dict.get('centralCoord')
+        >>> print(earthCoord.shape)
+        (300, 600)
+        >>> print(centralCoord.shape)
+        (10, 20, 2)
     """
     # error raising: query using wrong data format
 
@@ -171,36 +195,6 @@ def pixel_to_earth(pixel_coord: np.ndarray, meta: dict, resolution: Union[float,
 
     return {'earthCoord': np.array(earth), 'centralCoord': None if central is None else np.array(central)}
 
-
-if __name__ == "__main__":
-    #earth = np.zeros((10, 10))
-    #earth[0:5, 0:5] = 1
-    #print(earth)
-
-    pixel = np.load('observation.npy')
-    print(type(pixel) == np.ndarray)
-    f = open('metadata.json')
-    meta = json.load(f)
-    print(meta)
-    #print(meta['resolution'])
-
-    #predictedEarth = pixel_to_earth(pixel, meta)
-
-    #print(predictedEarth['earthCoord'][5:10, 0:5])
-
-    #print(pixel[1, 0])
-
-    #predictedPixel = earth_to_pixel(predictedEarth['earthCoord'], meta)
-
-    #print(predictedPixel[0, 0])
-
-    #a = np.zeros((10, 10))
-    #b = np.array([[1, 2], [3, 3]])
-
-    #a[:2, :2] = b
-    #print(a)
-
-    print(type(os.getcwd()))
 
 
 
