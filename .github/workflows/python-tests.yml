@@ -1,0 +1,46 @@
+name: Python package
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.9", "3.10"]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+
+          
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest
+          pip install numpy
+          pip install requests
+          pip install datetime
+          pip install h5py
+          pip install asdf
+          pip install pathlib
+          pip install typing
+          pip install typing
+          pip install matplotlib
+          pip install scikit-image
+          pip install scikit-learn
+          pip install argparse
+
+
+      - name: Test with pytest
+        run: |
+          pytest
+
+
+      - name: Install package #reinstall the package everytime it tests
+        run: |
+          pip install e .

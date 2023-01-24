@@ -1,0 +1,153 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>The ‘k-means clustering’ Algorithm &#8212; aigeanpy  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="analysis.kmeans" href="kmeans/analysis.kmeans.html" />
+    <link rel="prev" title="satmap.centre" href="utils-functions/satmap.centre.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="the-k-means-clustering-algorithm">
+<h1>The ‘k-means clustering’ Algorithm<a class="headerlink" href="#the-k-means-clustering-algorithm" title="Permalink to this heading">¶</a></h1>
+<p>The k-means algorithm is used to analyse the data from the satellite ‘Ence’.</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="kmeans/analysis.kmeans.html#analysis.kmeans" title="analysis.kmeans"><code class="xref py py-obj docutils literal notranslate"><span class="pre">analysis.kmeans</span></code></a>(filename[, clusters, iterations])</p></td>
+<td><p>Use kmean algorithm (numpy version) to classify dataset provided.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="kmeans/clustering_numpy.load_data.html#clustering_numpy.load_data" title="clustering_numpy.load_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clustering_numpy.load_data</span></code></a>(filepath)</p></td>
+<td><p>Loading data from csv file.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="kmeans/clustering_numpy.distance.html#clustering_numpy.distance" title="clustering_numpy.distance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clustering_numpy.distance</span></code></a>(centres, points)</p></td>
+<td><p>This function calculates the euclidean distance between each point from centres and each point from dataset and stores those distances in an array by using matrix product, which can reduce the usage of for loops and will not change the kmean algorithm itself.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="kmeans/clustering_numpy.cluster.html#clustering_numpy.cluster" title="clustering_numpy.cluster"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clustering_numpy.cluster</span></code></a>(data[, clusters, ...])</p></td>
+<td><p>Use kmean algorithm (numpy version) to classify dataset provided.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="kmeans/clustering.load_data.html#clustering.load_data" title="clustering.load_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clustering.load_data</span></code></a>(filepath)</p></td>
+<td><p>Loading data from csv file.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="kmeans/clustering.distance.html#clustering.distance" title="clustering.distance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clustering.distance</span></code></a>(point1, point2)</p></td>
+<td><p>Calculate the euclidean distance between two points.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="kmeans/clustering.cluster.html#clustering.cluster" title="clustering.cluster"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clustering.cluster</span></code></a>(data[, clusters, iterations])</p></td>
+<td><p>Use kmean algorithm to classify dataset provided.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">aigeanpy</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../guides/user_guide.html">Installing the Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/tutorial.html">Tutorial - How to Use this Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/contribute.html">How to Contribute to this Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="net-docs.html">The <cite>net</cite> Module Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="satmap-docs.html">The <cite>satmap</cite> Module Class and Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aigean-docs.html">Command-Line Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils-docs.html">Utility Functions</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">The ‘k-means clustering’ Algorithm</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="kmeans/analysis.kmeans.html">analysis.kmeans</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kmeans/clustering_numpy.load_data.html">clustering_numpy.load_data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kmeans/clustering_numpy.distance.html">clustering_numpy.distance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kmeans/clustering_numpy.cluster.html">clustering_numpy.cluster</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kmeans/clustering.load_data.html">clustering.load_data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kmeans/clustering.distance.html">clustering.distance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kmeans/clustering.cluster.html">clustering.cluster</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="utils-functions/satmap.centre.html" title="previous chapter">satmap.centre</a></li>
+      <li>Next: <a href="kmeans/analysis.kmeans.html" title="next chapter">analysis.kmeans</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, Shameer Ahmad, Junyi Yin, Siqing Huang, Qiang Hu, Zhang Zhouhan.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.3.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/content/kmeans-functions.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

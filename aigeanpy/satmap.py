@@ -1,18 +1,17 @@
 from typing import Union
 from pathlib import Path
 
-from utils import earth_to_pixel, pixel_to_earth
+from aigeanpy.utils import earth_to_pixel, pixel_to_earth
 
 import numpy as np
 from datetime import datetime
 from skimage.transform import rescale, downscale_local_mean, resize
 import os
 import matplotlib.pyplot as plt
-import json
-from net import *
+from aigeanpy.net import *
 
 #from aigeanpy.read import *
-from read import *
+from aigeanpy.read import *
 
 
 
@@ -26,7 +25,7 @@ class SatMap:
     ----------
     meta: dict
           Other information about the data of the input file. This includes archive it is stored in, year observatory, instrument, date when taken, time when taken, xcoords, ycoords, resolution. For ASDF file (ie Lir instrument data) the information about the asdf library is also included.
-    data: ndarray
+    data: np.ndarray
           Image datal (from the input file) taken with the Lir, Manannan or Fand instrument for ASDF, HDF5 and ZIP files respectivley.
     shape: tuple
            Shape of the data of the input file.
@@ -40,14 +39,14 @@ class SatMap:
 
     Methods
     -------
-    __add__(other: 'SatMap')
+    __add__(other: SatMap)
            Collate two images and create the new SatMap instance
 
-    __sub__(other: 'SatMap')
+    __sub__(other: SatMap)
            Obtain a difference image to measure change between the days, which will only work
            when the data is overlapping.
     
-    mosaic (other: 'SatMap', resolution: int = None, padding: bool = True)
+    mosaic (other: SatMap, resolution: int = None, padding: bool = True)
           Combine images as when using + but allowing mixing instruments with different resolution
     
     visualise (save: bool = False, savepath: Union[Path, str] = os.getcwd())
@@ -67,10 +66,8 @@ class SatMap:
 
 
     # support the + and - operation
-    def __add__(self, other: 'SatMap'):
-        """self defined + operation, collate two images and create the new SatMap instance (i.e, if we got an image
-            covering the (0,0)-(10,10) range and another from (12, 5)-(22,15), then we would end up with a “canvas”
-            that goes from (0,0)-(22,15).)
+    def __add__(self, other: 'SatMap') -> 'SatMap':
+        """Self defined addition operation, collate two images and create the new SatMap instance. 
 
         Parameters
         ----------
@@ -79,13 +76,14 @@ class SatMap:
 
         Notes
         -----
-        When the two images are overlapping, the values of the overlapping areas should not be added. Otherwise
-        it would give the wrong impression. Values should be the same when observed the same day.
+         - E.G. if we got an image covering the (0,0)-(10,10) range and another from (12, 5)-(22,15), then we would end up with a “canvas” that goes from (0,0)-(22,15).)
+         - When the two images are overlapping, the values of the overlapping areas should not be added. Otherwise it would give the wrong impression. Values should be the same when observed the same day.
+         
 
         Returns
         -------
         result: SatMap
-                the image created by the addition of two input images
+                The image created by the addition of two input images
 
         Examples
         --------
@@ -161,11 +159,9 @@ class SatMap:
         # return the new SatMap instance
         return SatMap(meta, data, shape, fov, centre)
 
-    def __sub__(self, other: 'SatMap'):
-        """self defined - operation, obtain a difference image to measure change between the days, which will only work
-            when the data is overlapping. (i.e, if we have taken an image yesterday covering (0,0)-(10,10), and today
-            another in the range of (5, 5)-(15, 15), the resultant image should be the difference between the both for
-            the range (5, 5)-(10, 10).)
+    def __sub__(self, other: 'SatMap') -> 'SatMap':
+        """Self defined subtraction operation, obtain a difference image to measure change between the days, which will only work
+            when the data is overlapping. 
 
         Parameters
         ----------
@@ -174,12 +170,13 @@ class SatMap:
 
         Notes
         -----
-        Two images must be taken from different days. And they must overlap with each other
+         - E.G. if we have taken an image yesterday covering (0,0)-(10,10), and today another in the range of (5, 5)-(15, 15), the resultant image should be the difference between the both for the range (5, 5)-(10, 10).)
+         - Two images must be taken from different days. And they must overlap with each other
 
         Returns
         -------
         result: SatMap
-                the image created by the subtraction of two input images
+                The image created by the subtraction of two input images
 
         Examples
         --------
@@ -382,23 +379,23 @@ class SatMap:
         return SatMap(meta, data, shape, fov, centre)
 
     def visualise(self, save: bool = False, savepath: Union[Path, str] = os.getcwd(), **kwargs):
-        """ visualise the image, show the axis as in earth coordinates and with the proper orientation of the image.
+        """ Visualise the image, show the axis as in earth coordinates and with proper orientation of the image.
 
         Parameters
         ----------
         save: bool, optional
-               If save is set to True, then the image should not be displayed on the screen and saved in the required
-               path
+              If save is set to True, then the image should not be displayed on the screen and saved in the required path
 
         savepath: Union[Path, str], optional
-                the required saved path, if not set, the savepath will be the current directory
+                  The required saved path, if not set, the savepath will be the current directory
 
 
         Notes
         -----
-        the saved image is titled with the following pattern: {observatory}_{instrument}_{date}_{time}{_source}.png,
+        The saved image is titled with the following pattern: {observatory}_{instrument}_{date}_{time}{_source}.png,
         where the date and time are formatted as YYYYmmdd (e.g., 20221231) and HHMMSS (e.g., 120034) respectively, the
         source has four different values: add/subtract/mosaic/origin, each indicate how that image is generated.
+
         """
 
         # error raising: query using wrong data format
@@ -448,7 +445,7 @@ class SatMap:
             plt.show()
 
 
-def get_satmap(file_name) -> 'SatMap':
+def get_satmap(file_name: str) -> 'SatMap':
     """Generates a `SatMap` class object for a given file.
 
     Parameter
@@ -485,6 +482,10 @@ def get_satmap(file_name) -> 'SatMap':
     if type(file_name) != str:
         raise TypeError("The file-name must be a string")
 
+    if len(file_name.split('.')) != 2: # ensure it is a file 
+        raise ValueError("The input must be a file. Not a folder or otherwise.")
+
+
 
     filetype = os.path.splitext(file_name)[1]  # obtain file extension
 
@@ -514,7 +515,7 @@ def get_satmap(file_name) -> 'SatMap':
 
 
 # FUNCTIONS FOR THE ATTRIBUTES OF THE SatMap function:
-def fov(meta):
+def fov(meta: dict) -> tuple:
     """Field of view of the images captured by the instrument (i.e., the difference between the boundaries).
 
     Parameters
@@ -535,7 +536,7 @@ def fov(meta):
     return fov
 
 
-def centre(meta):
+def centre(meta: dict) -> tuple:
     """Centre of the image taken by the instrument.
 
     Parameters
@@ -636,6 +637,7 @@ def centre(meta):
 
 # download_isa("aigean_lir_20221205_191610.asdf")
 # satmap = get_satmap("aigean_lir_20221205_191610.asdf")
+# print(satmap.shape)
 
 # print(satmap.meta)
 # print(satmap.shape)
@@ -653,3 +655,7 @@ def centre(meta):
 
 
 
+# file = 'aigean_man_20221205_194510.hdf5'
+
+# for i in file:
+#     print(i.split('.'))

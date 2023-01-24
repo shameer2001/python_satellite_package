@@ -39,8 +39,8 @@
 <h1>aigean_metadata.aigean_metadata<a class="headerlink" href="#aigean-metadata-aigean-metadata" title="Permalink to this heading">¶</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="aigean_metadata.aigean_metadata">
-<span class="sig-prename descclassname"><span class="pre">aigean_metadata.</span></span><span class="sig-name descname"><span class="pre">aigean_metadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filenames</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#aigean_metadata.aigean_metadata" title="Permalink to this definition">¶</a></dt>
-<dd><p>Extractin the metadata information from correct files, and show the uncorrect files name below</p>
+<span class="sig-prename descclassname"><span class="pre">aigean_metadata.</span></span><span class="sig-name descname"><span class="pre">aigean_metadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filenames</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="headerlink" href="#aigean_metadata.aigean_metadata" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extracting the meta-data information from files and showing invalid files.</p>
 <section id="parameters">
 <h2>Parameters<a class="headerlink" href="#parameters" title="Permalink to this heading">¶</a></h2>
 <dl class="simple">
@@ -50,12 +50,12 @@
 </section>
 <section id="notes">
 <h2>Notes<a class="headerlink" href="#notes" title="Permalink to this heading">¶</a></h2>
-<p>This function take a ‘aigean’ file without (9 sets of key and meta data value) as a corrypted one</p>
+<p>This function takes an ‘aigean’ file, without 9 sets of key and meta data value, as a corrupted one.</p>
 </section>
 <section id="returns">
 <h2>Returns<a class="headerlink" href="#returns" title="Permalink to this heading">¶</a></h2>
 <dl class="simple">
-<dt>outputs: str</dt><dd><p>the set of meta information outputs(key:value) of given files, and name of files failed to process</p>
+<dt>outputs: dict</dt><dd><p>The set of meta information. It outputs (key:value) for the given files, and the name of files failed to process.</p>
 </dd>
 </dl>
 </section>
@@ -119,6 +119,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../utils-docs.html">Utility Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../kmeans-functions.html">The ‘k-means’ Algorithm</a></li>
 </ul>
 
 <div class="relations">
