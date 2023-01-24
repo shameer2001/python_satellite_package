@@ -17,6 +17,8 @@
     <script src="../../_static/sphinx_highlight.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="The satmap Module Class and Functions" href="../satmap-docs.html" />
+    <link rel="prev" title="net.query_isa" href="net.query_isa.html" />
    
   <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
   
@@ -37,14 +39,14 @@
 <h1>net.download_isa<a class="headerlink" href="#net-download-isa" title="Permalink to this heading">¶</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="net.download_isa">
-<span class="sig-prename descclassname"><span class="pre">net.</span></span><span class="sig-name descname"><span class="pre">download_isa</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#net.download_isa" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">net.</span></span><span class="sig-name descname"><span class="pre">download_isa</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">Path</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#net.download_isa" title="Permalink to this definition">¶</a></dt>
 <dd><p>Downloads the data from the search done by the <cite>net.query_isa()</cite> function.</p>
 <section id="parameters">
 <h2>Parameters<a class="headerlink" href="#parameters" title="Permalink to this heading">¶</a></h2>
 <dl class="simple">
 <dt>filename<span class="classifier">str</span></dt><dd><p>Name of a file as provided by the <cite>net.query_isa()</cite> function.</p>
 </dd>
-<dt>save_dir<span class="classifier">str or path object, optional</span></dt><dd><p>The directory to save the file in. Default is None (ie download to current working directory)</p>
+<dt>save_dir<span class="classifier">Union[Path, str, None], optional</span></dt><dd><p>The directory to save the file in. Default is None (ie download to current working directory)</p>
 </dd>
 </dl>
 </section>
@@ -70,20 +72,29 @@
 
 <h3>Navigation</h3>
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../guides/user_guide.html">Installing the Package</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../guides/tutorial.html">Tutorial - How to Use this Package</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../guides/contribute.html">How to Contribute to this Package</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../net-docs.html">The <cite>net</cite> Module Functions</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../net-docs.html">The <cite>net</cite> Module Functions</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="net.query_isa.html">net.query_isa</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">net.download_isa</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../satmap-docs.html">The <cite>satmap</cite> Module Class and Functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../aigean-docs.html">Command-Line Functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../utils-docs.html">Utility Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../kmeans-functions.html">The ‘k-means’ Algorithm</a></li>
 </ul>
 
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../net-docs.html">The <cite>net</cite> Module Functions</a><ul>
+      <li>Previous: <a href="net.query_isa.html" title="previous chapter">net.query_isa</a></li>
+      <li>Next: <a href="../satmap-docs.html" title="next chapter">The <cite>satmap</cite> Module Class and Functions</a></li>
+  </ul></li>
   </ul></li>
 </ul>
 </div>

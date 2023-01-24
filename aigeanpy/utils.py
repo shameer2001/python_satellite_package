@@ -1,20 +1,18 @@
 
 import numpy as np
 import json
-import datetime
 
 from typing import Union
-from pathlib import Path
 import os
 
 
 
-def earth_to_pixel(earth_coord: 'np.ndarray', meta: 'dict', resolution: float = None) -> np.array:
-    """convert image to the pixel coord from earth coord
+def earth_to_pixel(earth_coord: np.ndarray, meta: dict, resolution: Union[float, None] = None) -> np.ndarray:
+    """Convert image to the pixel coord from earth coord
 
     Parameters
     ----------
-    earth_coord: Numpy.array
+    earth_coord: np..ndarray
            the image under the earth coord
 
     meta: dict
@@ -31,7 +29,7 @@ def earth_to_pixel(earth_coord: 'np.ndarray', meta: 'dict', resolution: float = 
 
     Returns
     -------
-    result: Numpy.array
+    result: np.ndarray
             the image under the pixel coord
 
     >>> from aigeanpy.satmap import get_satmap
@@ -94,12 +92,12 @@ def earth_to_pixel(earth_coord: 'np.ndarray', meta: 'dict', resolution: float = 
     return pixel
 
 
-def pixel_to_earth(pixel_coord: 'np.array', meta, resolution=None) -> dict:
-    """convert image to the earth coord from pixel coord
+def pixel_to_earth(pixel_coord: np.ndarray, meta: dict, resolution: Union[float, None] = None) -> dict:
+    """Convert image to the earth coord from pixel coord
 
     Parameters
     ----------
-    pixel_coord: Numpy.array
+    pixel_coord: np.ndarray
            the image under the pixel coord
 
     meta: dict
