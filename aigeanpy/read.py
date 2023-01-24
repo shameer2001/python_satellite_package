@@ -9,7 +9,7 @@ import numpy as np
 import os 
 from io import BytesIO
 
-def read(file):
+def read(file: str):
     """Extracts the data and meta data from the input file.
 
 
@@ -40,7 +40,7 @@ def read(file):
 
     **For '.asdf', '.hdf5' and '.zip' files:**
     
-    data: ndarray
+    data: np.ndarray
           Image data taken with the Lir, Manannan or Fand instrument for ASDF, HDF5 and ZIP files respectivley.
     meta_data: dict
                Other information about the data. This includes archive it's stored in, year, observatory, instrument, date when taken, time when taken, xcoords, ycoords, resolution. For ASDF files (ie Lir instrument data) the information about the asdf library is also included.

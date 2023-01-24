@@ -8,7 +8,7 @@ from pathlib import Path
 import os
 
 
-def earth_to_pixel(earth_coord: 'np.ndarray', meta: 'dict', resolution: float = None) -> np.array:
+def earth_to_pixel(earth_coord: np.ndarray, meta: dict, resolution: Union[float, None] = None) -> np.ndarray:
     """convert image to the pixel coord from earth coord
 
     Parameters
@@ -82,12 +82,12 @@ def earth_to_pixel(earth_coord: 'np.ndarray', meta: 'dict', resolution: float = 
     return pixel
 
 
-def pixel_to_earth(pixel_coord: 'np.array', meta, resolution=None) -> dict:
+def pixel_to_earth(pixel_coord: np.ndarray, meta: dict, resolution: Union[float, None] = None) -> dict:
     """convert image to the earth coord from pixel coord
 
     Parameters
     ----------
-    pixel_coord: Numpy.array
+    pixel_coord: np.ndarray
            the image under the pixel coord
 
     meta: dict

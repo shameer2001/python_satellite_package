@@ -1,19 +1,20 @@
 from requests import *
 from pathlib import Path
+from typing import Union
 
-def query_isa(start_date = None, stop_date = None, instrument = None) -> list:
+def query_isa(start_date: Union[str, None] = None, stop_date: Union[str, None] = None, instrument: Union[str, None] = None) -> list:
     """Returns a JSON file of the results from the query service.
         
     Parameters
     ----------
-    start_date : str (date of format YYYY-mm-dd), optional
+    start_date : Union[str, None] (date of format YYYY-mm-dd), optional
                     Look for data in query catalogue taken on this date and further. Default is the current date.
 
-    stop_date : str (date of format YYYY-mm-dd), optional
+    stop_date : Union[str, None] (date of format YYYY-mm-dd), optional
                 Look for data in query catalogue taken on this date and sooner. Default is the current date.
     
     
-    instrument : str, optional
+    instrument : Union[str, None], optional
                 One of the possible image-taking instruments: 'lir', 'manannan', 'fand' or 'csvfile'. The function only includes data taken with the select instrument. Default is None (ie. the function searches for all instruments).
                      
                      
@@ -90,7 +91,7 @@ def query_isa(start_date = None, stop_date = None, instrument = None) -> list:
 
 
         
-def download_isa(filename, save_dir = None) -> None:
+def download_isa(filename: str, save_dir: Union[Path, str, None] = None) -> None:
     """Downloads the data from the search done by the `net.query_isa()` function.
 
 
@@ -102,7 +103,7 @@ def download_isa(filename, save_dir = None) -> None:
 
     
     
-    save_dir : str or path object, optional
+    save_dir : Union[Path, str, None], optional
                 The directory to save the file in. Default is None (ie download to current working directory)
                 
     
@@ -112,18 +113,24 @@ def download_isa(filename, save_dir = None) -> None:
     if type(filename) != str:
         raise TypeError("The filename must be a string.")
                        
-    if type(save_dir) != str and save_dir != None:
+    if type(save_dir) != str and type(save_dir) != Path and save_dir != None:
         raise TypeError("The `save_dir` variable is not a string.")
 
 
 
     if save_dir:
-        p = Path('{}/{}'.format(save_dir, filename))
+
+        if type(save_dir) == str:
+            p = Path('{}/{}'.format(save_dir, filename))
+        elif type(save_dir) == Path:
+            p = save_dir / filename
             
-            
+
+
         if not Path(save_dir).exists(): # if no such path exists
             raise NotADirectoryError("The directory given, for the `save_dir` variable, does not exist.")
                 
+
     else:
         p = Path(filename) # with full name to save with correct extension
 
@@ -140,7 +147,7 @@ def download_isa(filename, save_dir = None) -> None:
 #print(net.query_isa("2022-12-05", "2022-12-06", "lir") )
 #print(type(query_isa("2022-12-05", "2022-12-06", "lir") ))
 
-# download_isa("aigean_lir_20221205_191610.asdf")
+#download_isa("aigean_lir_20221205_191610.asdf")
 # import json
 # import numpy as np
 #query = net.query_isa()

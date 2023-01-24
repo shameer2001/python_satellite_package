@@ -4,25 +4,25 @@ from typing import Union
 
 
 # Add a function kmeans() to perform kmean algorithm on csv file provided.
-def kmeans(filename: Union[Path, str], clusters: int = 3, iterations: int = 10):
+def kmeans(filename: Union[Path, str], clusters: int = 3, iterations: int = 10) -> list:
     """
     Use kmean algorithm (numpy version) to classify dataset provided.
 
     Parameters
     ----------
     filename : Path
-        A given Path, such as "samples.csv"
+        A given file-path or file-name, such as "samples.csv".
 
     clusters : int, optional
-        Number of clusters to divide the dataset into, default is 3
+        Number of clusters to divide the dataset into, default is 3.
 
     iterations : int, optional
-        Number of iterations to upload the centres, default is 10
+        Number of iterations to upload the centres, default is 10.
 
     Returns
     -------
     indices : list
-        Indices of the measurements for each group
+        Indices of the measurements for each group.
     """
     # error raising: filename using wrong format
     if not (isinstance(filename, Path) or isinstance(filename, str)):
