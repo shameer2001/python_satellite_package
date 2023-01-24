@@ -653,7 +653,3 @@ def centre(meta):
 
 
 
-file = 'aigean_man_20221205_194510.hdf5'
-
-for i in file:
-    print(i.split('.'))

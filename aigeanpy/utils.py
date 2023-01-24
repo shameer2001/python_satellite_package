@@ -8,6 +8,7 @@ from pathlib import Path
 import os
 
 
+
 def earth_to_pixel(earth_coord: 'np.ndarray', meta: 'dict', resolution: float = None) -> np.array:
     """convert image to the pixel coord from earth coord
 
@@ -32,6 +33,17 @@ def earth_to_pixel(earth_coord: 'np.ndarray', meta: 'dict', resolution: float = 
     -------
     result: Numpy.array
             the image under the pixel coord
+
+    >>> from aigeanpy.satmap import get_satmap
+    >>> from aigeanpy.net import download_isa
+    >>> download_isa("aigean_lir_20221205_191610.asdf")
+    >>> satmap = get_satmap("aigean_lir_20221205_191610.asdf")
+    >>> dict = pixel_to_earth(satmap.data, satmap.meta)
+    >>> earthCoord = dict.get('earthCoord')
+    >>> centralCoord = dict.get('centralCoord')
+    >>> predictedPixel = earth_to_pixel(earthCoord, satmap.meta)
+    >>> print(predictedPixel.shape)
+    (10, 20)
     """
 
     # error raising: query using wrong data format
@@ -112,6 +124,18 @@ def pixel_to_earth(pixel_coord: 'np.array', meta, resolution=None) -> dict:
             'earthCoord' gives the image under the earth pixel
             'centralCoord' gives the cenre of the pixel when a pixel correspond to multiple earth coordinates, otherwise
             is None
+
+        >>> from aigeanpy.satmap import get_satmap
+        >>> from aigeanpy.net import download_isa
+        >>> download_isa("aigean_lir_20221205_191610.asdf")
+        >>> satmap = get_satmap("aigean_lir_20221205_191610.asdf")
+        >>> dict = pixel_to_earth(satmap.data, satmap.meta)
+        >>> earthCoord = dict.get('earthCoord')
+        >>> centralCoord = dict.get('centralCoord')
+        >>> print(earthCoord.shape)
+        (300, 600)
+        >>> print(centralCoord.shape)
+        (10, 20, 2)
     """
     # error raising: query using wrong data format
 
@@ -173,36 +197,6 @@ def pixel_to_earth(pixel_coord: 'np.array', meta, resolution=None) -> dict:
 
     return {'earthCoord': np.array(earth), 'centralCoord': None if central is None else np.array(central)}
 
-
-if __name__ == "__main__":
-    #earth = np.zeros((10, 10))
-    #earth[0:5, 0:5] = 1
-    #print(earth)
-
-    pixel = np.load('observation.npy')
-    print(type(pixel) == np.ndarray)
-    f = open('metadata.json')
-    meta = json.load(f)
-    print(meta)
-    #print(meta['resolution'])
-
-    #predictedEarth = pixel_to_earth(pixel, meta)
-
-    #print(predictedEarth['earthCoord'][5:10, 0:5])
-
-    #print(pixel[1, 0])
-
-    #predictedPixel = earth_to_pixel(predictedEarth['earthCoord'], meta)
-
-    #print(predictedPixel[0, 0])
-
-    #a = np.zeros((10, 10))
-    #b = np.array([[1, 2], [3, 3]])
-
-    #a[:2, :2] = b
-    #print(a)
-
-    print(type(os.getcwd()))
 
 
 
