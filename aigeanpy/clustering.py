@@ -110,7 +110,7 @@ def process():
     # Add argument Path.
     parser.add_argument('Path')
     arguments = parser.parse_args()
-    data = load_data(Path(f'{arguments.Path}'))
+    data = load_data(arguments.Path)
     alloc, centres = cluster(data, arguments.clusters, arguments.iters)
     k = len(centres)
     # Print the final result.
