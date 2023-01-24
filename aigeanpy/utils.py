@@ -1,12 +1,5 @@
 
 import numpy as np
-import json
-import datetime
-
-from typing import Union
-from pathlib import Path
-import os
-
 
 
 def earth_to_pixel(earth_coord: 'np.ndarray', meta: 'dict', resolution: float = None) -> np.array:

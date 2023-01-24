@@ -1,5 +1,5 @@
 import sys
-from satmap import get_satmap
+from aigeanpy.satmap import get_satmap
 from aigeanpy.net import *
 
 def aigean_mosaic(filelist, resolution = None):
@@ -47,6 +47,3 @@ def aigean_mosaic(filelist, resolution = None):
 
     # save the mosaic
     return mosaic_map.visualise(save=True)
-     
-
-# x = aigean_mosaic(['aigean_lir_20230105_135624.asdf', 'aigean_lir_20230105_142424.asdf'])

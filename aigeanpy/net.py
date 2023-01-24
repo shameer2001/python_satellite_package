@@ -134,26 +134,3 @@ def download_isa(filename, save_dir = None) -> None:
     r = get('https://dokku-app.dokku.arc.ucl.ac.uk/isa-archive/download/', params=payload)
 
     p.write_bytes(r.content) #download
-
-
-
-#print(net.query_isa("2022-12-05", "2022-12-06", "lir") )
-#print(type(query_isa("2022-12-05", "2022-12-06", "lir") ))
-
-# download_isa("aigean_lir_20221205_191610.asdf")
-# import json
-# import numpy as np
-#query = net.query_isa()
-#query = net.query_isa("2022-12-05", "2022-12-06", "lir")
-
-#print(query)
-
-#query = json.load(query)
-#print(np.array(query))
-#print(type(query))
-
-#print(query[-1])
-
-#query_isa("2022-12-05", "2022-12-05", "lir")
-#query_isa("2022-12-06", "2022-12-07", "ecne")
-#query_isa("2023-01-05", "2023-01-05")

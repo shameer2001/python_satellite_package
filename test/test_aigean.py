@@ -1,8 +1,7 @@
 import pytest
-from pathlib import Path
-from aigeanpy.aigean_today import aigean_today
 from aigeanpy.aigean_metadata import aigean_metadata
 from aigeanpy.aigean_mosaic import aigean_mosaic
+from aigeanpy.aigean_today import aigean_today
 
 
 # TESTS FOR COMMAND-LINE FUNCTIONS #
