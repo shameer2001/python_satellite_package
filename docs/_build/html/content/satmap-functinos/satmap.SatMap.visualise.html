@@ -40,20 +40,19 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="satmap.SatMap.visualise">
 <span class="sig-prename descclassname"><span class="pre">SatMap.</span></span><span class="sig-name descname"><span class="pre">visualise</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">save</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">savepath</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">Path</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'C:\\Users\\Shameer\\Desktop\\Work\\UNI\\4th</span> <span class="pre">Year\\COMP0023</span> <span class="pre">-</span> <span class="pre">Research</span> <span class="pre">Software</span> <span class="pre">Engineering</span> <span class="pre">with</span> <span class="pre">Python\\aigeanpy-Working-Group-01\\docs'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#satmap.SatMap.visualise" title="Permalink to this definition">¶</a></dt>
-<dd><p>visualise the image, show the axis as in earth coordinates and with the proper orientation of the image.</p>
+<dd><p>Visualise the image, show the axis as in earth coordinates and with proper orientation of the image.</p>
 <section id="parameters">
 <h2>Parameters<a class="headerlink" href="#parameters" title="Permalink to this heading">¶</a></h2>
 <dl class="simple">
-<dt>save: bool, optional</dt><dd><p>If save is set to True, then the image should not be displayed on the screen and saved in the required
-path</p>
+<dt>save: bool, optional</dt><dd><p>If save is set to True, then the image should not be displayed on the screen and saved in the required path</p>
 </dd>
-<dt>savepath: Union[Path, str], optional</dt><dd><p>the required saved path, if not set, the savepath will be the current directory</p>
+<dt>savepath: Union[Path, str], optional</dt><dd><p>The required saved path, if not set, the savepath will be the current directory</p>
 </dd>
 </dl>
 </section>
 <section id="notes">
 <h2>Notes<a class="headerlink" href="#notes" title="Permalink to this heading">¶</a></h2>
-<p>the saved image is titled with the following pattern: {observatory}_{instrument}_{date}_{time}{_source}.png,
+<p>The saved image is titled with the following pattern: {observatory}_{instrument}_{date}_{time}{_source}.png,
 where the date and time are formatted as YYYYmmdd (e.g., 20221231) and HHMMSS (e.g., 120034) respectively, the
 source has four different values: add/subtract/mosaic/origin, each indicate how that image is generated.</p>
 </section>
@@ -95,6 +94,7 @@ source has four different values: add/subtract/mosaic/origin, each indicate how 
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../aigean-docs.html">Command-Line Functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../utils-docs.html">Utility Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../kmeans-functions.html">The ‘k-means’ Algorithm</a></li>
 </ul>
 
 <div class="relations">

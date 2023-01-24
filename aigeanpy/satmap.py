@@ -8,7 +8,6 @@ from datetime import datetime
 from skimage.transform import rescale, downscale_local_mean, resize
 import os
 import matplotlib.pyplot as plt
-import json
 from aigeanpy.net import *
 
 #from aigeanpy.read import *

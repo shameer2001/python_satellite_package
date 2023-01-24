@@ -1,5 +1,5 @@
 Utility Functions
-=====================
+================= 
 
 These are functions that are utilised in larger functions. However, you may find them useful on their own!
 
