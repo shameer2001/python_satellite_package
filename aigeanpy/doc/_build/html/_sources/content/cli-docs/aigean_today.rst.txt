@@ -1,0 +1,29 @@
+﻿aigean\_today
+=============
+
+.. automodule:: aigean_today
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      aigean_today
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+

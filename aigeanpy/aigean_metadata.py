@@ -1,6 +1,6 @@
 from argparse import ArgumentParser
-from aigeanpy.satmap import SatMap, get_satmap
-from aigeanpy.net import *
+from satmap import SatMap, get_satmap
+from net import *
 from datetime import date
 
 def aigean_metadata(filenames):
@@ -12,11 +12,11 @@ def aigean_metadata(filenames):
         A given filename or list of them, such as aigean_man_20221205_194510.hdf5 or aigean_fan_20221206_190424.zip
 
     Notes
-    ----------
+    -----
     This function take a 'aigean' file without (9 sets of key and meta data value) as a corrypted one
 
     Returns
-    ----------
+    -------
     outputs: str
         the set of meta information outputs(key:value) of given files, and name of files failed to process
 

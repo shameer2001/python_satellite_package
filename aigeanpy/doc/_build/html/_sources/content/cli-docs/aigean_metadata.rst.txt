@@ -1,0 +1,29 @@
+﻿aigean\_metadata
+================
+
+.. automodule:: aigean_metadata
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      aigean_metadata
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+

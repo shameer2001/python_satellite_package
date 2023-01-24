@@ -1,6 +1,7 @@
 from typing import Union
 from pathlib import Path
-from aigeanpy.utils import earth_to_pixel, pixel_to_earth
+
+from utils import earth_to_pixel, pixel_to_earth
 
 import numpy as np
 from datetime import datetime
@@ -24,7 +25,7 @@ class SatMap:
     Attributes
     ----------
     meta: dict
-          Other information about the data of the input file. This includes archive it's stored in, year, observatory, instrument, date when taken, time when taken, xcoords, ycoords, resolution. For ASDF files (ie Lir instrument data) the information about the asdf library is also included.
+          Other information about the data of the input file. This includes archive it is stored in, year observatory, instrument, date when taken, time when taken, xcoords, ycoords, resolution. For ASDF file (ie Lir instrument data) the information about the asdf library is also included.
     data: ndarray
           Image datal (from the input file) taken with the Lir, Manannan or Fand instrument for ASDF, HDF5 and ZIP files respectivley.
     shape: tuple
@@ -49,7 +50,7 @@ class SatMap:
     mosaic (other: 'SatMap', resolution: int = None, padding: bool = True)
           Combine images as when using + but allowing mixing instruments with different resolution
     
-    visualise (save: bool = False, savepath: Union[Path, str] = os.getcwd(), **kwargs)
+    visualise (save: bool = False, savepath: Union[Path, str] = os.getcwd())
             Visualise the image, show the axis as in earth coordinates and with the proper orientation of the image.
 
 
@@ -448,7 +449,7 @@ class SatMap:
 
 
 def get_satmap(file_name) -> 'SatMap':
-    """Generates a SatMap object for a given file.
+    """Generates a `SatMap` class object for a given file.
 
     Parameter
     ---------
@@ -460,6 +461,20 @@ def get_satmap(file_name) -> 'SatMap':
     satmap: 'SatMap'
              A SatMap class oject for the file named 'file_name'
 
+
+
+    Example:
+    --------
+
+    >>> satmap = get_satmap("aigean_lir_20221205_191610.asdf")
+    >>> satmap.meta
+    {'asdf_library': {'author': 'The ASDF Developers', 'homepage': 'http://github.com/asdf-format/asdf', 'name': 'asdf', 'version': '2.14.2'}, 'history': {'extensions': [{'extension_class': 'asdf.extension.BuiltinExtension', 'software': {'name': 'asdf', 'version': '2.14.2'}}]}, 'archive': 'ISA', 'date': '2022-12-05', 'instrument': 'Lir', 'observatory': 'Aigean', 'resolution': 30, 'time': '19:16:10', 'xcoords': [500.0, 1100.0], 'ycoords': [200.0, 500.0], 'year': 2023}
+    >>> satmap.shape
+    (10, 20)
+    >>> satmap.fov
+    (600.0, 300.0)
+    >>> satmap.centre
+    (800.0, 150.0)
              
     """
     # Give the name of the file, and return the data and meta,
@@ -619,10 +634,19 @@ def centre(meta):
 
 # # print(satmap.centre)
 
-if __name__ == "__main__":
-    satmap1 = get_satmap("aigean_lir_20221205_191610.asdf")
-    satmap2 = get_satmap("aigean_lir_20221207_175138.asdf")
-    combine = satmap1 - satmap2
-    print(combine.shape)
-    print(combine.fov)
-    print(combine.centre)
+download_isa("aigean_lir_20221205_191610.asdf")
+satmap = get_satmap("aigean_lir_20221205_191610.asdf")
+
+print(satmap.meta)
+print(satmap.shape)
+print(satmap.fov)
+print(satmap.centre)
+#satmap = get_satmap("aigean_lir_20221205_191610.asdf").__add__(satmap).shape
+#print(satmap)
+# if __name__ == "__main__":
+#     satmap1 = get_satmap("aigean_lir_20221205_191610.asdf")
+#     satmap2 = get_satmap("aigean_lir_20221207_175138.asdf")
+#     combine = satmap1 - satmap2
+#     print(combine.shape)
+#     print(combine.fov)
+#     print(combine.centre)

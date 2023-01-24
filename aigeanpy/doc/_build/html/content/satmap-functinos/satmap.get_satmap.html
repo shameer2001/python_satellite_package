@@ -1,0 +1,157 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>satmap.get_satmap &#8212; aigeanpy  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Command-Line Functions" href="../aigean-docs.html" />
+    <link rel="prev" title="satmap.SatMap.visualise" href="satmap.SatMap.visualise.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="satmap-get-satmap">
+<h1>satmap.get_satmap<a class="headerlink" href="#satmap-get-satmap" title="Permalink to this heading">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="satmap.get_satmap">
+<span class="sig-prename descclassname"><span class="pre">satmap.</span></span><span class="sig-name descname"><span class="pre">get_satmap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_name</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">SatMap</span></span></span><a class="headerlink" href="#satmap.get_satmap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a <cite>SatMap</cite> class object for a given file.</p>
+<section id="parameter">
+<h2>Parameter<a class="headerlink" href="#parameter" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>file_name: str</dt><dd><p>The name of the file that the function will return a SatMap object of.</p>
+</dd>
+</dl>
+</section>
+<section id="returns">
+<h2>Returns<a class="headerlink" href="#returns" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>satmap: ‘SatMap’</dt><dd><p>A SatMap class oject for the file named ‘file_name’</p>
+</dd>
+</dl>
+</section>
+<section id="example">
+<h2>Example:<a class="headerlink" href="#example" title="Permalink to this heading">¶</a></h2>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">satmap</span> <span class="o">=</span> <span class="n">get_satmap</span><span class="p">(</span><span class="s2">&quot;aigean_lir_20221205_191610.asdf&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">satmap</span><span class="o">.</span><span class="n">meta</span>
+<span class="go">{&#39;asdf_library&#39;: {&#39;author&#39;: &#39;The ASDF Developers&#39;, &#39;homepage&#39;: &#39;http://github.com/asdf-format/asdf&#39;, &#39;name&#39;: &#39;asdf&#39;, &#39;version&#39;: &#39;2.14.2&#39;}, &#39;history&#39;: {&#39;extensions&#39;: [{&#39;extension_class&#39;: &#39;asdf.extension.BuiltinExtension&#39;, &#39;software&#39;: {&#39;name&#39;: &#39;asdf&#39;, &#39;version&#39;: &#39;2.14.2&#39;}}]}, &#39;archive&#39;: &#39;ISA&#39;, &#39;date&#39;: &#39;2022-12-05&#39;, &#39;instrument&#39;: &#39;Lir&#39;, &#39;observatory&#39;: &#39;Aigean&#39;, &#39;resolution&#39;: 30, &#39;time&#39;: &#39;19:16:10&#39;, &#39;xcoords&#39;: [500.0, 1100.0], &#39;ycoords&#39;: [200.0, 500.0], &#39;year&#39;: 2023}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">satmap</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">(10, 20)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">satmap</span><span class="o">.</span><span class="n">fov</span>
+<span class="go">(600.0, 300.0)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">satmap</span><span class="o">.</span><span class="n">centre</span>
+<span class="go">(800.0, 150.0)</span>
+</pre></div>
+</div>
+</section>
+</dd></dl>
+
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">aigeanpy</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../net-docs.html">The <cite>net</cite> Module Functions</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../satmap-docs.html">The <cite>SatMap</cite> Class</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="satmap.SatMap.__add__.html">satmap.SatMap.__add__</a></li>
+<li class="toctree-l2"><a class="reference internal" href="satmap.SatMap.__sub__.html">satmap.SatMap.__sub__</a></li>
+<li class="toctree-l2"><a class="reference internal" href="satmap.SatMap.mosaic.html">satmap.SatMap.mosaic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="satmap.SatMap.visualise.html">satmap.SatMap.visualise</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">satmap.get_satmap</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../aigean-docs.html">Command-Line Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../utils-docs.html">Utility Functions</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../satmap-docs.html">The <cite>SatMap</cite> Class</a><ul>
+      <li>Previous: <a href="satmap.SatMap.visualise.html" title="previous chapter">satmap.SatMap.visualise</a></li>
+      <li>Next: <a href="../aigean-docs.html" title="next chapter">Command-Line Functions</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, Shameer Ahmad, Junyi Yin, Siqing Huang, Qiang Hu, Zhang Zhouhan.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.3.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../../_sources/content/satmap-functinos/satmap.get_satmap.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

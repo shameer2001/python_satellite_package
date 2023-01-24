@@ -2,15 +2,15 @@ from argparse import ArgumentParser
 import requests
 from datetime import date
 from datetime import timedelta
-from aigeanpy.net import *
-from aigeanpy.satmap import SatMap, get_satmap
+from net import *
+from satmap import SatMap, get_satmap
 
 
 def aigean_today(instrument = None, saveplot=False):
-    """ Getting the latest image of the archive
+    """ Getting the latest image from the archive.
 
     Parameters
-    ---------
+    ----------
     instrument: str, optional
         An optional specification: choose from 4 different intruments('lir','manannan','fand','ecne'), or leave it along as None to get the last 
         observation(with no specific instrument requirement)
@@ -19,7 +19,7 @@ def aigean_today(instrument = None, saveplot=False):
         path. If save is set to False, the image should be displayed on the screen, but not get saved in the directory.
     
     Notes
-    ---------
+    -----
     The data file and image(if there is one) will be saved in the directory where it is run.
     """
     # use 'datetime' from python standard library to get the date of today and the most recent update date
