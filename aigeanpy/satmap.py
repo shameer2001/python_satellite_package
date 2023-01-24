@@ -449,7 +449,7 @@ class SatMap:
 
 
 def get_satmap(file_name) -> 'SatMap':
-    """Generates a SatMap object for a given file.
+    """Generates a `SatMap` class object for a given file.
 
     Parameter
     ---------
@@ -461,6 +461,20 @@ def get_satmap(file_name) -> 'SatMap':
     satmap: 'SatMap'
              A SatMap class oject for the file named 'file_name'
 
+
+
+    Example:
+    --------
+
+    >>> satmap = get_satmap("aigean_lir_20221205_191610.asdf")
+    >>> satmap.meta
+    {'asdf_library': {'author': 'The ASDF Developers', 'homepage': 'http://github.com/asdf-format/asdf', 'name': 'asdf', 'version': '2.14.2'}, 'history': {'extensions': [{'extension_class': 'asdf.extension.BuiltinExtension', 'software': {'name': 'asdf', 'version': '2.14.2'}}]}, 'archive': 'ISA', 'date': '2022-12-05', 'instrument': 'Lir', 'observatory': 'Aigean', 'resolution': 30, 'time': '19:16:10', 'xcoords': [500.0, 1100.0], 'ycoords': [200.0, 500.0], 'year': 2023}
+    >>> satmap.shape
+    (10, 20)
+    >>> satmap.fov
+    (600.0, 300.0)
+    >>> satmap.centre
+    (800.0, 150.0)
              
     """
     # Give the name of the file, and return the data and meta,
@@ -620,11 +634,15 @@ def centre(meta):
 
 # # print(satmap.centre)
 
-download_isa("aigean_man_20230105_135624.hdf5")
-satmap = get_satmap("aigean_man_20230105_135624.hdf5")
+download_isa("aigean_lir_20221205_191610.asdf")
+satmap = get_satmap("aigean_lir_20221205_191610.asdf")
 
-satmap = get_satmap("aigean_man_20230105_135624.hdf5").__add__(satmap).shape
-print(satmap)
+print(satmap.meta)
+print(satmap.shape)
+print(satmap.fov)
+print(satmap.centre)
+#satmap = get_satmap("aigean_lir_20221205_191610.asdf").__add__(satmap).shape
+#print(satmap)
 # if __name__ == "__main__":
 #     satmap1 = get_satmap("aigean_lir_20221205_191610.asdf")
 #     satmap2 = get_satmap("aigean_lir_20221207_175138.asdf")
