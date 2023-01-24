@@ -634,13 +634,13 @@ def centre(meta):
 
 # # print(satmap.centre)
 
-download_isa("aigean_lir_20221205_191610.asdf")
-satmap = get_satmap("aigean_lir_20221205_191610.asdf")
+# download_isa("aigean_lir_20221205_191610.asdf")
+# satmap = get_satmap("aigean_lir_20221205_191610.asdf")
 
-print(satmap.meta)
-print(satmap.shape)
-print(satmap.fov)
-print(satmap.centre)
+# print(satmap.meta)
+# print(satmap.shape)
+# print(satmap.fov)
+# print(satmap.centre)
 #satmap = get_satmap("aigean_lir_20221205_191610.asdf").__add__(satmap).shape
 #print(satmap)
 # if __name__ == "__main__":
@@ -650,3 +650,10 @@ print(satmap.centre)
 #     print(combine.shape)
 #     print(combine.fov)
 #     print(combine.centre)
+
+
+
+file = 'aigean_man_20221205_194510.hdf5'
+
+for i in file:
+    print(i.split('.'))

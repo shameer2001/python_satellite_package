@@ -26,9 +26,9 @@ def aigean_today(instrument = None, saveplot=False):
     # Cause sometimes the achive don't update constantly for several date, so we have to get the most recent date with updates
     if instrument != None:
         if type(instrument) != str:
-            raise TypeError("name of instrument inpute must be string")
+            raise TypeError("name of instrument input must be string")
         if instrument not in ('lir','manannan','fand','ecne'):
-            raise ValueError("names of instrument inpute is not available")
+            raise ValueError("name of instrument input is not available")
     d = 0
     text = {}
     while len(text) < 4:

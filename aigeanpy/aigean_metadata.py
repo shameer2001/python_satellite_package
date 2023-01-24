@@ -43,13 +43,18 @@ def aigean_metadata(filenames):
     These files failed while being processed
      - asadasf.py
     """
+
+    # input must be a list (even if one file):
+    if type(filenames) != list:
+        raise TypeError("input filename(s) must be in a list")
+
     for i in filenames:
         # filter input in wrong type
         if type(i) != str:
-            raise TypeError("name of files inpute must be string")
+            raise TypeError("name of files input must be string")
         # filter inputs are not in right file format (e.g. xxxxx.xxx) 
         if len(i.split('.')) != 2:
-            raise ValueError("name of files should in right format")
+            raise ValueError("name of files should be in the right format")
         if i.split('.')[1] in ('asdf','hdf5','zip'):
             # filter inputs with wrong date format in file name (e.g. 1332)
             if int(i.split('_')[2][4:6]) > 12 or int(i.split('_')[2][6:8]) > 31:
