@@ -40,6 +40,29 @@ This is only a documentation package. You can print out [spec.md](spec.md) to yo
 ```sh
 $ standard-readme-spec
 # Prints out the standard-readme spec
+
+$ utils.pixel_to_earth()
+# convert image to the earth coord from pixel coord
+
+$ utils.earth_to_pixel()
+# convert image to the pixel coord from earth coord
+
+$ SatMap.__add__()
+# self defined + operation, collate two images and create the new SatMap instance (i.e, if we got an image
+# covering the (0,0)-(10,10) range and another from (12, 5)-(22,15), then we would end up with a “canvas”
+# that goes from (0,0)-(22,15).)
+
+$ SatMap.__sub__()
+# self defined - operation, obtain a difference image to measure change between the days, which will only work
+# when the data is overlapping. (i.e, if we have taken an image yesterday covering (0,0)-(10,10), and today
+# another in the range of (5, 5)-(15, 15), the resultant image should be the difference between the both for
+# the range (5, 5)-(10, 10).)
+
+$ SatMap.mosaic()
+# allow to combine images as when using + but allowing mixing instruments with different resolution
+
+$ SatMap.visualise()
+# visualise the image, show the axis as in earth coordinates and with the proper orientation of the image.
 ```
 
 ### Generator
