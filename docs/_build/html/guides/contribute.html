@@ -1,0 +1,226 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>How to Contribute to this Package &#8212; aigeanpy  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="The net Module Functions" href="../content/net-docs.html" />
+    <link rel="prev" title="Tutorial - How to Use this Package" href="tutorial.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="how-to-contribute-to-this-package">
+<h1>How to Contribute to this Package<a class="headerlink" href="#how-to-contribute-to-this-package" title="Permalink to this heading">¶</a></h1>
+<section id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this heading">¶</a></h2>
+<dl>
+<dt>If you don’t already have ‘git’ installed and setup:</dt><dd><ul class="simple">
+<li><p>Download and install the latest version of git.</p></li>
+<li><p>Open a ‘git bash’ window.</p></li>
+<li><p>Configure git with your “username” and “email”:</p></li>
+</ul>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ git config --global user.name &#39;your name&#39;
+$ git config --global user.email &#39;your email&#39;
+</pre></div>
+</div>
+</dd>
+<dt>If you don’t already have ‘GitHub’ and setup:</dt><dd><ul class="simple">
+<li><p>Create a GitHub account.</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+<section id="development-process">
+<h2>Development Process<a class="headerlink" href="#development-process" title="Permalink to this heading">¶</a></h2>
+<p>Setting up the development process:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Fork the main repository found at <a class="reference external" href="https://github.com/UCL-COMP0233-22-23/aigeanpy-Working-Group-01">https://github.com/UCL-COMP0233-22-23/aigeanpy-Working-Group-01</a> by clicking the “fork” button.</p></li>
+<li><p>Clone this fork to your local computer:</p></li>
+</ul>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ git clone https://github.com/your-username/aigeanpy-Working-Group-01.git
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Change the directory to the package folder:</p></li>
+</ul>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ cd aigeanpy
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Pull the latest changes from upstream:</p></li>
+</ul>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ git checkout main
+$ git pull upstream main
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Create a branch to identify your name and the contribution you are making. E.G. ‘bob_improve_speed’.</p></li>
+</ul>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ git branch &lt;name_contribution&gt;
+$ git checkout &lt;name_contribution&gt;
+</pre></div>
+</div>
+</div></blockquote>
+<p>Develop your contribution:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Using an IDE (Integrated Development Environment) or an editor, make the contribution and commit locally as you advance.</p></li>
+<li><p>Ensure the commit message is properly formatted and detailed enough; include what change you made and, briefly, what it does.</p></li>
+<li><p>Include tests that will pass after you make your change and fails without the change.</p></li>
+</ul>
+</div></blockquote>
+<p>Submit your changes:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Push your changes back onto GitHub to your fork:</p></li>
+</ul>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ git push origin &lt;name_contribution&gt;
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Click the green ‘pull request’ button on the forked repository on your GitHub account to open a pull request. Make the title and message clear. This will be used to explain your changes. Then click the submit button.</p></li>
+<li><p>Someone on our team will review your pull request to ensure the changes made are correct and a worthy improvement.</p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="how-to-test-your-code">
+<h2>How to Test your Code<a class="headerlink" href="#how-to-test-your-code" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Ensure you have pytest installed.</p></li>
+<li><p>Create a separate python document to your contribution with and appropriate name.</p></li>
+<li><p>Import ‘pyest’ into that python document.</p></li>
+<li><p>Create functions beginning with <cite>test_</cite> that will test that the contributions you’ve made are as expected. For example:</p></li>
+</ul>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>def test_addition():
+
+   result = addition(1,1)
+   expected = 2
+
+   assert result == expected
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>You can also create ‘negative tests’ which will ensure that error messages present in your contribution will show up if the conditions are met.</p></li>
+<li><p>Run pytest in the terminal once completed:</p></li>
+</ul>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ python -m pytest
+</pre></div>
+</div>
+</section>
+<section id="code-style">
+<h2>Code Style<a class="headerlink" href="#code-style" title="Permalink to this heading">¶</a></h2>
+<p>Your code should be clear and concise. Follow the ‘PEP 8’ style of writing code.
+Ensure there are comments to explain clearly what you’re doing.
+Ensure there are docstrings in ‘numpy format’ to explain any functions you create.</p>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">aigeanpy</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="user_guide.html">Installing the Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial - How to Use this Package</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">How to Contribute to this Package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#development-process">Development Process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-to-test-your-code">How to Test your Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#code-style">Code Style</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../content/net-docs.html">The <cite>net</cite> Module Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../content/satmap-docs.html">The <cite>satmap</cite> Module Class and Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../content/aigean-docs.html">Command-Line Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../content/utils-docs.html">Utility Functions</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="tutorial.html" title="previous chapter">Tutorial - How to Use this Package</a></li>
+      <li>Next: <a href="../content/net-docs.html" title="next chapter">The <cite>net</cite> Module Functions</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, Shameer Ahmad, Junyi Yin, Siqing Huang, Qiang Hu, Zhang Zhouhan.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.3.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/guides/contribute.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

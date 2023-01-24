@@ -1,0 +1,173 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>aigean_metadata.aigean_metadata &#8212; aigeanpy  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="aigean_mosaic.aigean_mosaic" href="aigean_mosaic.aigean_mosaic.html" />
+    <link rel="prev" title="Command-Line Functions" href="../aigean-docs.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="aigean-metadata-aigean-metadata">
+<h1>aigean_metadata.aigean_metadata<a class="headerlink" href="#aigean-metadata-aigean-metadata" title="Permalink to this heading">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="aigean_metadata.aigean_metadata">
+<span class="sig-prename descclassname"><span class="pre">aigean_metadata.</span></span><span class="sig-name descname"><span class="pre">aigean_metadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filenames</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#aigean_metadata.aigean_metadata" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extractin the metadata information from correct files, and show the uncorrect files name below</p>
+<section id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>filenames: list, positional</dt><dd><p>A given filename or list of them, such as aigean_man_20221205_194510.hdf5 or aigean_fan_20221206_190424.zip</p>
+</dd>
+</dl>
+</section>
+<section id="notes">
+<h2>Notes<a class="headerlink" href="#notes" title="Permalink to this heading">¶</a></h2>
+<p>This function take a ‘aigean’ file without (9 sets of key and meta data value) as a corrypted one</p>
+</section>
+<section id="returns">
+<h2>Returns<a class="headerlink" href="#returns" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>outputs: str</dt><dd><p>the set of meta information outputs(key:value) of given files, and name of files failed to process</p>
+</dd>
+</dl>
+</section>
+<section id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this heading">¶</a></h2>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">aigeanpy.aigean_metadata</span> <span class="kn">import</span> <span class="n">aigean_metadata</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aigean_metadata</span><span class="p">([</span><span class="s1">&#39;aigean_man_20221205_194510.hdf5&#39;</span><span class="p">,</span><span class="s1">&#39;aigean_fan_20221205_192210.zip&#39;</span><span class="p">,</span><span class="s1">&#39;asadasf.py&#39;</span><span class="p">])</span>
+<span class="go">aigean_man_20221205_194510.hdf5:archive: ISA</span>
+<span class="go">aigean_man_20221205_194510.hdf5:observatory: Aigean</span>
+<span class="go">aigean_man_20221205_194510.hdf5:instrument: Manannan</span>
+<span class="go">aigean_man_20221205_194510.hdf5:obs_date: 2022-12-05 19:45:10</span>
+<span class="go">aigean_man_20221205_194510.hdf5:year: 2023</span>
+<span class="go">aigean_man_20221205_194510.hdf5:resolution: 15</span>
+<span class="go">aigean_man_20221205_194510.hdf5:xcoords: [ 750. 1200.]</span>
+<span class="go">aigean_man_20221205_194510.hdf5:ycoords: [250. 400.]</span>
+<span class="go">aigean_fan_20221205_192210.zip:archive: ISA</span>
+<span class="go">aigean_fan_20221205_192210.zip:observatory: Aigean</span>
+<span class="go">aigean_fan_20221205_192210.zip:instrument: Fand</span>
+<span class="go">aigean_fan_20221205_192210.zip:obs_date: 2022-12-05 19:22:10</span>
+<span class="go">aigean_fan_20221205_192210.zip:year: 2023</span>
+<span class="go">aigean_fan_20221205_192210.zip:resolution: 5</span>
+<span class="go">aigean_fan_20221205_192210.zip:xcoords: [300.0, 525.0]</span>
+<span class="go">aigean_fan_20221205_192210.zip:ycoords: [50.0, 100.0]</span>
+<span class="go">These files failed while being processed</span>
+<span class="go"> - asadasf.py</span>
+</pre></div>
+</div>
+</section>
+</dd></dl>
+
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">aigeanpy</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../guides/user_guide.html">Installing the Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../guides/tutorial.html">Tutorial - How to Use this Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../guides/contribute.html">How to Contribute to this Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../net-docs.html">The <cite>net</cite> Module Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../satmap-docs.html">The <cite>satmap</cite> Module Class and Functions</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../aigean-docs.html">Command-Line Functions</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">aigean_metadata.aigean_metadata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="aigean_mosaic.aigean_mosaic.html">aigean_mosaic.aigean_mosaic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="aigean_today.aigean_today.html">aigean_today.aigean_today</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../utils-docs.html">Utility Functions</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../aigean-docs.html">Command-Line Functions</a><ul>
+      <li>Previous: <a href="../aigean-docs.html" title="previous chapter">Command-Line Functions</a></li>
+      <li>Next: <a href="aigean_mosaic.aigean_mosaic.html" title="next chapter">aigean_mosaic.aigean_mosaic</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, Shameer Ahmad, Junyi Yin, Siqing Huang, Qiang Hu, Zhang Zhouhan.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.3.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../../_sources/content/cli-docs/aigean_metadata.aigean_metadata.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

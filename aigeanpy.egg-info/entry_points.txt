@@ -1,0 +1,5 @@
+[console_scripts]
+aigean_metadata = aigeanpy.command:process_metadata
+aigean_mosaic = aigeanpy.command:process_mosaic
+aigean_today = aigeanpy.command:process_today
+

@@ -1,0 +1,171 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>read.read &#8212; aigeanpy  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="satmap.fov" href="satmap.fov.html" />
+    <link rel="prev" title="utils.pixel_to_earth" href="utils.pixel_to_earth.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="read-read">
+<h1>read.read<a class="headerlink" href="#read-read" title="Permalink to this heading">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="read.read">
+<span class="sig-prename descclassname"><span class="pre">read.</span></span><span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#read.read" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extracts the data and meta data from the input file.</p>
+<section id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>file: str</dt><dd><p>The name of the file or path to the file.</p>
+</dd>
+</dl>
+</section>
+<section id="notes">
+<h2>Notes<a class="headerlink" href="#notes" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>Each of the instruments used different file formats to store the data and meta data;</dt><dd><ul class="simple">
+<li><p>Lir uses Advanced Scientific Data Format (ASDF). File extension: ‘.asdf’</p></li>
+<li><p>Manannn uses Hierarchical Data Format 5 (HDF5).</p></li>
+<li><p>Fand stores the data in ‘npy’ format and the meta data in JSON files.</p></li>
+<li><p>Ecne measures turbulence, salinity and algal density and stores the data in CSV format.</p></li>
+</ul>
+</dd>
+</dl>
+<p>To understand this function better, the content structure of the types of files can be accessed by downloading the file and viewing it yourself.</p>
+</section>
+<section id="returns">
+<h2>Returns<a class="headerlink" href="#returns" title="Permalink to this heading">¶</a></h2>
+<p><strong>For ‘.asdf’, ‘.hdf5’ and ‘.zip’ files:</strong></p>
+<dl class="simple">
+<dt>data: ndarray</dt><dd><p>Image data taken with the Lir, Manannan or Fand instrument for ASDF, HDF5 and ZIP files respectivley.</p>
+</dd>
+<dt>meta_data: dict</dt><dd><p>Other information about the data. This includes archive it’s stored in, year, observatory, instrument, date when taken, time when taken, xcoords, ycoords, resolution. For ASDF files (ie Lir instrument data) the information about the asdf library is also included.</p>
+</dd>
+</dl>
+<p><strong>For ‘.csv’ files:</strong></p>
+<dl class="simple">
+<dt>turbulence: list</dt><dd><p>300 turbulence measurements taken from the 300 deepest points in an area around the target region.</p>
+</dd>
+<dt>salinity: list</dt><dd><p>300 salinity measurements taken from the 300 deepest points in an area around the target region.</p>
+</dd>
+<dt>algal_density: list</dt><dd><p>300 density measurements of algae taken from the 300 deepest points in an area around the target region.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">aigeanpy</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../guides/user_guide.html">Installing the Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../guides/tutorial.html">Tutorial - How to Use this Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../guides/contribute.html">How to Contribute to this Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../net-docs.html">The <cite>net</cite> Module Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../satmap-docs.html">The <cite>satmap</cite> Module Class and Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../aigean-docs.html">Command-Line Functions</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../utils-docs.html">Utility Functions</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="utils.earth_to_pixel.html">utils.earth_to_pixel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.pixel_to_earth.html">utils.pixel_to_earth</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">read.read</a></li>
+<li class="toctree-l2"><a class="reference internal" href="satmap.fov.html">satmap.fov</a></li>
+<li class="toctree-l2"><a class="reference internal" href="satmap.centre.html">satmap.centre</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../utils-docs.html">Utility Functions</a><ul>
+      <li>Previous: <a href="utils.pixel_to_earth.html" title="previous chapter">utils.pixel_to_earth</a></li>
+      <li>Next: <a href="satmap.fov.html" title="next chapter">satmap.fov</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, Shameer Ahmad, Junyi Yin, Siqing Huang, Qiang Hu, Zhang Zhouhan.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.3.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../../_sources/content/utils-functions/read.read.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
