@@ -1,6 +1,6 @@
 from argparse import ArgumentParser
 from aigeanpy.satmap import SatMap, get_satmap
-from net import *
+from aigeanpy.net import *
 from datetime import date
 
 def aigean_metadata(filenames):
