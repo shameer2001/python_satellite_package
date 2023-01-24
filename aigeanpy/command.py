@@ -1,7 +1,7 @@
 from argparse import ArgumentParser
-from aigeanpy.aigean_today import aigean_today
-from aigeanpy.aigean_metadata import aigean_metadata
-from aigeanpy.aigean_mosaic import aigean_mosaic
+from aigean_today import aigean_today
+from aigean_metadata import aigean_metadata
+from aigean_mosaic import aigean_mosaic
 
 # command line interface setting
 def process_today():

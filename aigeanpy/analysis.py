@@ -1,4 +1,4 @@
-from aigeanpy.clustering_numpy import *
+from clustering_numpy import *
 from pathlib import Path
 from typing import Union
 

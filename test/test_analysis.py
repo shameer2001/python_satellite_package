@@ -48,5 +48,5 @@ def test_kmeans():
     """Add a unit test for function kmeans() to determine whether this algorithm divides the dataset into
     default clusters.
     """
-    index = kmeans("../samples.csv")
+    index = kmeans("../aigeanpy/samples.csv")
     assert len(index) == 3

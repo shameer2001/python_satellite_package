@@ -1,6 +1,6 @@
 from aigeanpy.net import *
 import pytest
-import datetime as dt
+from datetime import date
 
 
 ############################## query_isa():###################################
@@ -80,14 +80,14 @@ def test_default_query_keys():
 
 
 def test_default_query_keys():
-    todays_date = str( dt.today().strftime('%Y-%m-%d') ) # todays date using `datetime`
+    todays_date = str( date.today().strftime('%Y-%m-%d') ) # todays date using `datetime`
     
     query = query_isa()
     assert query[0]['date'] == todays_date, "The date of the first dictionary in the query results (the start date) is incorrect."
 
 
 def test_default_query_keys():
-    todays_date = str( dt.today().strftime('%Y-%m-%d') ) 
+    todays_date = str( date.today().strftime('%Y-%m-%d') ) 
     
     query = query_isa()
     assert query[-2]['date'] == todays_date, "The date of the last dictionary in the query results (the end date) is incorrect."
@@ -161,7 +161,7 @@ def test_query_err_startdate():
     """Test TypeError for start_date input
     """
     try:
-        net.query_isa(start_date=123)
+        query_isa(start_date=123)
     except TypeError as e:
         assert str(e) == "The start date must be a string in the form YYYY-mm-dd."
     else:
@@ -172,7 +172,7 @@ def test_query_err_stopdate():
     """Test TypeError for stop_date input
     """
     try:
-        net.query_isa(stop_date=456)
+        query_isa(stop_date=456)
     except TypeError as e:
         assert str(e) == "The stop date must be a string in the form YYYY-mm-dd."
     else:
@@ -182,7 +182,7 @@ def test_query_err_instr():
     """Test TypeError for instrument input
     """
     try:
-        net.query_isa(instrument=789)
+        query_isa(instrument=789)
     except TypeError as e:
         assert str(e) == "The instrument name must be string."
     else:
@@ -192,7 +192,7 @@ def test_query_err_instr2():
     """Test ValueError for invalid instrument input
     """
     try:
-        net.query_isa(instrument="invalid")
+        query_isa(instrument="invalid")
     except ValueError as e:
         assert str(e) == "Instrument not found. The four instruments are: 'lir', 'manannan', 'fand' and 'ecne'. The default value for this parameter is all 4."
     else:
@@ -213,7 +213,7 @@ def test_download_err_filename(types):
     """Test TypeError for filename input.
     """
     try:
-        net.download_isa(filename=types)
+        download_isa(filename=types)
     except TypeError as e:
         assert str(e) == "The filename must be a string."
     else:
@@ -225,7 +225,7 @@ def test_download_err_savedir(types):
     """Test TypeError for save_dir input.
     """
     try:
-        net.download_isa(filename="test.txt", save_dir=types)
+        download_isa(filename="test.txt", save_dir=types)
     except TypeError as e:
         assert str(e) == "The `save_dir` variable is not a string."
     else:
@@ -236,7 +236,7 @@ def test_download_error_savedir2():
     """Test NotADirectoryError for non-existent save_dir input.
     """
     try:
-        net.download_isa(filename="test.txt", save_dir="invalid_dir")
+        download_isa(filename="test.txt", save_dir="invalid_dir")
     except NotADirectoryError as e:
         assert str(e) == "The directory given, for the `save_dir` variable, does not exist."
     else:
