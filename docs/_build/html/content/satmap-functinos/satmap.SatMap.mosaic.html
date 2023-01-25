@@ -40,13 +40,13 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="satmap.SatMap.mosaic">
 <span class="sig-prename descclassname"><span class="pre">SatMap.</span></span><span class="sig-name descname"><span class="pre">mosaic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="satmap.SatMap.html#satmap.SatMap" title="satmap.SatMap"><span class="pre">SatMap</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">resolution</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">padding</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="satmap.SatMap.html#satmap.SatMap" title="satmap.SatMap"><span class="pre">SatMap</span></a></span></span><a class="headerlink" href="#satmap.SatMap.mosaic" title="Permalink to this definition">¶</a></dt>
-<dd><p>allow to combine images as when using + but allowing mixing instruments with different resolution</p>
+<dd><p>Allow to combine images as when using addition but allowing mixing instruments with different resolution</p>
 <section id="parameters">
 <h2>Parameters<a class="headerlink" href="#parameters" title="Permalink to this heading">¶</a></h2>
 <dl class="simple">
 <dt>other: SatMap</dt><dd><p>Another image which do the mosaic operation with current image</p>
 </dd>
-<dt>resolution: int, optional</dt><dd><p>If the resolution is not provided it should use the one of the two satmaps with larger detail, and
+<dt>resolution: Union[int, None], optional</dt><dd><p>If the resolution is not provided it should use the one of the two satmaps with larger detail, and
 expand the other to that level.</p>
 </dd>
 <dt>padding: bool, optional</dt><dd><p>padding should be True by default, i.e., to return an image with blanks (NaNs) on it. However, if
@@ -58,7 +58,7 @@ image. Besides, if padding is False, then two images must overlap with each othe
 <section id="returns">
 <h2>Returns<a class="headerlink" href="#returns" title="Permalink to this heading">¶</a></h2>
 <dl class="simple">
-<dt>result: SatMap</dt><dd><p>the image created by doing the mosaic operation on two input images</p>
+<dt>result: SatMap</dt><dd><p>The image created by doing the mosaic operation on two input images</p>
 </dd>
 </dl>
 </section>
@@ -100,6 +100,7 @@ image. Besides, if padding is False, then two images must overlap with each othe
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../aigean-docs.html">Command-Line Functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../utils-docs.html">Utility Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../kmeans-functions.html">The ‘k-means clustering’ Algorithm</a></li>
 </ul>
 
 <div class="relations">

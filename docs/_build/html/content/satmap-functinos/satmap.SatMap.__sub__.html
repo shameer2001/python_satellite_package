@@ -39,11 +39,9 @@
 <h1>satmap.SatMap.__sub__<a class="headerlink" href="#satmap-satmap-sub" title="Permalink to this heading">¶</a></h1>
 <dl class="py method">
 <dt class="sig sig-object py" id="satmap.SatMap.__sub__">
-<span class="sig-prename descclassname"><span class="pre">SatMap.</span></span><span class="sig-name descname"><span class="pre">__sub__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="satmap.SatMap.html#satmap.SatMap" title="satmap.SatMap"><span class="pre">SatMap</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#satmap.SatMap.__sub__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">SatMap.</span></span><span class="sig-name descname"><span class="pre">__sub__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="satmap.SatMap.html#satmap.SatMap" title="satmap.SatMap"><span class="pre">SatMap</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="satmap.SatMap.html#satmap.SatMap" title="satmap.SatMap"><span class="pre">SatMap</span></a></span></span><a class="headerlink" href="#satmap.SatMap.__sub__" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="simple">
-<dt>self defined - operation, obtain a difference image to measure change between the days, which will only work</dt><dd><p>when the data is overlapping. (i.e, if we have taken an image yesterday covering (0,0)-(10,10), and today
-another in the range of (5, 5)-(15, 15), the resultant image should be the difference between the both for
-the range (5, 5)-(10, 10).)</p>
+<dt>Self defined subtraction operation, obtain a difference image to measure change between the days, which will only work</dt><dd><p>when the data is overlapping.</p>
 </dd>
 </dl>
 <section id="parameters">
@@ -55,12 +53,17 @@ the range (5, 5)-(10, 10).)</p>
 </section>
 <section id="notes">
 <h2>Notes<a class="headerlink" href="#notes" title="Permalink to this heading">¶</a></h2>
-<p>Two images must be taken from different days. And they must overlap with each other</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>E.G. if we have taken an image yesterday covering (0,0)-(10,10), and today another in the range of (5, 5)-(15, 15), the resultant image should be the difference between the both for the range (5, 5)-(10, 10).)</p></li>
+<li><p>Two images must be taken from different days. And they must overlap with each other</p></li>
+</ul>
+</div></blockquote>
 </section>
 <section id="returns">
 <h2>Returns<a class="headerlink" href="#returns" title="Permalink to this heading">¶</a></h2>
 <dl class="simple">
-<dt>result: SatMap</dt><dd><p>the image created by the subtraction of two input images</p>
+<dt>result: SatMap</dt><dd><p>The image created by the subtraction of two input images</p>
 </dd>
 </dl>
 </section>
@@ -120,6 +123,7 @@ the range (5, 5)-(10, 10).)</p>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../aigean-docs.html">Command-Line Functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../utils-docs.html">Utility Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../kmeans-functions.html">The ‘k-means clustering’ Algorithm</a></li>
 </ul>
 
 <div class="relations">

@@ -39,12 +39,8 @@
 <h1>satmap.SatMap.__add__<a class="headerlink" href="#satmap-satmap-add" title="Permalink to this heading">¶</a></h1>
 <dl class="py method">
 <dt class="sig sig-object py" id="satmap.SatMap.__add__">
-<span class="sig-prename descclassname"><span class="pre">SatMap.</span></span><span class="sig-name descname"><span class="pre">__add__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="satmap.SatMap.html#satmap.SatMap" title="satmap.SatMap"><span class="pre">SatMap</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#satmap.SatMap.__add__" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="simple">
-<dt>self defined + operation, collate two images and create the new SatMap instance (i.e, if we got an image</dt><dd><p>covering the (0,0)-(10,10) range and another from (12, 5)-(22,15), then we would end up with a “canvas”
-that goes from (0,0)-(22,15).)</p>
-</dd>
-</dl>
+<span class="sig-prename descclassname"><span class="pre">SatMap.</span></span><span class="sig-name descname"><span class="pre">__add__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="satmap.SatMap.html#satmap.SatMap" title="satmap.SatMap"><span class="pre">SatMap</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="satmap.SatMap.html#satmap.SatMap" title="satmap.SatMap"><span class="pre">SatMap</span></a></span></span><a class="headerlink" href="#satmap.SatMap.__add__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Self defined addition operation, collate two images and create the new SatMap instance.</p>
 <section id="parameters">
 <h2>Parameters<a class="headerlink" href="#parameters" title="Permalink to this heading">¶</a></h2>
 <dl class="simple">
@@ -54,8 +50,12 @@ that goes from (0,0)-(22,15).)</p>
 </section>
 <section id="notes">
 <h2>Notes<a class="headerlink" href="#notes" title="Permalink to this heading">¶</a></h2>
-<p>When the two images are overlapping, the values of the overlapping areas should not be added. Otherwise
-it would give the wrong impression. Values should be the same when observed the same day.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>E.G. if we got an image covering the (0,0)-(10,10) range and another from (12, 5)-(22,15), then we would end up with a “canvas” that goes from (0,0)-(22,15).)</p></li>
+<li><p>When the two images are overlapping, the values of the overlapping areas should not be added. Otherwise it would give the wrong impression. Values should be the same when observed the same day.</p></li>
+</ul>
+</div></blockquote>
 </section>
 <section id="returns">
 <h2>Returns<a class="headerlink" href="#returns" title="Permalink to this heading">¶</a></h2>
@@ -120,6 +120,7 @@ it would give the wrong impression. Values should be the same when observed the 
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../aigean-docs.html">Command-Line Functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../utils-docs.html">Utility Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../kmeans-functions.html">The ‘k-means clustering’ Algorithm</a></li>
 </ul>
 
 <div class="relations">

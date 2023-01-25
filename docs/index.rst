@@ -20,7 +20,7 @@ Launched by the Irish Space Agency (ISA), the Aigean satellite is used to monito
    content/satmap-docs
    content/aigean-docs
    content/utils-docs
-   content/kmeans-functions.rst
+   content/kmeans-functions
 
 Indices and tables
 ==================
