@@ -62,35 +62,35 @@ def test_query_enddate(instruments):
 
 
 
-# Same tests but for default dates and instrument:
+# Same tests but for default dates and instrument (DOESNT WORK FOR TODAYS DATE IF NO DATA):
 
 
-def test_default_query_keys():
+# def test_default_query_keys():
 
-    query = query_isa()
-    expected_query_keys = ['date', 'filename', 'instrument', 'resolution', 'time', 'xcoords',  'ycoords']
+#     query = query_isa()
+#     expected_query_keys = ['date', 'filename', 'instrument', 'resolution', 'time', 'xcoords',  'ycoords']
 
-    for i in query: assert list( i.keys() ) == expected_query_keys, "One or more of the keys in one or more of the query result(s) is incorrect."
-
-
-def test_default_query_keys():
-
-    query = query_isa()
-    for i in query: assert (i['instrument']=='lir' or i['instrument']=='manannan' or i['instrument']=='fand' or i['instrument']=='ecne'), "The instrument in one or more of the query result does not match the input." 
+#     for i in query: assert list( i.keys() ) == expected_query_keys, "One or more of the keys in one or more of the query result(s) is incorrect."
 
 
-def test_default_query_keys():
-    todays_date = str( date.today().strftime('%Y-%m-%d') ) # todays date using `datetime`
+# def test_default_query_keys():
+
+#     query = query_isa()
+#     for i in query: assert (i['instrument']=='lir' or i['instrument']=='manannan' or i['instrument']=='fand' or i['instrument']=='ecne'), "The instrument in one or more of the query result does not match the input." 
+
+
+# def test_default_query_keys():
+#     todays_date = str( date.today().strftime('%Y-%m-%d') ) # todays date using `datetime`
     
-    query = query_isa()
-    assert query[0]['date'] == todays_date, "The date of the first dictionary in the query results (the start date) is incorrect."
+#     query = query_isa()
+#     assert query[0]['date'] == todays_date, "The date of the first dictionary in the query results (the start date) is incorrect."
 
 
-def test_default_query_keys():
-    todays_date = str( date.today().strftime('%Y-%m-%d') ) 
+# def test_default_query_keys():
+#     todays_date = str( date.today().strftime('%Y-%m-%d') ) 
     
-    query = query_isa()
-    assert query[-2]['date'] == todays_date, "The date of the last dictionary in the query results (the end date) is incorrect."
+#     query = query_isa()
+#     assert query[-2]['date'] == todays_date, "The date of the last dictionary in the query results (the end date) is incorrect."
 
 
 
