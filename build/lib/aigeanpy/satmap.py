@@ -173,17 +173,17 @@ class SatMap:
         --------
         >>> from aigeanpy.satmap import get_satmap
         >>> from aigeanpy.net import download_isa
-        >>> download_isa("aigean_lir_20221205_191610.asdf")
-        >>> download_isa("aigean_lir_20221207_175138.asdf")
-        >>> satmap1 = get_satmap("aigean_lir_20221205_191610.asdf")
-        >>> satmap2 = get_satmap("aigean_lir_20221207_175138.asdf")
+        >>> download_isa('aigean_lir_20221215_094830.asdf')
+        >>> download_isa('aigean_lir_20221216_085144.asdf')
+        >>> satmap1 = get_satmap('aigean_lir_20221215_094830.asdf')
+        >>> satmap2 = get_satmap('aigean_lir_20221216_085144.asdf')
         >>> combine = satmap1 - satmap2
         >>> combine.shape
-        (10, 16)
+        (6, 13)
         >>> combine.fov
-        (700.0, 300.0)
+        (800.0, 400.0)
         >>> combine.centre
-        (750.0, 350.0)
+        (500.0, 300.0)
         """
 
         # error raising: query using wrong data format
@@ -553,5 +553,3 @@ def centre(meta: dict) -> tuple:
     centre = ((x_min_max[1] + x_min_max[0]) / 2, (y_min_max[1] - y_min_max[0]) / 2)
 
     return centre
-
-

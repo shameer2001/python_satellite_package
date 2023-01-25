@@ -48,10 +48,18 @@ def aigean_metadata(filenames) -> list:
     if type(filenames) != list and type(filenames) != str:
         raise TypeError("Input filename(s) must be in a list (if multiple) or a string (if single).")
 
-    print(type(filenames))
-    print(len(filenames))
-    print(filenames)
-    if type(filenames) == list: # for multiple files and command-line
+
+    if type(filenames) == list and len(filenames) > 1: # for multiple files and command-line
+        for i in filenames:
+            # filter input in wrong type
+            if type(i) != str:
+                raise TypeError("Name of files input must be string.")
+                
+            # filter inputs are not in right file format (e.g. xxxxx.xxx) 
+            filetype = os.path.splitext(i)[1]  # obtain file extension
+
+
+    elif type(filenames) == list and len(filenames) == 1: # for one list input
         for i in filenames:
             print(i)
             # filter input in wrong type
@@ -60,7 +68,7 @@ def aigean_metadata(filenames) -> list:
                 
             # filter inputs are not in right file format (e.g. xxxxx.xxx) 
             filetype = os.path.splitext(i)[1]  # obtain file extension
-            
+
             if filetype != '.asdf' \
                 and filetype != '.hdf5' \
                     and filetype != '.zip':
@@ -68,7 +76,7 @@ def aigean_metadata(filenames) -> list:
     
 
 
-    elif type(filenames) == list: # if only 1 file
+    elif type(filenames) != list : # if only 1 file
 
         if type(filenames) != str:
             raise TypeError("Name of files input must be string.")
@@ -138,7 +146,7 @@ def aigean_metadata(filenames) -> list:
                 print('These files failed while being processed')
                 print(' - {}'.format(filename))
 
-            return test_dict
+            #return test_dict
 
     elif type(filenames) == str: # single file from import module into .py
         filename = filenames
@@ -190,7 +198,7 @@ def aigean_metadata(filenames) -> list:
             print('These files failed while being processed')
             print(' - {}'.format(filename))
 
-        return test_dict
+        #return test_dict
     
     else: #multiple files
         for i in filenames:
@@ -238,7 +246,7 @@ def aigean_metadata(filenames) -> list:
             else:
                 error_file.append(filename)
         # list of the files that were corrupted or failed to process, and print them out
-        print('These files failed while being processed.')
-        for i in range(len(error_file)):
-            print (' - {}'.format(error_file[i]))
-        return test_dict
+        print('These files failed while being processed')
+        for i in error_file:
+            print (' - {}'.format(i))
+        #return test_dict
