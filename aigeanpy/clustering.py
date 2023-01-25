@@ -6,7 +6,7 @@ from argparse import ArgumentParser
 
 
 # Modify the way for loading data.
-def load_data(filepath: Path) -> list:
+def load_data(filepath: Path):
     """
     Loading data from csv file.
 
@@ -30,7 +30,7 @@ def load_data(filepath: Path) -> list:
 
 
 # Add this function to reduce repetition.
-def distance(point1: tuple, point2: tuple) -> float:
+def distance(point1: tuple, point2: tuple):
     """
     Calculate the euclidean distance between two points.
 
@@ -52,7 +52,7 @@ def distance(point1: tuple, point2: tuple) -> float:
 
 
 # Perform the kmean algorithm
-def cluster(data: list, clusters: int = 3, iterations: int = 10) -> list:
+def cluster(data: list, clusters: int = 3, iterations: int = 10):
     """
     Use kmean algorithm to classify dataset provided.
 
