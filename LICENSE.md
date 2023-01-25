@@ -1,6 +1,6 @@
 The MIT License (MIT)
 
-Copyright (c) 2022-2023 Qiang Hu
+Copyright (c) 2022-2023 Shameer Ahmad, Junyi Yin, Siqing Huang, Qiang Hu, Zhang Zhouhan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
