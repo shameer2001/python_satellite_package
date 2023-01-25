@@ -1,11 +1,9 @@
-from datetime import date
-
 from aigeanpy.satmap import get_satmap
 from aigeanpy.net import *
+from datetime import date
 
-
-def aigean_metadata(filenames):
-    """ Extractin the metadata information from correct files, and show the uncorrect files name below
+def aigean_metadata(filenames) -> list:
+    """ Extracting the meta-data information from files and showing invalid files.
 
     Parameters
     ----------
@@ -14,12 +12,12 @@ def aigean_metadata(filenames):
 
     Notes
     -----
-    This function take a 'aigean' file without (9 sets of key and meta data value) as a corrypted one
+    This function takes an 'aigean' file, without 9 sets of key and meta data value, as a corrupted one.
 
     Returns
     -------
-    outputs: str
-        the set of meta information outputs(key:value) of given files, and name of files failed to process
+    outputs: dict
+        The set of meta information. It outputs (key:value) for the given files, and the name of files failed to process.
 
     Examples
     ----------
@@ -47,19 +45,19 @@ def aigean_metadata(filenames):
 
     # input must be a list (even if one file):
     if type(filenames) != list:
-        raise TypeError("input filename(s) must be in a list")
+        raise TypeError("Input filename(s) must be in a list.")
 
     for i in filenames:
         # filter input in wrong type
         if type(i) != str:
-            raise TypeError("name of files input must be string")
+            raise TypeError("Name of files input must be string.")
         # filter inputs are not in right file format (e.g. xxxxx.xxx) 
         if len(i.split('.')) != 2:
-            raise ValueError("name of files should be in the right format")
+            raise ValueError("Name of files should be in the right format: file_name.extension.")
         if i.split('.')[1] in ('asdf','hdf5','zip'):
             # filter inputs with wrong date format in file name (e.g. 1332)
             if int(i.split('_')[2][4:6]) > 12 or int(i.split('_')[2][6:8]) > 31:
-                raise ValueError("date in file name is wrong")
+                raise ValueError("Date in the file name is incorrect.")
 
         
     # create this list to collect file names are corrupted or failed to process 
@@ -165,8 +163,7 @@ def aigean_metadata(filenames):
             else:
                 error_file.append(filename)
         # list of the files that were corrupted or failed to process, and print them out
-        print('These files failed while being processed')
+        print('These files failed while being processed.')
         for i in range(len(error_file)):
             print (' - {}'.format(error_file[i]))
-        return
-    
+        return test_dict
