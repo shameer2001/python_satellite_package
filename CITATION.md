@@ -1,5 +1,5 @@
 @software{Finding water level changes via satellite imagery,
-  author = {Qiang Hu, Ablert, Eric Zhang, shameer and Morphling},
+  author = {Shameer Ahmad, Junyi Yin, Siqing Huang, Qiang Hu, Zhang Zhouhan},
   month = {1},
   title = {{Group01}},
   url = {https://github.com/UCL-COMP0233-22-23/aigeanpy-Working-Group-01},

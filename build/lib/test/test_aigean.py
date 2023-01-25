@@ -28,10 +28,13 @@ def test_filename_input_type_error():
     assert str(exception.value) == "Name of files input must be string."
 
 
-def test_filename_input_value_error():
-    with pytest.raises(NameError) as exception:
+def test_filename_input_name_error():
+    with pytest.raises(ValueError) as exception:
         aigean_metadata(['abc'])
-    assert str(exception.value) == "The file format is not supported. Only these are accepted: ASDF, HDF5 and ZIP."
+    assert str(exception.value) == "Name of files should be in the right format: file_name.extension."
+
+
+
 
 
 

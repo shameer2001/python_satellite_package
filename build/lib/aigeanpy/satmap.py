@@ -173,17 +173,17 @@ class SatMap:
         --------
         >>> from aigeanpy.satmap import get_satmap
         >>> from aigeanpy.net import download_isa
-        >>> download_isa("aigean_lir_20221205_191610.asdf")
-        >>> download_isa("aigean_lir_20221207_175138.asdf")
-        >>> satmap1 = get_satmap("aigean_lir_20221205_191610.asdf")
-        >>> satmap2 = get_satmap("aigean_lir_20221207_175138.asdf")
+        >>> download_isa('aigean_lir_20221215_094830.asdf')
+        >>> download_isa('aigean_lir_20221216_085144.asdf')
+        >>> satmap1 = get_satmap('aigean_lir_20221215_094830.asdf')
+        >>> satmap2 = get_satmap('aigean_lir_20221216_085144.asdf')
         >>> combine = satmap1 - satmap2
         >>> combine.shape
-        (10, 16)
+        (6, 13)
         >>> combine.fov
-        (700.0, 300.0)
+        (800.0, 400.0)
         >>> combine.centre
-        (750.0, 350.0)
+        (500.0, 300.0)
         """
 
         # error raising: query using wrong data format
@@ -256,7 +256,7 @@ class SatMap:
         # return the new SatMap instance
         return SatMap(meta, data, shape, fov, centre)
 
-    def mosaic(self, other: 'SatMap', resolution: Union[int, None] = None, padding: bool = True) -> 'SatMap':
+    def mosaic(self, other: 'SatMap', resolution: int = None, padding: bool = True) -> 'SatMap':
         """Allow to combine images as when using addition but allowing mixing instruments with different resolution
 
         Parameters
@@ -264,7 +264,7 @@ class SatMap:
         other: SatMap
                Another image which do the mosaic operation with current image
 
-        resolution: Union[int, None], optional
+        resolution: int or NoneType, optional
                     If the resolution is not provided it should use the one of the two satmaps with larger detail, and
                     expand the other to that level.
 
@@ -377,7 +377,7 @@ class SatMap:
         save: bool, optional
               If save is set to True, then the image should not be displayed on the screen and saved in the required path
 
-        savepath: Union[Path, str], optional
+        savepath: Path or str, optional
                   The required saved path, if not set, the savepath will be the current directory
 
 
@@ -437,7 +437,7 @@ class SatMap:
             plt.show()
 
 
-def get_satmap(file_name) -> 'SatMap':
+def get_satmap(file_name: str) -> 'SatMap':
     """Generates a `SatMap` class object for a given file.
 
     Parameter
@@ -553,5 +553,3 @@ def centre(meta: dict) -> tuple:
     centre = ((x_min_max[1] + x_min_max[0]) / 2, (y_min_max[1] - y_min_max[0]) / 2)
 
     return centre
-
-

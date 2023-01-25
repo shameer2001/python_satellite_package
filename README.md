@@ -11,31 +11,27 @@
 
 ## Background
 
-The Irish Space Agency has launched Aigean, an Earth observation satellite to monitor an area around 
-Lough Ree. Recently, rainfall has decreased in the area, and during the latest years droughts have become
-more frequent and more severe. With the instruments on board Aigean the scientific community will be
-able to obtain better data about the water levels and the erosion of the land, and therefore will be able to
-generate more accurate predictions. 
-However, the Irish Space Agency sadly hasn’t provided any software tools to do this analysis!
-Thankfully, Aoife O’Callaghan, a geology PhD student at the Athlone City Institute, has set the objective
-to solve this problem by creating an open-source package to analyse Aigean data. Aoife has some ideas of
-what she would like the package to do, but she doesn’t have a research software development background
-beyond how to install and use Python libraries. That’s why Aoife has contacted you!
-I and my group members agree this is a great tool to offer to the community and have decided to put all
-your brains together to come up with an easy-to-use Python library to analyse and visualise Aigean satellite
-data.
+The Irish Space Agency has launched Aigean, an Earth observation satellite to monitor an area around Lough Ree. Recently, rainfall has decreased in the area, and during the latest years droughts have become more frequent and more severe. With the instruments on board Aigean the scientific community will be able to obtain better data about the water levels and the erosion of the land, and therefore will be able to generate more accurate predictions. 
+
+
+However, the Irish Space Agency sadly hasn’t provided any software tools to do this analysis! Thankfully, Aoife O’Callaghan, a geology PhD student at the Athlone City Institute, has set the objective to solve this problem by creating an open-source package to analyse Aigean data. Aoife has some ideas of what she would like the package to do, but she doesn’t have a research software development background beyond how to install and use Python libraries. That’s why Aoife has contacted you!
+
+
+Our group members agree this is a great tool to offer to the community and have decided to put all our brains together to come up with an easy-to-use Python library to analyse and visualise Aigean satellite data.
 
 ## Install
 
-Please use the code below.
+To install this package, clone the GitHub repository onto your local computer. Then use `pip` to install the package and all of it's dependencies:
 
 ```sh
-$ pip install .
+$ pip install aigeanpy
 ```
 
 ## Usage
 
 This is only a documentation package.
+
+### Command-Line Interface Functions:
 ```sh
 $ aigean_today [--instrument <instrument>] [--saveplot]
 # Getting the latest image of the archive. It also accept a instrument argument and a saveplot argument.
@@ -48,7 +44,10 @@ $ aigean_mosaic [--resolution <resolution>] <filename_i><filename_j>[<filename_k
 
 $ python clustering_numpy.py <csv_file.csv> --iters <iters>
 # Use kmean algorithm (numpy version) to classify dataset provided.
+```
 
+### Examples of Using the Package within a Python file:
+```sh
 $ python
 >>> from aigeanpy.net import query_isa
 >>> lir_map = query_isa(start_date, stop_date, instrument)

@@ -2,12 +2,12 @@ import sys
 from aigeanpy.satmap import get_satmap
 from aigeanpy.net import *
 
-def aigean_mosaic(filelist, resolution = None):
+def aigean_mosaic(filelist: list, resolution: int = None):
     """ Create a mosaic by giving multiple filenames.
 
     Parameters
     ----------
-    resolution: int, optional
+    resolution: int or NoneType, optional
                 The resolution wanted for the output mosaic.
     filelist: list, positional
               A given filename or list of them, such as aigean_man_20221205_194510.hdf5 or aigean_fan_20221206_190424.zip
@@ -15,6 +15,13 @@ def aigean_mosaic(filelist, resolution = None):
     Notes
     -----
     This function only accepts two or more filenames.
+
+
+    Returns
+    -------
+
+    mosaic_map: None
+                A png formatted image of the mosaic.
 
     """
     
