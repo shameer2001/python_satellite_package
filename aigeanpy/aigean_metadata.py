@@ -180,5 +180,5 @@ def aigean_metadata(filenames: list) -> None:
         print('These files failed while being processed')
         for i in error_file:
             print (' - {}'.format(i))
-        #return test_dict
+        return
 
