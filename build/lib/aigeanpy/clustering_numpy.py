@@ -5,18 +5,18 @@ from typing import Union
 
 
 # Use numpy to load data.
-def load_data(filepath: Union[Path, str]):
+def load_data(filepath: Union[Path, str]) -> np.ndarray:
     """
     Loading data from csv file.
 
     Parameters
     ----------
     filepath : Path
-        A given Path, such as "samples.csv"
+        A given file-path or file-name, such as "samples.csv".
 
     Returns
     -------
-    data : np.matrix
+    data : np.ndarray
         The data from the csv file.
     """
     data = np.loadtxt(filepath, dtype=float, delimiter=',')
@@ -24,7 +24,7 @@ def load_data(filepath: Union[Path, str]):
 
 
 # Add distance function to reduce repetition and for loops.
-def distance(centres: np.ndarray, points: np.ndarray):
+def distance(centres: np.ndarray, points: np.ndarray) -> np.ndarray:
     """
     This function calculates the euclidean distance between each point from centres and each point from dataset
     and stores those distances in an array by using matrix product, which can reduce the usage of for loops and
@@ -40,7 +40,7 @@ def distance(centres: np.ndarray, points: np.ndarray):
 
     Returns
     -------
-    mat_dist : np.matrix
+    mat_dist : np.ndarray
         A matrix contains the euclidean distance D_ij which means it is the distance between point i in
         points and point j in centres.
     """
@@ -54,7 +54,7 @@ def distance(centres: np.ndarray, points: np.ndarray):
 
 
 # Perform the kmean algorithm using numpy.
-def cluster(data: np.ndarray, clusters: int = 3, iterations: int = 10):
+def cluster(data: np.ndarray, clusters: int = 3, iterations: int = 10) -> np.ndarray:
     """
     Use kmean algorithm (numpy version) to classify dataset provided.
 
@@ -104,7 +104,7 @@ def process():
     # Add argument Path.
     parser.add_argument('Path')
     arguments = parser.parse_args()
-    data = load_data(Path(f'{arguments.Path}'))
+    data = load_data(arguments.Path)
     alloc, centres = cluster(data, arguments.clusters, arguments.iters)
     k = len(centres)
     # Print the final result, where we do not use numpy to keep the output the same.
