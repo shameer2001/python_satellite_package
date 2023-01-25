@@ -1,4 +1,3 @@
-import numpy as np
 from pytest import raises
 from aigeanpy.analysis import kmeans
 

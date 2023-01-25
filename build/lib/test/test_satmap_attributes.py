@@ -1,7 +1,8 @@
-from aigeanpy.net import *
-from aigeanpy.satmap import *
 import pytest
 from pytest import approx
+
+from aigeanpy.satmap import *
+
 
 ############################## SatMap attributes ###################################
 

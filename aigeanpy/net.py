@@ -1,19 +1,20 @@
 from requests import *
 from pathlib import Path
+from typing import Union
 
-def query_isa(start_date = None, stop_date = None, instrument = None) -> list:
+def query_isa(start_date: Union[str, None] = None, stop_date: Union[str, None] = None, instrument: Union[str, None] = None) -> list:
     """Returns a JSON file of the results from the query service.
         
     Parameters
     ----------
-    start_date : str (date of format YYYY-mm-dd), optional
+    start_date : Union[str, None] (date of format YYYY-mm-dd), optional
                     Look for data in query catalogue taken on this date and further. Default is the current date.
 
-    stop_date : str (date of format YYYY-mm-dd), optional
+    stop_date : Union[str, None] (date of format YYYY-mm-dd), optional
                 Look for data in query catalogue taken on this date and sooner. Default is the current date.
     
     
-    instrument : str, optional
+    instrument : Union[str, None], optional
                 One of the possible image-taking instruments: 'lir', 'manannan', 'fand' or 'csvfile'. The function only includes data taken with the select instrument. Default is None (ie. the function searches for all instruments).
                      
                      
@@ -33,12 +34,12 @@ def query_isa(start_date = None, stop_date = None, instrument = None) -> list:
 
     Examples:
     ---------
-
-    >>> net.query_isa("2022-12-05", "2022-12-05", "lir")
+    >>> from aigeanpy.net import query_isa
+    >>> query_isa("2022-12-05", "2022-12-05", "lir")
     [{'date': '2022-12-05', 'filename': 'aigean_lir_20221205_191610.asdf', 'instrument': 'lir', 'resolution': 30, 'time': '19:16:10', 'xcoords': [500.0, 1100.0], 'ycoords': [200.0, 500.0]}, {'date': '2022-12-05', 'filename': 'aigean_lir_20221205_194510.asdf', 'instrument': 'lir', 'resolution': 30, 'time': '19:45:10', 'xcoords': [800.0, 1400.0], 'ycoords': [100.0, 400.0]}]
-    >>> net.query_isa("2022-12-06", "2022-12-07", "fand")
+    >>> query_isa("2022-12-06", "2022-12-07", "fand")
     [{'date': '2022-12-06', 'filename': 'aigean_ecn_20221206_181924.csv', 'instrument': 'ecne', 'resolution': 1, 'time': '18:19:24', 'xcoords': [0.0, 1500.0], 'ycoords': [0.0, 500.0]}, {'date': '2022-12-07', 'filename': 'aigean_ecn_20221207_172238.csv', 'instrument': 'ecne', 'resolution': 1, 'time': '17:22:38', 'xcoords': [0.0, 1500.0], 'ycoords': [0.0, 500.0]}]
-    >>> net.query_isa("2023-01-05", "2023-01-05")
+    >>> query_isa("2023-01-05", "2023-01-05")
     [{'date': '2023-01-05', 'filename': 'aigean_lir_20230105_135624.asdf', 'instrument': 'lir', 'resolution': 30, 'time': '13:56:24', 'xcoords': [500.0, 1100.0], 'ycoords': [0.0, 300.0]}, {'date': '2023-01-05', 'filename': 'aigean_lir_20230105_142424.asdf', 'instrument': 'lir', 'resolution': 30, 'time': '14:24:24', 'xcoords': [700.0, 1300.0], 'ycoords': [0.0, 300.0]}, {'date': '2023-01-05', 'filename': 'aigean_man_20230105_135624.hdf5', 'instrument': 'manannan', 'resolution': 15, 'time': '13:56:24', 'xcoords': [0.0, 450.0], 'ycoords': [200.0, 350.0]}, {'date': '2023-01-05', 'filename': 'aigean_man_20230105_141024.hdf5', 'instrument': 'manannan', 'resolution': 15, 'time': '14:10:24', 'xcoords': [600.0, 1050.0], 'ycoords': [250.0, 400.0]}, {'date': '2023-01-05', 'filename': 'aigean_man_20230105_142524.hdf5', 'instrument': 'manannan', 'resolution': 15, 'time': '14:25:24', 'xcoords': [900.0, 1350.0], 'ycoords': [150.0, 300.0]}, {'date': '2023-01-05', 'filename': 'aigean_man_20230105_144124.hdf5', 'instrument': 'manannan', 'resolution': 15, 'time': '14:41:24', 'xcoords': [1050.0, 1500.0], 'ycoords': [250.0, 400.0]}, {'date': '2023-01-05', 'filename': 'aigean_fan_20230105_135624.zip', 'instrument': 'fand', 'resolution': 5, 'time': '13:56:24', 'xcoords': [0.0, 225.0], 'ycoords': [400.0, 450.0]}, {'date': '2023-01-05', 'filename': 'aigean_fan_20230105_140124.zip', 'instrument': 'fand', 'resolution': 5, 'time': '14:01:24', 'xcoords': [150.0, 375.0], 'ycoords': [350.0, 400.0]}, {'date': '2023-01-05', 'filename': 'aigean_fan_20230105_140724.zip', 'instrument': 'fand', 'resolution': 5, 'time': '14:07:24', 'xcoords': [375.0, 600.0], 'ycoords': [400.0, 450.0]}, {'date': '2023-01-05', 'filename': 'aigean_fan_20230105_141424.zip', 'instrument': 'fand', 'resolution': 5, 'time': '14:14:24', 'xcoords': [450.0, 675.0], 'ycoords': [200.0, 250.0]}, {'date': '2023-01-05', 'filename': 'aigean_fan_20230105_142124.zip', 'instrument': 'fand', 'resolution': 5, 'time': '14:21:24', 'xcoords': [675.0, 900.0], 'ycoords': [450.0, 500.0]}, {'date': '2023-01-05', 'filename': 'aigean_fan_20230105_142624.zip', 'instrument': 'fand', 'resolution': 5, 'time': '14:26:24', 'xcoords': [750.0, 975.0], 'ycoords': [250.0, 300.0]}, {'date': '2023-01-05', 'filename': 'aigean_fan_20230105_143124.zip', 'instrument': 'fand', 'resolution': 5, 'time': '14:31:24', 'xcoords': [900.0, 1125.0], 'ycoords': [400.0, 450.0]}, {'date': '2023-01-05', 'filename': 'aigean_fan_20230105_143724.zip', 'instrument': 'fand', 'resolution': 5, 'time': '14:37:24', 'xcoords': [975.0, 1200.0], 'ycoords': [200.0, 250.0]}, {'date': '2023-01-05', 'filename': 'aigean_fan_20230105_144424.zip', 'instrument': 'fand', 'resolution': 5, 'time': '14:44:24', 'xcoords': [1125.0, 1350.0], 'ycoords': [300.0, 350.0]}, {'date': '2023-01-05', 'filename': 'aigean_ecn_20230105_135624.csv', 'instrument': 'ecne', 'resolution': 1, 'time': '13:56:24', 'xcoords': [0.0, 1500.0], 'ycoords': [0.0, 500.0]}]
 
 
@@ -90,7 +91,7 @@ def query_isa(start_date = None, stop_date = None, instrument = None) -> list:
 
 
         
-def download_isa(filename, save_dir = None) -> None:
+def download_isa(filename: str, save_dir: Union[Path, str, None] = None) -> None:
     """Downloads the data from the search done by the `net.query_isa()` function.
 
 
@@ -102,7 +103,7 @@ def download_isa(filename, save_dir = None) -> None:
 
     
     
-    save_dir : str or path object, optional
+    save_dir : Union[Path, str, None], optional
                 The directory to save the file in. Default is None (ie download to current working directory)
                 
     
@@ -112,18 +113,24 @@ def download_isa(filename, save_dir = None) -> None:
     if type(filename) != str:
         raise TypeError("The filename must be a string.")
                        
-    if type(save_dir) != str and save_dir != None:
+    if type(save_dir) != str and type(save_dir) != Path and save_dir != None:
         raise TypeError("The `save_dir` variable is not a string.")
 
 
 
     if save_dir:
-        p = Path('{}/{}'.format(save_dir, filename))
+
+        if type(save_dir) == str:
+            p = Path('{}/{}'.format(save_dir, filename))
+        elif type(save_dir) == Path:
+            p = save_dir / filename
             
-            
+
+
         if not Path(save_dir).exists(): # if no such path exists
             raise NotADirectoryError("The directory given, for the `save_dir` variable, does not exist.")
                 
+
     else:
         p = Path(filename) # with full name to save with correct extension
 

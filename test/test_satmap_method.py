@@ -70,42 +70,41 @@ def test_sub(start, stop, xcoords, ycoords, shape, AX, AY, BX, BY):
 
     assert satmap.data.all() == (satmapA.data[AYLow:AYHigh, AXLow:AXHigh] - satmapB.data[BYLow:BYHigh, BXLow:BXHigh]).all()
 
-#{"date":"2023-01-03","filename":"aigean_lir_20230103_154956.asdf","instrument":"lir","resolution":30,"time":"15:49:56","xcoords":[200.0,800.0],"ycoords":[0.0,300.0]}
-#{"date":"2023-01-03","filename":"aigean_man_20230103_154956.hdf5","instrument":"manannan","resolution":15,"time":"15:49:56","xcoords":[0.0,450.0],"ycoords":[0.0,150.0]}
 
-@pytest.mark.parametrize('date, instruments, xcoords, ycoords, resolution, padding', [
-    #("2023-01-03", ['lir', 'manannan'], [0.0, 800.0], [0.0, 300.0], None, True),
-    #("2023-01-03", ['lir', 'manannan'], [0.0, 800.0], [0.0, 300.0], 20, True),
-    #("2023-01-03", ['lir', 'manannan'], [200.0, 450.0], [0.0, 150.0], None, False)
-])
-def test_mosaic(date, instruments, xcoords, ycoords, resolution, padding):
-    """#Testing the SatMap.mosaic() function for adding two images taken in the same day, but it can use different instruments
-"""
 
-    queryA = query_isa(date, date, instruments[0])
-    download_isa(queryA[0]['filename'])
+# @pytest.mark.parametrize('date, instruments, xcoords, ycoords, resolution, padding', [
+#     ("2022-12-05", ['lir', 'manannan'], [0.0, 800.0], [0.0, 300.0], None, True),
+#     ("2022-12-05", ['lir', 'manannan'], [0.0, 800.0], [0.0, 300.0], 20, True),
+#     ("2022-12-05", ['lir', 'manannan'], [200.0, 450.0], [0.0, 150.0], None, False)
+# ])
+# def test_mosaic(date, instruments, xcoords, ycoords, resolution, padding):
+#     """#Testing the SatMap.mosaic() function for adding two images taken in the same day, but it can use different instruments
+# """
 
-    queryB = query_isa(date, date, instruments[1])
-    download_isa(queryB[0]['filename'])
+#     queryA = query_isa(date, date, instruments[0])
+#     download_isa(queryA[0]['filename'])
 
-    satmapA = get_satmap(queryA[0]['filename'])
-    satmapB = get_satmap(queryB[0]['filename'])
+#     queryB = query_isa(date, date, instruments[1])
+#     download_isa(queryB[0]['filename'])
 
-    result1 = satmapA.mosaic(satmapB, resolution, padding)
-    result2 = satmapB.mosaic(satmapA, resolution, padding)
+#     satmapA = get_satmap(queryA[0]['filename'])
+#     satmapB = get_satmap(queryB[0]['filename'])
 
-    assert result1.meta['xcoords'] == result2.meta['xcoords'] == xcoords
-    assert result1.meta['ycoords'] == result2.meta['ycoords'] == ycoords
-    assert result1.meta['source'] == result2.meta['source'] == 'mosaic'
-    assert result1.shape == result2.shape
-    assert result1.data.all() == result2.data.all()
+#     result1 = satmapA.mosaic(satmapB, resolution, padding)
+#     result2 = satmapB.mosaic(satmapA, resolution, padding)
+
+#     assert result1.meta['xcoords'] == result2.meta['xcoords'] == xcoords
+#     assert result1.meta['ycoords'] == result2.meta['ycoords'] == ycoords
+#     assert result1.meta['source'] == result2.meta['source'] == 'mosaic'
+#     assert result1.shape == result2.shape
+#     assert result1.data.all() == result2.data.all()
 
 
 
 ########## NEGATIVE TESTS ###########
 
 @pytest.mark.parametrize('date, instruments', [
-    ("2023-01-03", ['lir', 'manannan'])
+    ("2022-12-15", ['lir', 'manannan'])
 ])
 def test_add_with_different_resolution(date, instruments):
     """Testing the SatMap.__add__() function for adding two images taken in the same day and using different instruments
@@ -124,7 +123,7 @@ def test_add_with_different_resolution(date, instruments):
 
 
 @pytest.mark.parametrize('date, instruments', [
-    (["2023-01-03", "2023-01-04"], 'lir')
+    (["2022-12-20", "2022-12-22"], 'lir')
 ])
 def test_add_from_different_date(date, instruments):
     """Testing the SatMap.__add__() function for adding two images taken in the same day and using different instruments
@@ -141,12 +140,12 @@ def test_add_from_different_date(date, instruments):
 
 
 @pytest.mark.parametrize('date, instrument', [
-    ("2023-01-03", 'lir')
+    ("2022-12-05", 'lir')
 ])
 def test_sub_from_same_date(date, instrument):
     """Testing the SatMap.__add__() function for adding two images taken in the same day and using different instruments
     """
-    query = query_isa(date, date, 'lir')
+    query = query_isa(date, date, instrument)
     download_isa(query[0]['filename'])
     download_isa(query[1]['filename'])
 
@@ -163,7 +162,7 @@ def test_sub_from_same_date(date, instrument):
 def test_sub_without_overlap(date, instrument):
     """Testing the SatMap.__add__() function for adding two images taken in the same day and using different instruments
     """
-    query = query_isa(date[0], date[1], 'lir')
+    query = query_isa(date[0], date[1], instrument)
     download_isa(query[0]['filename'])
     download_isa(query[-1]['filename'])
 
