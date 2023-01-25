@@ -39,12 +39,12 @@
 <h1>utils.pixel_to_earth<a class="headerlink" href="#utils-pixel-to-earth" title="Permalink to this heading">¶</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="utils.pixel_to_earth">
-<span class="sig-prename descclassname"><span class="pre">utils.</span></span><span class="sig-name descname"><span class="pre">pixel_to_earth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pixel_coord</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">meta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resolution</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#utils.pixel_to_earth" title="Permalink to this definition">¶</a></dt>
-<dd><p>convert image to the earth coord from pixel coord</p>
+<span class="sig-prename descclassname"><span class="pre">utils.</span></span><span class="sig-name descname"><span class="pre">pixel_to_earth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pixel_coord</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">meta</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resolution</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#utils.pixel_to_earth" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert image to the earth coord from pixel coord</p>
 <section id="parameters">
 <h2>Parameters<a class="headerlink" href="#parameters" title="Permalink to this heading">¶</a></h2>
 <dl class="simple">
-<dt>pixel_coord: Numpy.array</dt><dd><p>the image under the pixel coord</p>
+<dt>pixel_coord: np.ndarray</dt><dd><p>the image under the pixel coord</p>
 </dd>
 <dt>meta: dict</dt><dd><p>Other information about the data including the archive, year, observatory, instrument, date when taken, time
 when taken, xcoords, ycoords and resolution.</p>
@@ -62,10 +62,25 @@ pixel_to_earth should provide the coordinate of the centre of the pixel.</p>
 </section>
 <section id="returns">
 <h2>Returns<a class="headerlink" href="#returns" title="Permalink to this heading">¶</a></h2>
-<dl class="simple">
-<dt>result: dict</dt><dd><p>‘earthCoord’ gives the image under the earth pixel
+<dl>
+<dt>result: dict</dt><dd><blockquote>
+<div><p>‘earthCoord’ gives the image under the earth pixel
 ‘centralCoord’ gives the cenre of the pixel when a pixel correspond to multiple earth coordinates, otherwise
 is None</p>
+</div></blockquote>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">aigeanpy.satmap</span> <span class="kn">import</span> <span class="n">get_satmap</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">aigeanpy.net</span> <span class="kn">import</span> <span class="n">download_isa</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">download_isa</span><span class="p">(</span><span class="s2">&quot;aigean_lir_20221205_191610.asdf&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">satmap</span> <span class="o">=</span> <span class="n">get_satmap</span><span class="p">(</span><span class="s2">&quot;aigean_lir_20221205_191610.asdf&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">dict</span> <span class="o">=</span> <span class="n">pixel_to_earth</span><span class="p">(</span><span class="n">satmap</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">satmap</span><span class="o">.</span><span class="n">meta</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">earthCoord</span> <span class="o">=</span> <span class="nb">dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;earthCoord&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">centralCoord</span> <span class="o">=</span> <span class="nb">dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;centralCoord&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">earthCoord</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="go">(300, 600)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">centralCoord</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="go">(10, 20, 2)</span>
+</pre></div>
+</div>
 </dd>
 </dl>
 </section>
@@ -106,6 +121,7 @@ is None</p>
 <li class="toctree-l2"><a class="reference internal" href="satmap.centre.html">satmap.centre</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../kmeans-functions.html">The ‘k-means clustering’ Algorithm</a></li>
 </ul>
 
 <div class="relations">
