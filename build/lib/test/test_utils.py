@@ -1,9 +1,7 @@
-
-from aigeanpy.utils import *
-import numpy as np
 import pytest
-from pytest import approx
+
 from aigeanpy.satmap import *
+
 
 ############################## Conversion between pixel and earth coord ###################################
 
