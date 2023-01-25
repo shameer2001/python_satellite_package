@@ -36,8 +36,7 @@ def earth_to_pixel(earth_coord: np.ndarray, meta: dict, resolution: Union[float,
     >>> dict = pixel_to_earth(satmap.data, satmap.meta)
     >>> earthCoord = dict.get('earthCoord')
     >>> centralCoord = dict.get('centralCoord')
-    >>> predictedPixel = earth_to_pixel(earthCoord, satmap.meta)
-    >>> print(predictedPixel.shape)
+    >>> earth_to_pixel(earthCoord, satmap.meta).shape
     (10, 20)
     """
 
@@ -120,17 +119,17 @@ def pixel_to_earth(pixel_coord: np.ndarray, meta: dict, resolution: Union[float,
             'centralCoord' gives the cenre of the pixel when a pixel correspond to multiple earth coordinates, otherwise
             is None
 
-        >>> from aigeanpy.satmap import get_satmap
-        >>> from aigeanpy.net import download_isa
-        >>> download_isa("aigean_lir_20221205_191610.asdf")
-        >>> satmap = get_satmap("aigean_lir_20221205_191610.asdf")
-        >>> dict = pixel_to_earth(satmap.data, satmap.meta)
-        >>> earthCoord = dict.get('earthCoord')
-        >>> centralCoord = dict.get('centralCoord')
-        >>> print(earthCoord.shape)
-        (300, 600)
-        >>> print(centralCoord.shape)
-        (10, 20, 2)
+    >>> from aigeanpy.satmap import get_satmap
+    >>> from aigeanpy.net import download_isa
+    >>> download_isa("aigean_lir_20221215_094830.asdf")
+    >>> satmap = get_satmap("aigean_lir_20221215_094830.asdf")
+    >>> dict = pixel_to_earth(satmap.data, satmap.meta)
+    >>> earthCoord = dict.get('earthCoord')
+    >>> centralCoord = dict.get('centralCoord')
+    >>> earthCoord.shape
+    (300, 600)
+    >>> centralCoord.shape
+    (10, 20, 2)
     """
     # error raising: query using wrong data format
 
