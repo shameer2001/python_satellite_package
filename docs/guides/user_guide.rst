@@ -2,7 +2,7 @@ Installing the Package
 ======================
 
 
-To install this package, use `pip` to install the package and all of it's dependencies:
+To install this package, clone the GitHub repository onto your local computer. Then use `pip` to install the package and all of it's dependencies:
 
 .. code-block:: text
 
