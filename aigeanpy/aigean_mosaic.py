@@ -19,7 +19,7 @@ def aigean_mosaic(filelist, resolution = None):
     """
     
     # check if all the files passed are valid Aigean images
-    print(filelist)
+    #print(filelist)
     if len(filelist) < 2:
         raise ValueError("Only two or more filename inputs are acceptable.")
     invalid_files = []

@@ -431,6 +431,7 @@ class SatMap:
 
             path = os.path.join(savepath, title)
             plt.savefig(path)
+            print(title + '.png')
         else:
             # otherwise, show the graph
             plt.show()
