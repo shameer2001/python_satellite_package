@@ -1,32 +1,35 @@
-import requests
 from datetime import date
 from datetime import timedelta
+
+import requests
+
 from aigeanpy.net import *
 from aigeanpy.satmap import SatMap, get_satmap
 
 
 def aigean_today(instrument = None, saveplot=False):
-    """ Obtaining the latest image from the archive.
+    """ Getting the latest image from the archive.
 
     Parameters
     ----------
     instrument: str, optional
-                An optional specification: choose from 4 different intruments ('lir','manannan','fand','ecne') or leave it as None to get the last observation (with no specific instrument requirement)
+        An optional specification: choose from 4 different intruments('lir','manannan','fand','ecne'), or leave it along as None to get the last 
+        observation(with no specific instrument requirement)
     saveplot: bool, optional
-              The save = False as default setting. If save is set to True, then the image should not be displayed on the screen and saved in the required path. If save is set to False, the image should be displayed on the screen, but not get saved in the directory.
+        The save = False as default setting. If save is set to True, then the image should not be displayed on the screen and saved in the required
+        path. If save is set to False, the image should be displayed on the screen, but not get saved in the directory.
     
     Notes
     -----
-    The data file and image (if there is one) will be saved in the directory where it is run.
-
+    The data file and image(if there is one) will be saved in the directory where it is run.
     """
     # use 'datetime' from python standard library to get the date of today and the most recent update date
     # Cause sometimes the achive don't update constantly for several date, so we have to get the most recent date with updates
     if instrument != None:
         if type(instrument) != str:
-            raise TypeError("Name of instrument input must be string.")
+            raise TypeError("name of instrument input must be string")
         if instrument not in ('lir','manannan','fand','ecne'):
-            raise ValueError("Name of instrument input is not available. The only available instruments are: 'lir', 'manannan', 'fand' or 'ecne'.")
+            raise ValueError("name of instrument input is not available")
     d = 0
     text = {}
     while len(text) < 4:
@@ -71,7 +74,7 @@ def aigean_today(instrument = None, saveplot=False):
             # save the image in the directory where it's run
             save_image = satmap_file.visualise(True,'')
             print ('message: the file downloaded can be visulised, the image is downloaded in the directory where it is run')
-    
+            return
         else:            
             return print ('message: the file downloaded cannot be visulised')
     else:
@@ -89,7 +92,4 @@ def aigean_today(instrument = None, saveplot=False):
             return print('message: the file downloaded can be visulised, the image is showed')
         else:
             return print ('message: the file downloaded cannot be visulised')
-
-# test sample
-#aigean_today(instrument='lir',saveplot=True)
 

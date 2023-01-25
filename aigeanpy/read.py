@@ -1,4 +1,4 @@
-#from aigeanpy.net import *
+
 from aigeanpy.net import *
 import h5py
 import asdf
@@ -9,7 +9,7 @@ import numpy as np
 import os 
 from io import BytesIO
 
-def read(file: str):
+def read(file):
     """Extracts the data and meta data from the input file.
 
 
@@ -40,7 +40,7 @@ def read(file: str):
 
     **For '.asdf', '.hdf5' and '.zip' files:**
     
-    data: np.ndarray
+    data: ndarray
           Image data taken with the Lir, Manannan or Fand instrument for ASDF, HDF5 and ZIP files respectivley.
     meta_data: dict
                Other information about the data. This includes archive it's stored in, year, observatory, instrument, date when taken, time when taken, xcoords, ycoords, resolution. For ASDF files (ie Lir instrument data) the information about the asdf library is also included.
@@ -157,120 +157,3 @@ def read(file: str):
                 algal_density.append(row[2])
 
             return turbulence, salinity, algal_density
-
-
-
-
-# with asdf.open("aigean_lir_20221205_191610.asdf", 'r') as af:
-#     print(af['xcoords'])
-
-# #read("aigean_lir_20221205_191610.asdf") 
-
-# payload = {'filename':"aigean_lir_20221205_191610.asdf"}
-# r = get('https://dokku-app.dokku.arc.ucl.ac.uk/isa-archive/download/', params=payload)
-
-# # show_green_in_png(r.content)
-
-# print( net.query_isa("2022-12-05", "2022-12-06", "fand") )
-# net.download_isa('aigean_fan_20221206_190424.zip')
-
-# myzipp = ZipFile('aigean_fan_20221206_190424.zip', 'r')
-
-# jsonn = myzipp.namelist()[0]
-
-# npyy = myzipp.namelist()[1]
-
-
-# lol = myzipp.open(npyy)
-#     #print(type(mynpyy))
-#     #BytesIO(mynpyy)
-# npyyy = np.load(lol)
-# #print(npyyy)
-
-
-# lol = myzipp.read(npyy)
-#     #print(type(mynpyy))
-#     #BytesIO(mynpyy)
-# npyyy = np.load(BytesIO(lol))
-# #print(npyyy)
-
-
-
-
-
-
-# lol2 = myzipp.read(jsonn)
-#     #print(type(mynpyy))
-#     #BytesIO(mynpyy)
-# jsonnn = json.load(BytesIO(lol2))
-# #print(jsonnn)
-
-
-# #lol2 = myzipp.open(jsonn)
-#     #print(type(mynpyy))
-#     #BytesIO(mynpyy)
-# #jsonnn = json.load(lol2)
-# #print(jsonnn)
-
-
-# print( net.query_isa("2022-12-05", "2022-12-06", "ecne") )
-# net.download_isa('aigean_ecn_20221205_191610.csv')
-
-
-
-# with open('aigean_ecn_20221205_191610.csv') as mycsv:
-#     csvv = csv.reader(mycsv, delimiter=',')
-
-#     turbulence = []
-#     salinity = []
-#     algal_density = []
-
-#     for row in csvv:
-#         turbulence.append(row[0])
-#         salinity.append(row[1])
-#         algal_density.append(row[2])
-
-#     print(turbulence)
-
-# print(net.query_isa("2022-12-05", "2022-12-06", "manannan") )
-# net.download_isa('aigean_man_20221206_181924.hdf5')
-
-# f = h5py.File('aigean_man_20221206_181924.hdf5', 'r')
-#print(type(f.attrs))
-
-# for i in f:
-#     print(i)
-
-#file = asdf.open('aigean_lir_20221205_191610.asdf', 'r') 
-#print(type(file))
-
-
-# import nexusformat.nexus as nx
-# f = nx.nxload('.h5py')
-# print(f.tree)
-
-
-
-# jsonnn = json.load(BytesIO(lol2))
-# for i in jsonnn:
-#     print(i)
-
-# print(type(read('aigean_lir_20221205_191610.asdf')[0]))
-# print(type(read('aigean_lir_20221205_191610.asdf')[1]))
-
-
-
-# print(type(read('aigean_man_20221206_181924.hdf5')[0]))
-# print(type(read('aigean_man_20221206_181924.hdf5')[1]))
-
-
-
-
-# print(type(read('aigean_fan_20221206_190424.zip')[0]))
-# print(type(read('aigean_fan_20221206_190424.zip')[1]))
-
-
-
-# print(type(read('aigean_ecn_20221205_191610.csv')[0]))
-# print(type(read('aigean_ecn_20221205_191610.csv')[1]))
-# print(type(read('aigean_ecn_20221205_191610.csv')[2]))

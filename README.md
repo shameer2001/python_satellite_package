@@ -35,8 +35,7 @@ $ pip install .
 
 ## Usage
 
-This is only a documentation package. You can print out [spec.md](spec.md) to your console:
-
+This is only a documentation package.
 ```sh
 $ aigean_today [--instrument <instrument>] [--saveplot]
 # Getting the latest image of the archive. It also accept a instrument argument and a saveplot argument.
@@ -65,12 +64,6 @@ $ python
 >>> lir_map = get_satmap(filename)
 # Accepts a filename obtained from querying the archive and returns Satmap object.
 ```
-
-### Generator
-
-To use the generator, look at [generator-standard-readme](https://github.com/RichardLitt/generator-standard-readme). There is a global executable to run the generator in that package, aliased as `standard-readme`.
-
-
 
 ### Contributors
 

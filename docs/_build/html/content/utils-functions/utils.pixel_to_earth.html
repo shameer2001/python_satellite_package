@@ -39,12 +39,12 @@
 <h1>utils.pixel_to_earth<a class="headerlink" href="#utils-pixel-to-earth" title="Permalink to this heading">¶</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="utils.pixel_to_earth">
-<span class="sig-prename descclassname"><span class="pre">utils.</span></span><span class="sig-name descname"><span class="pre">pixel_to_earth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pixel_coord</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">meta</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resolution</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#utils.pixel_to_earth" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">utils.</span></span><span class="sig-name descname"><span class="pre">pixel_to_earth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pixel_coord</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">meta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resolution</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#utils.pixel_to_earth" title="Permalink to this definition">¶</a></dt>
 <dd><p>convert image to the earth coord from pixel coord</p>
 <section id="parameters">
 <h2>Parameters<a class="headerlink" href="#parameters" title="Permalink to this heading">¶</a></h2>
 <dl class="simple">
-<dt>pixel_coord: np.ndarray</dt><dd><p>the image under the pixel coord</p>
+<dt>pixel_coord: Numpy.array</dt><dd><p>the image under the pixel coord</p>
 </dd>
 <dt>meta: dict</dt><dd><p>Other information about the data including the archive, year, observatory, instrument, date when taken, time
 when taken, xcoords, ycoords and resolution.</p>
@@ -106,7 +106,6 @@ is None</p>
 <li class="toctree-l2"><a class="reference internal" href="satmap.centre.html">satmap.centre</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../kmeans-functions.html">The ‘k-means’ Algorithm</a></li>
 </ul>
 
 <div class="relations">

@@ -5,18 +5,18 @@ from typing import Union
 
 
 # Use numpy to load data.
-def load_data(filepath: Union[Path, str]) -> np.ndarray:
+def load_data(filepath: Union[Path, str]):
     """
     Loading data from csv file.
 
     Parameters
     ----------
     filepath : Path
-        A given file-path or file-name, such as "samples.csv".
+        A given Path, such as "samples.csv"
 
     Returns
     -------
-    data : np.ndarray
+    data : np.matrix
         The data from the csv file.
     """
     data = np.loadtxt(filepath, dtype=float, delimiter=',')
@@ -24,7 +24,7 @@ def load_data(filepath: Union[Path, str]) -> np.ndarray:
 
 
 # Add distance function to reduce repetition and for loops.
-def distance(centres: np.ndarray, points: np.ndarray) -> np.ndarray:
+def distance(centres: np.ndarray, points: np.ndarray):
     """
     This function calculates the euclidean distance between each point from centres and each point from dataset
     and stores those distances in an array by using matrix product, which can reduce the usage of for loops and
@@ -40,7 +40,7 @@ def distance(centres: np.ndarray, points: np.ndarray) -> np.ndarray:
 
     Returns
     -------
-    mat_dist : np.ndarray
+    mat_dist : np.matrix
         A matrix contains the euclidean distance D_ij which means it is the distance between point i in
         points and point j in centres.
     """
@@ -54,7 +54,7 @@ def distance(centres: np.ndarray, points: np.ndarray) -> np.ndarray:
 
 
 # Perform the kmean algorithm using numpy.
-def cluster(data: np.ndarray, clusters: int = 3, iterations: int = 10) -> np.ndarray:
+def cluster(data: np.ndarray, clusters: int = 3, iterations: int = 10):
     """
     Use kmean algorithm (numpy version) to classify dataset provided.
 

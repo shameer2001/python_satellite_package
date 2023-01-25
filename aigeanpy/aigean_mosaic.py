@@ -8,25 +8,24 @@ def aigean_mosaic(filelist, resolution = None):
     Parameters
     ----------
     resolution: int, optional
-                The resolution wanted for the output mosaic.
+        A resolution argument
     filelist: list, positional
-              A given filename or list of them, such as aigean_man_20221205_194510.hdf5 or aigean_fan_20221206_190424.zip
+        A given filename or list of them, such as aigean_man_20221205_194510.hdf5 or aigean_fan_20221206_190424.zip
 
     Notes
     -----
     This function only accepts two or more filenames.
-
     """
     
     # check if all the files passed are valid Aigean images
     print(filelist)
     if len(filelist) < 2:
-        raise ValueError("Only two or more filename inputs are acceptable.")
+        raise ValueError("only two or more filename inputs are acceptable")
     invalid_files = []
     satmaps = []
     for file in filelist:
         try:
-            download_file = download_isa(file)
+            download_file = download_isa (file)
             satmap = get_satmap(file)
             satmaps.append(satmap)
         except ValueError:
@@ -48,6 +47,3 @@ def aigean_mosaic(filelist, resolution = None):
 
     # save the mosaic
     return mosaic_map.visualise(save=True)
-     
-
-# x = aigean_mosaic(['aigean_lir_20230105_135624.asdf', 'aigean_lir_20230105_142424.asdf'])
