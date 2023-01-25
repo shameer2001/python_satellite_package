@@ -1,4 +1,4 @@
-from requests import *
+import requests
 from pathlib import Path
 from typing import Union
 
@@ -71,9 +71,9 @@ def query_isa(start_date: str = None, stop_date: str = None, instrument: str = N
     timeout = 5
     
     try:
-        r=get('https://dokku-app.dokku.arc.ucl.ac.uk/isa-archive/query/', params=payload, timeout=timeout)
+        r = requests.get('https://dokku-app.dokku.arc.ucl.ac.uk/isa-archive/query/', params=payload, timeout=timeout)
     except:
-        raise TimeoutError("There is no (or a very weak) internet connection.")
+        raise ConnectionError("There is no (or a very weak) internet connection.")
 
     else:
         # Print errors from json file:
@@ -146,9 +146,9 @@ def download_isa(filename: str, save_dir: Union[Path, str] = None) -> None:
     
     timeout = 5
     try:
-        r = get('https://dokku-app.dokku.arc.ucl.ac.uk/isa-archive/download/', params=payload, timeout=timeout)
+        r = requests.get('https://dokku-app.dokku.arc.ucl.ac.uk/isa-archive/download/', params=payload, timeout=timeout)
     except:
-        raise TimeoutError("There is no (or a very weak) internet connection.")
+        raise ConnectionError("There is no (or a very weak) internet connection.")
 
     else:
         p.write_bytes(r.content) #download
