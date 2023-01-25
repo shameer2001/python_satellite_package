@@ -2,10 +2,11 @@ from argparse import ArgumentParser
 from aigeanpy.aigean_today import aigean_today
 from aigeanpy.aigean_metadata import aigean_metadata
 from aigeanpy.aigean_mosaic import aigean_mosaic
+from typing import Union
 
 # command line interface setting
 def process_today():
-    parser = ArgumentParser(description='Generate the last observation data ot image')
+    parser = ArgumentParser(description='Generate the latest observation/image')
 
     parser.add_argument('--instrument','-i', help= 'Specified instrument')
     parser.add_argument('--saveplot','-s',action="store_true", help='Determined whether we want to generate a png')
@@ -15,7 +16,7 @@ def process_today():
 
 def process_metadata():
     parser = ArgumentParser(description='Extracting the file metadata information')
-    parser.add_argument('filenames',type=str,nargs='+',help='input a file or list of them')
+    parser.add_argument('filenames', type=str, nargs='+', help='input a file or list (one name after the other) of them')
     args_metadata = parser.parse_args()
     obv = aigean_metadata(args_metadata.filenames)
 
