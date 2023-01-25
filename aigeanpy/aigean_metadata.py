@@ -1,7 +1,8 @@
-from argparse import ArgumentParser
-from aigeanpy.satmap import SatMap, get_satmap
-from net import *
 from datetime import date
+
+from aigeanpy.satmap import get_satmap
+from aigeanpy.net import *
+
 
 def aigean_metadata(filenames):
     """ Extractin the metadata information from correct files, and show the uncorrect files name below
@@ -168,8 +169,4 @@ def aigean_metadata(filenames):
         for i in range(len(error_file)):
             print (' - {}'.format(error_file[i]))
         return
-# test sample
-# x =aigean_metadata(['aigean_man_20221205_194510.hdf5','aigean_fan_20221206_190424.zip'])
-# x = aigean_metadata(['aigean_man_20221205_194510.hdf5','aigean_fan_20221205_192210.zip','asadasf.py'])
-
     

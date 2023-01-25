@@ -1,20 +1,11 @@
-from typing import Union
-from pathlib import Path
-
-from utils import earth_to_pixel, pixel_to_earth
-
-import numpy as np
 from datetime import datetime
-from skimage.transform import rescale, downscale_local_mean, resize
-import os
+from typing import Union
+
 import matplotlib.pyplot as plt
-import json
-from net import *
+from skimage.transform import rescale, downscale_local_mean
 
-#from aigeanpy.read import *
-from read import *
-
-
+from aigeanpy.read import *
+from aigeanpy.utils import earth_to_pixel, pixel_to_earth
 
 
 class SatMap:
@@ -558,98 +549,5 @@ def centre(meta):
     centre = ((x_min_max[1] + x_min_max[0]) / 2, (y_min_max[1] - y_min_max[0]) / 2)
 
     return centre
-
-
-# query = net.query_isa("2023-01-10", "2023-01-13", 'manannan')
-# net.download_isa(query[0]['filename'])
-# satmap = get_satmap(query[0]['filename'])
-# #satmap = get_satmap("aigean_man_20221206_181924.hdf5")
-# print(satmap.meta)
-# print(satmap.shape)
-
-
-
-
-# query = net.query_isa("2023-01-10", "2023-01-13", 'lir')
-# net.download_isa(query[0]['filename'])
-# satmap = get_satmap(query[0]['filename'])
-# #satmap = get_satmap("aigean_lir_20221205_191610.asdf")
-# print(satmap.meta)
-# print(satmap.shape)
-
-
-
-
-# query = net.query_isa("2023-01-10", "2023-01-13", 'fand')
-# net.download_isa(query[0]['filename'])
-# satmap = get_satmap(query[0]['filename'])
-# #satmap = get_satmap("aigean_fan_20221206_190424.zip")
-# print(satmap.meta)
-# print(satmap.shape)
-
-# print(satmap.data)
-# print(satmap.shape)
-# print(satmap.fov)
-# print(satmap.centre)
-
-
-# print(type(satmap.meta))
-# print(type(satmap.data))
-# print(type(satmap.shape))
-# print(type(satmap.fov))
-# print(type(satmap.centre))
-
-
-#print(net.query_isa("2022-12-20", "2022-12-23", 'lir'))
-
-#print(net.query_isa("2022-12-29", "2022-12-31", 'manannan'))
-# if query == None:
-#     print("ok")
-#print(type(query))
-#net.download_isa(query[0]['filename'])
-
-
-
-# query = net.query_isa("2023-01-01", "2023-01-04", 'lir')
-# #print(query)
-# net.download_isa(query[0]['filename'])
-
-# query = net.query_isa("2023-01-01", "2023-01-04", 'lir')
-# #print(query)
-# net.download_isa(query[0]['filename'])
-
-# query = query_isa("2022-12-02", "2022-12-05", 'lir')
-# download_isa(query[0]['filename'])
-# satmap = get_satmap(query[0]['filename'])
-
-#print(satmap.centre)
-
-
-# query2 = net.query_isa("2022-12-02", "2022-12-05", 'lir')
-# net.download_isa(query2[1]['filename'])
-# satmap2 = get_satmap(query2[1]['filename'])
-
-# mos_satmap = satmap.mosaic(other=satmap2)
-# print(mos_satmap.data)
-
-# # print(satmap.centre)
-
-# download_isa("aigean_lir_20221205_191610.asdf")
-# satmap = get_satmap("aigean_lir_20221205_191610.asdf")
-
-# print(satmap.meta)
-# print(satmap.shape)
-# print(satmap.fov)
-# print(satmap.centre)
-#satmap = get_satmap("aigean_lir_20221205_191610.asdf").__add__(satmap).shape
-#print(satmap)
-# if __name__ == "__main__":
-#     satmap1 = get_satmap("aigean_lir_20221205_191610.asdf")
-#     satmap2 = get_satmap("aigean_lir_20221207_175138.asdf")
-#     combine = satmap1 - satmap2
-#     print(combine.shape)
-#     print(combine.fov)
-#     print(combine.centre)
-
 
 

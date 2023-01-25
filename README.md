@@ -35,41 +35,35 @@ $ pip install .
 
 ## Usage
 
-This is only a documentation package. You can print out [spec.md](spec.md) to your console:
-
+This is only a documentation package.
 ```sh
-$ standard-readme-spec
-# Prints out the standard-readme spec
+$ aigean_today [--instrument <instrument>] [--saveplot]
+# Getting the latest image of the archive. It also accept a instrument argument and a saveplot argument.
 
-$ utils.pixel_to_earth()
-# convert image to the earth coord from pixel coord
+$ aigean_metadata <filename_i>[<filename_j> ...]
+# Extracting the metadata information from one file or a list of them
 
-$ utils.earth_to_pixel()
-# convert image to the pixel coord from earth coord
+$ aigean_mosaic [--resolution <resolution>] <filename_i><filename_j>[<filename_k> ...]
+# Creating a mosaic from the command line. It accept a resolution argument and two or more filenames.
 
-$ SatMap.__add__()
-# self defined + operation, collate two images and create the new SatMap instance (i.e, if we got an image
-# covering the (0,0)-(10,10) range and another from (12, 5)-(22,15), then we would end up with a “canvas”
-# that goes from (0,0)-(22,15).)
+$ python clustering_numpy.py <csv_file.csv> --iters <iters>
+# Use kmean algorithm (numpy version) to classify dataset provided.
 
-$ SatMap.__sub__()
-# self defined - operation, obtain a difference image to measure change between the days, which will only work
-# when the data is overlapping. (i.e, if we have taken an image yesterday covering (0,0)-(10,10), and today
-# another in the range of (5, 5)-(15, 15), the resultant image should be the difference between the both for
-# the range (5, 5)-(10, 10).)
+$ python
+>>> from aigeanpy.net import query_isa
+>>> lir_map = query_isa(start_date, stop_date, instrument)
+# Accepts the same parameters as the webservice and returns a data structure with the details of the response.
 
-$ SatMap.mosaic()
-# allow to combine images as when using + but allowing mixing instruments with different resolution
+$ python
+>>> from aigeanpy.net import download_isa
+>>> lir_map = download_isa(filename, save_dir)
+# Accepts a filename obtained from querying the archive and downloads the file under the path.
 
-$ SatMap.visualise()
-# visualise the image, show the axis as in earth coordinates and with the proper orientation of the image.
+$ python
+>>> from aigeanpy.satmap import get_satmap
+>>> lir_map = get_satmap(filename)
+# Accepts a filename obtained from querying the archive and returns Satmap object.
 ```
-
-### Generator
-
-To use the generator, look at [generator-standard-readme](https://github.com/RichardLitt/generator-standard-readme). There is a global executable to run the generator in that package, aliased as `standard-readme`.
-
-
 
 ### Contributors
 

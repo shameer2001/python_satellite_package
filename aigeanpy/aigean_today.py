@@ -1,7 +1,8 @@
-from argparse import ArgumentParser
-import requests
 from datetime import date
 from datetime import timedelta
+
+import requests
+
 from aigeanpy.net import *
 from aigeanpy.satmap import SatMap, get_satmap
 
@@ -91,7 +92,4 @@ def aigean_today(instrument = None, saveplot=False):
             return print('message: the file downloaded can be visulised, the image is showed')
         else:
             return print ('message: the file downloaded cannot be visulised')
-
-# test sample
-# aigean_today(instrument='lir',saveplot=True)
 
