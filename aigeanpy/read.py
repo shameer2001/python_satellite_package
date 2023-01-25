@@ -40,7 +40,7 @@ def read(file):
 
     **For '.asdf', '.hdf5' and '.zip' files:**
     
-    data: ndarray
+    data: np.ndarray
           Image data taken with the Lir, Manannan or Fand instrument for ASDF, HDF5 and ZIP files respectivley.
     meta_data: dict
                Other information about the data. This includes archive it's stored in, year, observatory, instrument, date when taken, time when taken, xcoords, ycoords, resolution. For ASDF files (ie Lir instrument data) the information about the asdf library is also included.
@@ -64,10 +64,22 @@ def read(file):
 
     # Errors:
     if type(file) != str:
-        raise TypeError("")
+        raise TypeError("The file-name must be a string")
+
+    if len(file.split('.')) != 2: # ensure it is a file 
+        raise ValueError("The input must be a file. Not a folder or otherwise.")
+
+
+    filetype = os.path.splitext(file)[1]  # obtain file extension
+
+    if filetype != '.asdf' \
+            and filetype != '.hdf5' \
+            and filetype != '.zip':
+        raise NameError("The file format is not supported. Only these are accepted: ASDF, HDF5 and ZIP.")
+
 
     if not Path(file).exists(): # if no such path/file exists
-        raise FileNotFoundError("")
+        raise FileNotFoundError("The input file does not exist.")
 
 
 
