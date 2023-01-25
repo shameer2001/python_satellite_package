@@ -23,6 +23,7 @@ test/__init__.py
 test/test_aigean.py
 test/test_analysis.py
 test/test_net.py
+test/test_net_mock.py
 test/test_satmap_attributes.py
 test/test_satmap_method.py
 test/test_utils.py
