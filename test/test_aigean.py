@@ -1,52 +1,77 @@
-import numpy as np
-from pytest import raises
-from aigeanpy.analysis import kmeans
+import pytest
+from pathlib import Path
+from aigeanpy.aigean_today import aigean_today
+from aigeanpy.aigean_metadata import aigean_metadata
+from aigeanpy.aigean_mosaic import aigean_mosaic
 
 
-# Negative test
-def test_kmeans_fails_on_wrong_format_filename():
-    """Add negative test for kmean() which fails on wrong format of filename.
-    """
-    with raises(TypeError, match="The filename must be a Path or string"):
-        kmeans(6.32)
+# TESTS FOR COMMAND-LINE FUNCTIONS #
+
+######### aigean_today NEGATIVE TESTS ##########
+
+def test_instrument_input_type_error():
+    with pytest.raises(TypeError) as exception:
+        aigean_today(123)
+    assert str(exception.value) == "Name of instrument input must be string."
+
+def test_instrument_input_value_error():
+    with pytest.raises(ValueError) as exception:
+        aigean_today('abc')
+    assert str(exception.value) == "Name of instrument input is not available. The only available instruments are: 'lir', 'manannan', 'fand' or 'ecne'."
 
 
-def test_kmeans_fails_on_non_csv_file():
-    """Add negative test for kmean() which fails on non csv inputted file.
-    """
-    with raises(TypeError, match="The file inputted must be a csv file"):
-        kmeans("../samples.txt")
+######### aigean_metadata NEGATIVE TESTS ##########
+
+def test_filename_input_type_error():
+    with pytest.raises(TypeError) as exception:
+        aigean_metadata([123, 251.23])
+    assert str(exception.value) == "Name of files input must be string."
 
 
-def test_kmeans_fails_on_non_integer_clusters():
-    """Add negative test for kmean() which fails on non integer clusters.
-    """
-    with raises(TypeError, match="Clusters must be an integer"):
-        kmeans("../samples.csv", 3.6)
+def test_filename_input_value_error():
+    with pytest.raises(NameError) as exception:
+        aigean_metadata(['abc'])
+    assert str(exception.value) == "The file format is not supported. Only these are accepted: ASDF, HDF5 and ZIP."
 
 
-def test_kmeans_fails_on_non_integer_iterations():
-    """Add negative test for kmean() which fails on non integer iterations.
-    """
-    with raises(TypeError, match="iterations must be an integer"):
-        kmeans("../samples.csv", 3, 14.3)
 
 
-def test_kmeans_fails_on_non_positive_clusters_and_iterations():
-    """Add negative test for kmean() which fails on non-positive clusters or iterations.
-    """
-    with raises(TypeError, match="clusters and iterations must be positive"):
-        kmeans("../samples.csv", -3, 14)
-    with raises(TypeError, match="clusters and iterations must be positive"):
-        kmeans("../samples.csv", 3, -14)
-    with raises(TypeError, match="clusters and iterations must be positive"):
-        kmeans("../samples.csv", -3, -14)
 
 
-# Unit test for kmeans
-def test_kmeans():
-    """Add a unit test for function kmeans() to determine whether this algorithm divides the dataset into
-    default clusters.
-    """
-    index = kmeans("../aigeanpy/samples.csv")
-    assert len(index) == 3
+######### aigean_metadata POSITIVE TESTS ##########
+
+
+def test_function_return_archive():
+    # use 'aigean_man_20221205_194510.hdf5' as test sample
+
+    output = aigean_metadata(['aigean_man_20221205_194510.hdf5'])
+
+    assert output['archive:'] == 'ISA', "Archive name output is wrong"
+
+def test_function_return_observatory():
+    output = aigean_metadata(['aigean_man_20221205_194510.hdf5'])
+
+    assert output['observatory:'] == 'Aigean', "Observatory name output is wrong"
+
+def test_function_return_instrument():
+    output = aigean_metadata(['aigean_man_20221205_194510.hdf5'])
+
+    assert output['instrument:'] == 'Manannan', "Instrument name is wrong"
+
+def test_function_return_obsdate():
+    output = aigean_metadata(['aigean_man_20221205_194510.hdf5'])
+    assert output['obs_date:'] == '2022-12-05 19:45:10', "Observation's date and time is wrong"
+
+
+
+
+
+
+######### aigean_mosaic NEGATIVE TEST ##########
+
+
+def test_input_value_error():
+# use 'aigean_man_20221205_194510.hdf5' as test sample
+    with pytest.raises(ValueError) as exception:
+        aigean_mosaic(['aigean_man_20221205_194510.hdf5'])
+    assert str(exception.value) == "Only two or more filename inputs are acceptable."
