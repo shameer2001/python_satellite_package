@@ -10,7 +10,7 @@ def kmeans(filename: Union[Path, str], clusters: int = 3, iterations: int = 10) 
 
     Parameters
     ----------
-    filename : Path
+    filename : Path or str
         A given file-path or file-name, such as "samples.csv".
 
     clusters : int, optional

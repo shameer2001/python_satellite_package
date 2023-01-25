@@ -3,17 +3,18 @@ from random import *
 from pathlib import Path
 import csv
 from argparse import ArgumentParser
+from typing import Union
 
 
 # Modify the way for loading data.
-def load_data(filepath: Path) -> list:
+def load_data(filepath: Union[Path, str]) -> list:
     """
     Loading data from csv file.
 
     Parameters
     ----------
     filepath : Path
-        A given Path, such as "samples.csv"
+        A given file-path or file-name, such as "samples.csv".
 
     Returns
     -------

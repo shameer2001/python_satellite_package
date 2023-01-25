@@ -9,7 +9,7 @@ import numpy as np
 import os 
 from io import BytesIO
 
-def read(file):
+def read(file: str):
     """Extracts the data and meta data from the input file.
 
 

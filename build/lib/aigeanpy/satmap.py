@@ -256,7 +256,7 @@ class SatMap:
         # return the new SatMap instance
         return SatMap(meta, data, shape, fov, centre)
 
-    def mosaic(self, other: 'SatMap', resolution: Union[int, None] = None, padding: bool = True) -> 'SatMap':
+    def mosaic(self, other: 'SatMap', resolution: int = None, padding: bool = True) -> 'SatMap':
         """Allow to combine images as when using addition but allowing mixing instruments with different resolution
 
         Parameters
@@ -264,7 +264,7 @@ class SatMap:
         other: SatMap
                Another image which do the mosaic operation with current image
 
-        resolution: Union[int, None], optional
+        resolution: int or NoneType, optional
                     If the resolution is not provided it should use the one of the two satmaps with larger detail, and
                     expand the other to that level.
 
@@ -377,7 +377,7 @@ class SatMap:
         save: bool, optional
               If save is set to True, then the image should not be displayed on the screen and saved in the required path
 
-        savepath: Union[Path, str], optional
+        savepath: Path or str, optional
                   The required saved path, if not set, the savepath will be the current directory
 
 
@@ -437,7 +437,7 @@ class SatMap:
             plt.show()
 
 
-def get_satmap(file_name) -> 'SatMap':
+def get_satmap(file_name: str) -> 'SatMap':
     """Generates a `SatMap` class object for a given file.
 
     Parameter

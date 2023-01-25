@@ -5,12 +5,12 @@ from aigeanpy.net import *
 from aigeanpy.satmap import SatMap, get_satmap
 
 
-def aigean_today(instrument = None, saveplot=False):
+def aigean_today(instrument: str = None, saveplot: bool = False):
     """ Obtaining the latest image from the archive.
 
     Parameters
     ----------
-    instrument: str, optional
+    instrument: str or NoneType, optional
                 An optional specification: choose from 4 different intruments ('lir','manannan','fand','ecne') or leave it as None to get the last observation (with no specific instrument requirement)
     saveplot: bool, optional
               The save = False as default setting. If save is set to True, then the image should not be displayed on the screen and saved in the required path. If save is set to False, the image should be displayed on the screen, but not get saved in the directory.

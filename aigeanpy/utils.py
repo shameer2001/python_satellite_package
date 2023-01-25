@@ -4,7 +4,7 @@ from typing import Union
 
 
 
-def earth_to_pixel(earth_coord: np.ndarray, meta: dict, resolution: Union[float, None] = None) -> np.ndarray:
+def earth_to_pixel(earth_coord: np.ndarray, meta: dict, resolution: float = None) -> np.ndarray:
     """Convert image to the pixel coord from earth coord
 
     Parameters
@@ -88,7 +88,7 @@ def earth_to_pixel(earth_coord: np.ndarray, meta: dict, resolution: Union[float,
     return pixel
 
 
-def pixel_to_earth(pixel_coord: np.ndarray, meta: dict, resolution: Union[float, None] = None) -> dict:
+def pixel_to_earth(pixel_coord: np.ndarray, meta: dict, resolution: float = None) -> dict:
     """Convert image to the earth coord from pixel coord
 
     Parameters

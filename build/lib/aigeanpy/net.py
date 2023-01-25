@@ -2,19 +2,19 @@ from requests import *
 from pathlib import Path
 from typing import Union
 
-def query_isa(start_date: Union[str, None] = None, stop_date: Union[str, None] = None, instrument: Union[str, None] = None) -> list:
+def query_isa(start_date: str = None, stop_date: str = None, instrument: str = None) -> list:
     """Returns a JSON file of the results from the query service.
         
     Parameters
     ----------
-    start_date : Union[str, None] (date of format YYYY-mm-dd), optional
+    start_date : str or NoneType (date of format YYYY-mm-dd), optional
                     Look for data in query catalogue taken on this date and further. Default is the current date.
 
-    stop_date : Union[str, None] (date of format YYYY-mm-dd), optional
+    stop_date : str or NoneType (date of format YYYY-mm-dd), optional
                 Look for data in query catalogue taken on this date and sooner. Default is the current date.
     
     
-    instrument : Union[str, None], optional
+    instrument : str or NoneType, optional
                 One of the possible image-taking instruments: 'lir', 'manannan', 'fand' or 'csvfile'. The function only includes data taken with the select instrument. Default is None (ie. the function searches for all instruments).
                      
                      
@@ -91,7 +91,7 @@ def query_isa(start_date: Union[str, None] = None, stop_date: Union[str, None] =
 
 
         
-def download_isa(filename: str, save_dir: Union[Path, str, None] = None) -> None:
+def download_isa(filename: str, save_dir: Union[Path, str] = None) -> None:
     """Downloads the data from the search done by the `net.query_isa()` function.
 
 
@@ -103,7 +103,7 @@ def download_isa(filename: str, save_dir: Union[Path, str, None] = None) -> None
 
     
     
-    save_dir : Union[Path, str, None], optional
+    save_dir : Path or str, or NoneType, optional
                 The directory to save the file in. Default is None (ie download to current working directory)
                 
     

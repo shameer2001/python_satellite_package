@@ -11,7 +11,7 @@ def load_data(filepath: Union[Path, str]) -> np.ndarray:
 
     Parameters
     ----------
-    filepath : Path
+    filepath : Path or str
         A given file-path or file-name, such as "samples.csv".
 
     Returns
