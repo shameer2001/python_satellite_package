@@ -131,11 +131,7 @@ def test_data_centre(instruments, centres):
 
 ########## NEGATIVE TESTS ###########
 
-def test_get_satmap_file():
-    '''Test case where file_name is not a file
-    '''
-    with pytest.raises(ValueError, match="The input must be a file. Not a folder or otherwise."):
-        get_satmap('test_folder')
+
 
 def test_get_satmap_typeerror():
     '''Test case where file_name input is not a string

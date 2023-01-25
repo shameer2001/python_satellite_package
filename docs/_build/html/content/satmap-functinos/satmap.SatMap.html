@@ -46,7 +46,7 @@
 <dl class="simple">
 <dt>meta: dict</dt><dd><p>Other information about the data of the input file. This includes archive it is stored in, year observatory, instrument, date when taken, time when taken, xcoords, ycoords, resolution. For ASDF file (ie Lir instrument data) the information about the asdf library is also included.</p>
 </dd>
-<dt>data: np.ndarray</dt><dd><p>Image datal (from the input file) taken with the Lir, Manannan or Fand instrument for ASDF, HDF5 and ZIP files respectivley.</p>
+<dt>data: ndarray</dt><dd><p>Image datal (from the input file) taken with the Lir, Manannan or Fand instrument for ASDF, HDF5 and ZIP files respectivley.</p>
 </dd>
 <dt>shape: tuple</dt><dd><p>Shape of the data of the input file.</p>
 </dd>
@@ -59,12 +59,12 @@
 <section id="methods">
 <h2>Methods<a class="headerlink" href="#methods" title="Permalink to this heading">¶</a></h2>
 <dl class="simple">
-<dt>__add__(other: SatMap)</dt><dd><p>Collate two images and create the new SatMap instance</p>
+<dt>__add__(other: ‘SatMap’)</dt><dd><p>Collate two images and create the new SatMap instance</p>
 </dd>
-<dt>__sub__(other: SatMap)</dt><dd><p>Obtain a difference image to measure change between the days, which will only work
+<dt>__sub__(other: ‘SatMap’)</dt><dd><p>Obtain a difference image to measure change between the days, which will only work
 when the data is overlapping.</p>
 </dd>
-<dt>mosaic (other: SatMap, resolution: int = None, padding: bool = True)</dt><dd><p>Combine images as when using + but allowing mixing instruments with different resolution</p>
+<dt>mosaic (other: ‘SatMap’, resolution: int = None, padding: bool = True)</dt><dd><p>Combine images as when using + but allowing mixing instruments with different resolution</p>
 </dd>
 <dt>visualise (save: bool = False, savepath: Union[Path, str] = os.getcwd())</dt><dd><p>Visualise the image, show the axis as in earth coordinates and with the proper orientation of the image.</p>
 </dd>
@@ -84,7 +84,7 @@ when the data is overlapping.</p>
 <td><p>allow to combine images as when using + but allowing mixing instruments with different resolution</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="satmap.SatMap.visualise.html#satmap.SatMap.visualise" title="satmap.SatMap.visualise"><code class="xref py py-obj docutils literal notranslate"><span class="pre">visualise</span></code></a>([save, savepath])</p></td>
-<td><p>Visualise the image, show the axis as in earth coordinates and with proper orientation of the image.</p></td>
+<td><p>visualise the image, show the axis as in earth coordinates and with the proper orientation of the image.</p></td>
 </tr>
 </tbody>
 </table>
@@ -127,7 +127,6 @@ when the data is overlapping.</p>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../aigean-docs.html">Command-Line Functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../utils-docs.html">Utility Functions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../kmeans-functions.html">The ‘k-means’ Algorithm</a></li>
 </ul>
 
 <div class="relations">

@@ -1,7 +1,7 @@
 from typing import Union
 from pathlib import Path
 
-from aigeanpy.utils import earth_to_pixel, pixel_to_earth
+from utils import earth_to_pixel, pixel_to_earth
 
 import numpy as np
 from datetime import datetime
@@ -9,10 +9,10 @@ from skimage.transform import rescale, downscale_local_mean, resize
 import os
 import matplotlib.pyplot as plt
 import json
-from aigeanpy.net import *
+from net import *
 
 #from aigeanpy.read import *
-from aigeanpy.read import *
+from read import *
 
 
 
@@ -653,10 +653,3 @@ def centre(meta):
 
 
 
-<<<<<<< HEAD
-# file = 'aigean_man_20221205_194510.hdf5'
-
-# for i in file:
-#     print(i.split('.'))
-=======
->>>>>>> 6f8538bb6e26e02c18047c01c8ab7b1ebb3d4b8e

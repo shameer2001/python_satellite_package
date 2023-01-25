@@ -1,5 +1,5 @@
 import sys
-from aigeanpy.satmap import get_satmap
+from satmap import get_satmap
 from aigeanpy.net import *
 
 def aigean_mosaic(filelist, resolution = None):
