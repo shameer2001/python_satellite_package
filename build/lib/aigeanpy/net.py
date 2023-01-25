@@ -1,4 +1,4 @@
-from requests import *
+import requests
 from pathlib import Path
 from typing import Union
 
@@ -64,27 +64,32 @@ def query_isa(start_date: str = None, stop_date: str = None, instrument: str = N
 
 
 
-    # Obtain data:
+    # Obtain data and internet connection test:
         
     payload = {'start_date':start_date, 'stop_date':stop_date, 'instrument': instrument}
-    r=get('https://dokku-app.dokku.arc.ucl.ac.uk/isa-archive/query/', params=payload)
 
+    timeout = 5
+    
+    try:
+        r = requests.get('https://dokku-app.dokku.arc.ucl.ac.uk/isa-archive/query/', params=payload, timeout=timeout)
+    except:
+        raise ConnectionError("There is no (or a very weak) internet connection.")
 
-
-    # Print errors from json file:
-    for i in r.json():
-        if i=='message':
-            error_message = r.json()['message']
-            raise ValueError(error_message) # raise errors built-in to the archive query service
+    else:
+        # Print errors from json file:
+        for i in r.json():
+            if i=='message':
+                error_message = r.json()['message']
+                raise ValueError(error_message) # raise errors built-in to the archive query service
         
-        else:
-            #print(r.json())
-            return r.json() # Return json for testing
+            else:
+                #print(r.json())
+                return r.json() # Return json for testing
 
         
-    # Raise error if empty query results (likely due to no data in given data range):
-    if r.content == b'[]\n':
-        raise ValueError("There is no data available on this date for the instrument(s) selected.")
+        # Raise error if empty query results (likely due to no data in given data range):
+        if r.content == b'[]\n':
+            raise ValueError("There is no data available on this date for the instrument(s) selected.")
 
     
         
@@ -138,6 +143,12 @@ def download_isa(filename: str, save_dir: Union[Path, str] = None) -> None:
 
     # Obtain request from server:
     payload = {'filename':filename}
-    r = get('https://dokku-app.dokku.arc.ucl.ac.uk/isa-archive/download/', params=payload)
+    
+    timeout = 5
+    try:
+        r = requests.get('https://dokku-app.dokku.arc.ucl.ac.uk/isa-archive/download/', params=payload, timeout=timeout)
+    except:
+        raise ConnectionError("There is no (or a very weak) internet connection.")
 
-    p.write_bytes(r.content) #download
+    else:
+        p.write_bytes(r.content) #download
