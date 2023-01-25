@@ -454,6 +454,7 @@ def get_satmap(file_name) -> 'SatMap':
     Example:
     --------
 
+    >>> from aigeanpy.satmap import get_satmap 
     >>> satmap = get_satmap("aigean_lir_20221205_191610.asdf")
     >>> satmap.meta
     {'asdf_library': {'author': 'The ASDF Developers', 'homepage': 'http://github.com/asdf-format/asdf', 'name': 'asdf', 'version': '2.14.2'}, 'history': {'extensions': [{'extension_class': 'asdf.extension.BuiltinExtension', 'software': {'name': 'asdf', 'version': '2.14.2'}}]}, 'archive': 'ISA', 'date': '2022-12-05', 'instrument': 'Lir', 'observatory': 'Aigean', 'resolution': 30, 'time': '19:16:10', 'xcoords': [500.0, 1100.0], 'ycoords': [200.0, 500.0], 'year': 2023}
@@ -476,7 +477,7 @@ def get_satmap(file_name) -> 'SatMap':
     if len(file_name.split('.')) != 2: # ensure it is a file 
         raise ValueError("The input must be a file. Not a folder or otherwise.")
 
-        
+
 
 
     filetype = os.path.splitext(file_name)[1]  # obtain file extension

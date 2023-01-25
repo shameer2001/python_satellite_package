@@ -34,7 +34,7 @@ def query_isa(start_date: Union[str, None] = None, stop_date: Union[str, None] =
 
     Examples:
     ---------
-
+    >>> from aigeanpy.net import query_isa
     >>> query_isa("2022-12-05", "2022-12-05", "lir")
     [{'date': '2022-12-05', 'filename': 'aigean_lir_20221205_191610.asdf', 'instrument': 'lir', 'resolution': 30, 'time': '19:16:10', 'xcoords': [500.0, 1100.0], 'ycoords': [200.0, 500.0]}, {'date': '2022-12-05', 'filename': 'aigean_lir_20221205_194510.asdf', 'instrument': 'lir', 'resolution': 30, 'time': '19:45:10', 'xcoords': [800.0, 1400.0], 'ycoords': [100.0, 400.0]}]
     >>> query_isa("2022-12-06", "2022-12-07", "fand")
